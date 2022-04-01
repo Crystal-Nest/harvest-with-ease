@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="All rights reserved"
+issueTrackerURL="https://github.com/Nyphet/harvest-with-ease/issues" #optional
+[[mods]]
+modId="harvestwithease"
+version="${file.jarVersion}"
+displayName="Harvest with ease"
+# A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
+#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
+displayURL="https://github.com/Nyphet/harvest-with-ease" #optional
+# A file name (in the root of the mod JAR) containing a logo for display
+#logoFile="examplemod.png" #optional
+# A text field displayed in the mod UI
+#credits="Thanks for this example mod goes to Java" #optional
+authors="Crystal Spider" #optional
+description='''
+Harvest your crops with ease by simply right clicking on them, without having to tediously destroy and replant them all the time!
+
+This mod by defaults supports all Minecraft Vanilla crops (wheat, potatoes, carrots and beetroots) plus nether warts and cocoa beans.
+It also supports any modded crop extending the CropBlock class.
+Pumpkins, melons, cacti and sugar canes are not included by design as they are more blockish and do not require to destroy the whole plant and replant it again to be harvested.
+For any modded crop that doesn't work out of the box with this mod, a configuration file is provided where their IDs can be added to (at least theoretically) make them compatible.
+'''
+[[dependencies.harvestwithease]] #optional
+    modId="forge"
+    mandatory=true
+    versionRange="[40,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.harvestwithease]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"

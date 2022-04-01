@@ -8,8 +8,7 @@ version="${file.jarVersion}"
 displayName="Harvest with ease"
 updateJSONURL="https://github.com/Nyphet/harvest-with-ease/blob/master/updates.json" #optional
 displayURL="https://github.com/Nyphet/harvest-with-ease" #optional
-# A file name (in the root of the mod JAR) containing a logo for display
-#logoFile="examplemod.png" #optional
+logoFile="harvest-with-ease.png" #optional
 # A text field displayed in the mod UI
 #credits="Thanks for this example mod goes to Java" #optional
 authors="Crystal Spider" #optional
@@ -21,7 +20,7 @@ It also supports any modded crop extending the CropBlock class.
 Pumpkins, melons, cacti and sugar canes are not included by design as they are more blockish and do not require to destroy the whole plant and replant it again to be harvested.
 For any modded crop that doesn't work out of the box with this mod, a configuration file is provided where their IDs can be added to (at least theoretically) make them compatible.
 '''
-[[dependencies.harvestwithease]] #optional
+[[dependencies.harvestwithease]]
     modId="forge"
     mandatory=true
     versionRange="[40,)"
@@ -33,3 +32,4 @@ For any modded crop that doesn't work out of the box with this mod, a configurat
     versionRange="[1.18.2,1.19)"
     ordering="NONE"
     side="BOTH"
+#optional

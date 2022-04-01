@@ -6,8 +6,7 @@ issueTrackerURL="https://github.com/Nyphet/harvest-with-ease/issues" #optional
 modId="harvestwithease"
 version="${file.jarVersion}"
 displayName="Harvest with ease"
-# A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
-#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
+updateJSONURL="https://github.com/Nyphet/harvest-with-ease/blob/master/updates.json" #optional
 displayURL="https://github.com/Nyphet/harvest-with-ease" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
 #logoFile="examplemod.png" #optional

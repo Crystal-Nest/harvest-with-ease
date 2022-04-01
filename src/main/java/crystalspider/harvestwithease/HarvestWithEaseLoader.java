@@ -17,6 +17,6 @@ public class HarvestWithEaseLoader {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-    	MinecraftForge.EVENT_BUS.register(new RightClickBlockHandler(HarvestWithEaseConfig.getCrops()));
+    	MinecraftForge.EVENT_BUS.register(new RightClickBlockHandler(HarvestWithEaseConfig.getCrops(), HarvestWithEaseConfig.getRequireHoe()));
     }
 }

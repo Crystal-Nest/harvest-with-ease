@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,9 +29,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class RightClickBlockHandler {
 	private final ArrayList<String> crops = new ArrayList<String>(List.of(getKey(Blocks.NETHER_WART), getKey(Blocks.COCOA)));
+	private final Boolean requireHoe;
 
-	public RightClickBlockHandler(ArrayList<String> configCropsList) {
+	public RightClickBlockHandler(ArrayList<String> configCropsList, Boolean requireHoe) {
 		crops.addAll(configCropsList);
+		this.requireHoe = requireHoe;
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGH)
@@ -37,19 +41,18 @@ public class RightClickBlockHandler {
     	Level world = event.getWorld();
     	Player player = event.getPlayer();
 		BlockState blockState = world.getBlockState(event.getPos());
-    	Block block = blockState.getBlock();
-    	// Check if player is not crouching, block is a supported crop and harvesting succeeded
-    	if (!player.isCrouching() && isCrop(block) && tryHarvest(block, blockState, event, world)) {
-    		player.swing(InteractionHand.MAIN_HAND, true);
+    	InteractionHand interactionHand = getInteractionHand(player);
+    	if (isCrop(blockState.getBlock()) && tryHarvest(interactionHand, blockState, event, world)) {
+    		player.swing(interactionHand, true);
     	}
     }
 
-    private boolean tryHarvest(Block crop, BlockState cropState, RightClickBlock event, Level world) {
+    private boolean tryHarvest(InteractionHand interactionHand, BlockState cropState, RightClickBlock event, Level world) {
     	try {
     		IntegerProperty age = getAge(cropState);
     		if (cropState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues())) {
     			cancel(event);
-        		if (!world.isClientSide()) {
+        		if (!world.isClientSide() && interactionHand != null) {
             		harvest(world.getServer().getLevel(world.dimension()), cropState, event, age);
             		return true;
             	}
@@ -90,7 +93,7 @@ public class RightClickBlockHandler {
     }
 
     private void cancel(RightClickBlock event) {
-    	event.setCancellationResult(InteractionResult.SUCCESS);
+    	event.setCancellationResult(InteractionResult.CONSUME);
 		event.setCanceled(true);
     }
 
@@ -98,6 +101,26 @@ public class RightClickBlockHandler {
     	return (IntegerProperty) cropState.getProperties().stream().filter(property -> property.getName().equals("age")).findFirst().orElseThrow();
     }
 
+    @Nullable
+    private InteractionHand getInteractionHand(Player player) {
+    	if (!player.isCrouching()) {
+    		if (isHoe(player.getMainHandItem())) {
+    			return InteractionHand.MAIN_HAND;
+    		}
+    		if (isHoe(player.getOffhandItem())) {
+    			return InteractionHand.OFF_HAND;
+    		}
+				if (!requireHoe) {
+    			return InteractionHand.MAIN_HAND;
+    		}
+    	}
+    	return null;
+    }
+    
+    private boolean isHoe(ItemStack handItem) {
+    	return ToolActions.DEFAULT_HOE_ACTIONS.stream().allMatch(toolAction -> handItem.canPerformAction(toolAction));
+    }
+    
     private boolean isCrop(Block block) {
 		return block instanceof CropBlock || crops.contains(getKey(block));
 	}

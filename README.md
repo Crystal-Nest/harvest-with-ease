@@ -12,5 +12,5 @@ Downloads are available [here](https://www.curseforge.com/minecraft/mc-mods/harv
 Tutorial on how this mod was developed is available [here](https://www.twitch.tv/collections/9gBoBVnX4RZ38A).
 
 ## License and right of use
-Feel free to use this mod for your modpack or for any video, just be sure to give credit and possibly link [here](https://github.com/Nyphet/harvest-with-ease#readme).  
-This mod is published under the [Creative Commons Attribution 4.0 International Public License](https://creativecommons.org/licenses/by/4.0/).
+Feel free to use this mod for any modpack or video, just be sure to give credit and possibly link [here](https://github.com/Nyphet/harvest-with-ease#readme).  
+This project is published under the [GNU General Public License v3.0](https://github.com/Nyphet/harvest-with-ease/blob/master/LICENSE).

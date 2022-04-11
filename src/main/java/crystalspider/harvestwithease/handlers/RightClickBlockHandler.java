@@ -37,95 +37,95 @@ public class RightClickBlockHandler {
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGH)
-    public void onRightClickBlock(RightClickBlock event) {
-    	Level world = event.getWorld();
-    	Player player = event.getPlayer();
+  public void onRightClickBlock(RightClickBlock event) {
+    Level world = event.getWorld();
+    Player player = event.getPlayer();
 		BlockState blockState = world.getBlockState(event.getPos());
-    	InteractionHand interactionHand = getInteractionHand(player);
-    	if (isCrop(blockState.getBlock()) && tryHarvest(interactionHand, blockState, event, world)) {
-    		player.swing(interactionHand, true);
-    	}
+    InteractionHand interactionHand = getInteractionHand(player);
+    if (isCrop(blockState.getBlock()) && tryHarvest(interactionHand, blockState, event, world)) {
+      player.swing(interactionHand, true);
     }
+  }
 
-    private boolean tryHarvest(InteractionHand interactionHand, BlockState cropState, RightClickBlock event, Level world) {
-    	try {
-    		IntegerProperty age = getAge(cropState);
-    		if (cropState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues())) {
-    			cancel(event);
-        		if (!world.isClientSide() && interactionHand != null) {
-            		harvest(world.getServer().getLevel(world.dimension()), cropState, event, age);
-            		return true;
-            	}
-    		}
+  private boolean tryHarvest(InteractionHand interactionHand, BlockState cropState, RightClickBlock event, Level world) {
+    try {
+      IntegerProperty age = getAge(cropState);
+      if (cropState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues())) {
+        cancel(event);
+        if (!world.isClientSide() && interactionHand != null) {
+          harvest(world.getServer().getLevel(world.dimension()), cropState, event, age);
+          return true;
+        }
+      }
 		} catch (NullPointerException | NoSuchElementException e) {
 			e.printStackTrace();
 		}
-    	return false;
-    }
+    return false;
+  }
 
-    private void harvest(ServerLevel serverLevel, BlockState cropState, RightClickBlock event, IntegerProperty age) {
-    	BlockPos pos = event.getPos();
-		dropResources(serverLevel, cropState, event, pos);
-		serverLevel.setBlockAndUpdate(pos, cropState.setValue(age, Integer.valueOf(0)));
-    }
+  private void harvest(ServerLevel serverLevel, BlockState cropState, RightClickBlock event, IntegerProperty age) {
+    BlockPos pos = event.getPos();
+    dropResources(serverLevel, cropState, event, pos);
+    serverLevel.setBlockAndUpdate(pos, cropState.setValue(age, Integer.valueOf(0)));
+  }
 
-    @SuppressWarnings("deprecation")
+  @SuppressWarnings("deprecation")
 	private void dropResources(ServerLevel serverLevel, BlockState cropState, RightClickBlock event, BlockPos pos) {
-    	List<ItemStack> drops = getDrops(serverLevel, cropState, event.getPlayer(), pos);
-    	boolean seedRemoved = false;
-        for (ItemStack stack : drops) {
-        	if (!seedRemoved && stack.sameItem(cropState.getBlock().getCloneItemStack(serverLevel, pos, cropState))) {
-        		stack.shrink(1);
-        		seedRemoved = true;
-        	}
-			Block.popResourceFromFace(serverLevel, pos, event.getFace(), stack);
-        }
+    List<ItemStack> drops = getDrops(serverLevel, cropState, event.getPlayer(), pos);
+    boolean seedRemoved = false;
+    for (ItemStack stack : drops) {
+      if (!seedRemoved && stack.sameItem(cropState.getBlock().getCloneItemStack(serverLevel, pos, cropState))) {
+        stack.shrink(1);
+        seedRemoved = true;
+      }
+      Block.popResourceFromFace(serverLevel, pos, event.getFace(), stack);
     }
+  }
 
-    private List<ItemStack> getDrops(ServerLevel serverLevel, BlockState cropState, Player player, BlockPos pos) {
-    	return cropState.getDrops(
-    		new LootContext.Builder(serverLevel)
-    			.withParameter(LootContextParams.ORIGIN, new Vec3(pos.getX(), pos.getY(), pos.getZ()))
-    			.withParameter(LootContextParams.BLOCK_STATE, cropState)
-    			.withParameter(LootContextParams.THIS_ENTITY, player)
-    			.withParameter(LootContextParams.TOOL, player.getMainHandItem())
-    	);
-    }
+  private List<ItemStack> getDrops(ServerLevel serverLevel, BlockState cropState, Player player, BlockPos pos) {
+    return cropState.getDrops(
+      new LootContext.Builder(serverLevel)
+        .withParameter(LootContextParams.ORIGIN, new Vec3(pos.getX(), pos.getY(), pos.getZ()))
+        .withParameter(LootContextParams.BLOCK_STATE, cropState)
+        .withParameter(LootContextParams.THIS_ENTITY, player)
+        .withParameter(LootContextParams.TOOL, player.getMainHandItem())
+    );
+  }
 
-    private void cancel(RightClickBlock event) {
-    	event.setCancellationResult(InteractionResult.CONSUME);
+  private void cancel(RightClickBlock event) {
+    event.setCancellationResult(InteractionResult.CONSUME);
 		event.setCanceled(true);
-    }
+  }
 
-    private IntegerProperty getAge(BlockState cropState) throws NullPointerException, NoSuchElementException {
-    	return (IntegerProperty) cropState.getProperties().stream().filter(property -> property.getName().equals("age")).findFirst().orElseThrow();
-    }
+  private IntegerProperty getAge(BlockState cropState) throws NullPointerException, NoSuchElementException {
+    return (IntegerProperty) cropState.getProperties().stream().filter(property -> property.getName().equals("age")).findFirst().orElseThrow();
+  }
 
-    @Nullable
-    private InteractionHand getInteractionHand(Player player) {
-    	if (!player.isCrouching()) {
-    		if (isHoe(player.getMainHandItem())) {
-    			return InteractionHand.MAIN_HAND;
-    		}
-    		if (isHoe(player.getOffhandItem())) {
-    			return InteractionHand.OFF_HAND;
-    		}
-				if (!requireHoe) {
-    			return InteractionHand.MAIN_HAND;
-    		}
-    	}
-    	return null;
+  @Nullable
+  private InteractionHand getInteractionHand(Player player) {
+    if (!player.isCrouching()) {
+      if (isHoe(player.getMainHandItem())) {
+        return InteractionHand.MAIN_HAND;
+      }
+      if (isHoe(player.getOffhandItem())) {
+        return InteractionHand.OFF_HAND;
+      }
+      if (!requireHoe) {
+        return InteractionHand.MAIN_HAND;
+      }
     }
+    return null;
+  }
     
-    private boolean isHoe(ItemStack handItem) {
-    	return ToolActions.DEFAULT_HOE_ACTIONS.stream().allMatch(toolAction -> handItem.canPerformAction(toolAction));
-    }
+  private boolean isHoe(ItemStack handItem) {
+    return ToolActions.DEFAULT_HOE_ACTIONS.stream().allMatch(toolAction -> handItem.canPerformAction(toolAction));
+  }
     
-    private boolean isCrop(Block block) {
+  private boolean isCrop(Block block) {
 		return block instanceof CropBlock || crops.contains(getKey(block));
 	}
 
-    private String getKey(Block block) {
-    	return ForgeRegistries.BLOCKS.getKey(block).toString();
-    }
+  private String getKey(Block block) {
+    return ForgeRegistries.BLOCKS.getKey(block).toString();
+  }
 }

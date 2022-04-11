@@ -11,12 +11,12 @@ import net.minecraftforge.fml.config.ModConfig;
 
 @Mod("harvestwithease")
 public class HarvestWithEaseLoader {
-    public HarvestWithEaseLoader() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, HarvestWithEaseConfig.SPEC);        
-    }
+  public HarvestWithEaseLoader() {
+    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, HarvestWithEaseConfig.SPEC);
+  }
 
-    private void setup(final FMLCommonSetupEvent event) {
-    	MinecraftForge.EVENT_BUS.register(new RightClickBlockHandler(HarvestWithEaseConfig.getCrops(), HarvestWithEaseConfig.getRequireHoe()));
-    }
+  private void setup(final FMLCommonSetupEvent event) {
+    MinecraftForge.EVENT_BUS.register(new RightClickBlockHandler(HarvestWithEaseConfig.getCrops(), HarvestWithEaseConfig.getRequireHoe()));
+  }
 }

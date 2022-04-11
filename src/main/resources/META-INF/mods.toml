@@ -6,7 +6,7 @@ issueTrackerURL="https://github.com/Nyphet/harvest-with-ease/issues" #optional
 modId="harvestwithease"
 version="${file.jarVersion}"
 displayName="Harvest with ease"
-updateJSONURL="https://github.com/Nyphet/harvest-with-ease/blob/master/updates.json" #optional
+updateJSONURL="https://raw.githubusercontent.com/Nyphet/harvest-with-ease/master/updates.json" #optional
 displayURL="https://github.com/Nyphet/harvest-with-ease" #optional
 logoFile="harvest-with-ease.png" #optional
 # A text field displayed in the mod UI

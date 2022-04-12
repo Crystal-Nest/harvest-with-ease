@@ -40,10 +40,12 @@ public class RightClickBlockHandler {
   public void onRightClickBlock(RightClickBlock event) {
     Level world = event.getWorld();
     Player player = event.getPlayer();
-		BlockState blockState = world.getBlockState(event.getPos());
-    InteractionHand interactionHand = getInteractionHand(player);
-    if (isCrop(blockState.getBlock()) && tryHarvest(interactionHand, blockState, event, world)) {
-      player.swing(interactionHand, true);
+    if (!player.isSpectator()) {
+      BlockState blockState = world.getBlockState(event.getPos());
+      InteractionHand interactionHand = getInteractionHand(player);
+      if (isCrop(blockState.getBlock()) && tryHarvest(interactionHand, blockState, event, world)) {
+        player.swing(interactionHand, true);
+      }
     }
   }
 

@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Fixed a bug which made it possible to harvest crops in spectator.
 - Fixed a possible error that would make the game crash when the "age" property of a crop was not an IntegerProperty.
 
 ## [1.1.2] - 2022/04/12

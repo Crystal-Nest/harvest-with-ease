@@ -53,7 +53,7 @@ public class RightClickBlockHandler {
       if (cropState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues())) {
         cancel(event);
         if (!world.isClientSide() && interactionHand != null) {
-          harvest(world.getServer().getLevel(world.dimension()), cropState, event, age);
+          harvest(world.getServer().getLevel(world.dimension()), cropState, event, age, interactionHand);
           return true;
         }
       }
@@ -63,15 +63,15 @@ public class RightClickBlockHandler {
     return false;
   }
 
-  private void harvest(ServerLevel serverLevel, BlockState cropState, RightClickBlock event, IntegerProperty age) {
+  private void harvest(ServerLevel serverLevel, BlockState cropState, RightClickBlock event, IntegerProperty age, InteractionHand interactionHand) {
     BlockPos pos = event.getPos();
-    dropResources(serverLevel, cropState, event, pos);
+    dropResources(serverLevel, cropState, event, pos, interactionHand);
     serverLevel.setBlockAndUpdate(pos, cropState.setValue(age, Integer.valueOf(0)));
   }
 
   @SuppressWarnings("deprecation")
-	private void dropResources(ServerLevel serverLevel, BlockState cropState, RightClickBlock event, BlockPos pos) {
-    List<ItemStack> drops = getDrops(serverLevel, cropState, event.getPlayer(), pos);
+	private void dropResources(ServerLevel serverLevel, BlockState cropState, RightClickBlock event, BlockPos pos, InteractionHand interactionHand) {
+    List<ItemStack> drops = getDrops(serverLevel, cropState, event.getPlayer(), pos, interactionHand);
     boolean seedRemoved = false;
     for (ItemStack stack : drops) {
       if (!seedRemoved && stack.sameItem(cropState.getBlock().getCloneItemStack(serverLevel, pos, cropState))) {
@@ -82,13 +82,13 @@ public class RightClickBlockHandler {
     }
   }
 
-  private List<ItemStack> getDrops(ServerLevel serverLevel, BlockState cropState, Player player, BlockPos pos) {
+  private List<ItemStack> getDrops(ServerLevel serverLevel, BlockState cropState, Player player, BlockPos pos, InteractionHand interactionHand) {
     return cropState.getDrops(
       new LootContext.Builder(serverLevel)
         .withParameter(LootContextParams.ORIGIN, new Vec3(pos.getX(), pos.getY(), pos.getZ()))
         .withParameter(LootContextParams.BLOCK_STATE, cropState)
         .withParameter(LootContextParams.THIS_ENTITY, player)
-        .withParameter(LootContextParams.TOOL, player.getMainHandItem())
+        .withParameter(LootContextParams.TOOL, player.getItemInHand(interactionHand))
     );
   }
 

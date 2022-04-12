@@ -1,6 +1,7 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files",
   "1.18.2": {
+		"1.1.2": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3749412",
 		"1.1.1": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3745780",
 		"1.1.0": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3727872",
     "1.0.2": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3726466",
@@ -8,7 +9,7 @@
     "1.0.0": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3725566"
   },
   "promos": {
-    "1.18.2-latest": "1.1.1",
-    "1.18.2-recommended": "1.1.1"
+    "1.18.2-latest": "1.1.2",
+    "1.18.2-recommended": "1.1.2"
   }
 }

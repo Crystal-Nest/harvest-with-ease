@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - Nothing new
 
+## [1.1.2] - 2022/04/12
+- Fixed a bug for which MainHand item was used to harvest even when OffHand item would swing.
+- Updated [README].
+
 ## [1.1.1] - 2022/04/10
 - Fixed project updates.
 - Changed license.
@@ -32,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://github.com/Nyphet/jsdoc-generator
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
+[1.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.2
 [1.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.1
 [1.1.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.0
 [1.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.0.2

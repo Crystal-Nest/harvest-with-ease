@@ -7,6 +7,8 @@ Pumpkins, melons, cacti and sugar canes are not included by design as they are m
 For any modded crop that doesn't work out of the box with this mod, a configuration file is provided where their IDs can be added to make them compatible.  
 In the configuration file there is also an option to set whether holding a hoe (either hands) is required to right-click harvest.
 
+This is the FORGE version, the FABRIC version is available [here](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease-fabric).
+
 Downloads are available [here](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files).
 
 Tutorial on how this mod was developed is available [here](https://www.twitch.tv/collections/9gBoBVnX4RZ38A).

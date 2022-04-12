@@ -57,7 +57,7 @@ public class RightClickBlockHandler {
           return true;
         }
       }
-		} catch (NullPointerException | NoSuchElementException e) {
+		} catch (NullPointerException | NoSuchElementException | ClassCastException e) {
 			e.printStackTrace();
 		}
     return false;
@@ -97,7 +97,7 @@ public class RightClickBlockHandler {
 		event.setCanceled(true);
   }
 
-  private IntegerProperty getAge(BlockState cropState) throws NullPointerException, NoSuchElementException {
+  private IntegerProperty getAge(BlockState cropState) throws NullPointerException, NoSuchElementException, ClassCastException {
     return (IntegerProperty) cropState.getProperties().stream().filter(property -> property.getName().equals("age")).findFirst().orElseThrow();
   }
 

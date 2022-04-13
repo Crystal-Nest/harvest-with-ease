@@ -6,8 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Nothing new
+
+## [1.1.3] - 2022/04/13
 - Fixed a bug which made it possible to harvest crops in spectator.
 - Fixed a possible error that would make the game crash when the "age" property of a crop was not an IntegerProperty.
+- Updated project image.
+- Improved and fixed changelog.
+- Updated [README].
 
 ## [1.1.2] - 2022/04/12
 - Fixed a bug for which MainHand item was used to harvest even when OffHand item would swing.
@@ -35,8 +41,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Right clicking on a crop allows to harvest it without eradicating it.
 - A config file is provided to add eventual modded crops that don't work out of the box with this mod.
 
-[Unreleased]: https://github.com/Nyphet/jsdoc-generator
+[Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
+[1.1.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.3
 [1.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.2
 [1.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.1
 [1.1.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.0

@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - Nothing new
 
+## [1.1.4] - 2022/04/13
+- Fixed a bug for which it was impossible to place a block against a mature crop.
+
 ## [1.1.3] - 2022/04/13
 - Fixed a bug which made it possible to harvest crops in spectator.
 - Fixed a possible error that would make the game crash when the "age" property of a crop was not an IntegerProperty.
@@ -43,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
+[1.1.4]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.4
 [1.1.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.3
 [1.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.2
 [1.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.1

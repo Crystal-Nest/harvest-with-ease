@@ -43,26 +43,21 @@ public class RightClickBlockHandler {
     if (!player.isSpectator()) {
       BlockState blockState = world.getBlockState(event.getPos());
       InteractionHand interactionHand = getInteractionHand(player);
-      if (isCrop(blockState.getBlock()) && tryHarvest(interactionHand, blockState, event, world)) {
-        player.swing(interactionHand, true);
-      }
-    }
-  }
-
-  private boolean tryHarvest(InteractionHand interactionHand, BlockState cropState, RightClickBlock event, Level world) {
-    try {
-      IntegerProperty age = getAge(cropState);
-      if (cropState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues())) {
-        cancel(event);
-        if (!world.isClientSide() && interactionHand != null) {
-          harvest(world.getServer().getLevel(world.dimension()), cropState, event, age, interactionHand);
-          return true;
+      if (isCrop(blockState.getBlock()) && interactionHand != null) {
+        try {
+          IntegerProperty age = getAge(blockState);
+          if (blockState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues())) {
+            cancel(event);
+            if (!world.isClientSide()) {
+              harvest(world.getServer().getLevel(world.dimension()), blockState, event, age, interactionHand);
+              player.swing(interactionHand, true);
+            }
+          }
+        } catch (NullPointerException | NoSuchElementException | ClassCastException e) {
+          e.printStackTrace();
         }
       }
-		} catch (NullPointerException | NoSuchElementException | ClassCastException e) {
-			e.printStackTrace();
-		}
-    return false;
+    }
   }
 
   private void harvest(ServerLevel serverLevel, BlockState cropState, RightClickBlock event, IntegerProperty age, InteractionHand interactionHand) {

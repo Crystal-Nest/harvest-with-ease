@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - Nothing new
 
+## [1.2.0] - 2022/04/14
+- Added a new configuration option: damage on harvest.  
+This new option allows to define a custom damage value to apply on the hoe used to right-click harvest.  
+It must be an integer value and will be effective only if greater than 0 and require hoe is set to true.
+- Added Javadoc to the code.
+
 ## [1.1.4] - 2022/04/13
 - Fixed a bug for which it was impossible to place a block against a mature crop.
 
@@ -46,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
+[1.2.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.2.0
 [1.1.4]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.4
 [1.1.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.3
 [1.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.2

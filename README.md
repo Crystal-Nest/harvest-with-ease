@@ -6,7 +6,7 @@
 - Works on nether warts and cocoa beans too
 - Correctly consumes 1 crop seed to simulate replanting
 - Right-click while holding an item with fortune to increase drops
-- Customizable: a config file is provided with an option to set whether holding a hoe (either hands) is required to right-click harvest
+- Customizable: a config file is provided with an option to set whether holding a hoe (either hands) is required to right-click harvest and how much damage the hoe should receive upon use, if any
 - Integrable: as stated, should work with any crop, Vanilla and modded; Furthermore if it doesn't work with some crop, such crop ID can be added in the config file to make it compatible
 
 ## Downloads

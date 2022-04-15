@@ -9,13 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Nothing new
 
 ## [1.3.0] - 2022/04/15
-- Added a new configuration option: exp.  
+- Added a new configuration option: "exp on harvest".  
 This new option allows to define a custom experience value to grant the player upon harvesting.  
 It must be an integer value and will be effective only if greater than 0.
 Note that this value is in experience points and not experience levels.
 
 ## [1.2.0] - 2022/04/14
-- Added a new configuration option: damage on harvest.  
+- Added a new configuration option: "damage on harvest".  
 This new option allows to define a custom damage value to apply on the hoe used to right-click harvest.  
 It must be an integer value and will be effective only if greater than 0 and require hoe is set to true.
 - Added Javadoc to the code.

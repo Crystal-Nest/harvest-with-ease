@@ -21,7 +21,7 @@ This is the FORGE version, the FABRIC version is available [here](https://www.cu
 Downloads are available [here](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files).
 
 ## Issues
-To open an issue visit the [issues tab](https://github.com/Nyphet/harvest-with-ease/issues).
+To open a new issue visit the [issues tab](https://github.com/Nyphet/harvest-with-ease/issues).
 
 ## Technical details
 Your modded crops will work with this mod out of the box only if they extend the CropBlock class (which generally is how new crops should do).  

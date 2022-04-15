@@ -33,7 +33,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 /**
  * {@link RightClickBlock} event handler.
  * Handles the {@link RightClickBlock} event with {@link EventPriority#HIGH high priority} to right-click harvest when possible.
- * See {@link #onRightClickBlock(RightClickBlock)} for further details.
+ * See {@link #onRightClickBlock(RightClickBlock)} for more details.
  */
 public class RightClickBlockHandler {
   /**
@@ -118,7 +118,7 @@ public class RightClickBlockHandler {
    * @param interactionHand - {@link InteractionHand hand} holding the hoe.
    */
   private void damageHoe(Player player, InteractionHand interactionHand) {
-    if (requireHoe && damageOnHarvest > 0) {
+    if (requireHoe && damageOnHarvest > 0 && !player.isCreative()) {
       ItemStack hoe = player.getItemInHand(interactionHand);
       if (hoe.isDamageableItem()) {
         hoe.setDamageValue(hoe.getDamageValue() + (damageOnHarvest > hoe.getMaxDamage() ? hoe.getMaxDamage() : damageOnHarvest));

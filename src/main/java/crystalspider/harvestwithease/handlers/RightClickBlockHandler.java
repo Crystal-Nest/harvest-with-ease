@@ -90,7 +90,6 @@ public class RightClickBlockHandler {
               damageHoe(player, interactionHand);
               dropResources(world.getServer().getLevel(world.dimension()), blockState, event.getFace(), blockPos, player, interactionHand);
               world.setBlockAndUpdate(blockPos, blockState.setValue(age, Integer.valueOf(0)));
-              player.swing(interactionHand, true);
             }
           }
         } catch (NullPointerException | NoSuchElementException | ClassCastException e) {
@@ -174,7 +173,7 @@ public class RightClickBlockHandler {
    * @param event
    */
   private void cancel(RightClickBlock event) {
-    event.setCancellationResult(InteractionResult.CONSUME);
+    event.setCancellationResult(InteractionResult.SUCCESS);
 		event.setCanceled(true);
   }
 

@@ -55,12 +55,6 @@ public class RightClickBlockHandler {
    */
   private final Integer grantedExp;
 
-  /**
-   * 
-   * @param configCropsList
-   * @param requireHoe
-   * @param damageOnHarvest
-   */
 	public RightClickBlockHandler() {
 		crops.addAll(HarvestWithEaseConfig.getCrops());
 		this.requireHoe = HarvestWithEaseConfig.getRequireHoe();
@@ -106,6 +100,11 @@ public class RightClickBlockHandler {
     }
   }
 
+  /**
+   * Grants the given player the configured amount of experience, if any.
+   * 
+   * @param player - {@link Player player} to grant the experience to.
+   */
   private void grantExp(Player player) {
     if (grantedExp >= 0) {
       player.giveExperiencePoints(grantedExp);

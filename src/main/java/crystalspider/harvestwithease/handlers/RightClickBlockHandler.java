@@ -80,7 +80,7 @@ public class RightClickBlockHandler {
       BlockPos blockPos = event.getPos();
       BlockState blockState = world.getBlockState(blockPos);
       InteractionHand interactionHand = getInteractionHand(player);
-      if (isCrop(blockState.getBlock()) && interactionHand != null) {
+      if (isCrop(blockState.getBlock()) && interactionHand == event.getHand()) {
         try {
           IntegerProperty age = getAge(blockState);
           if (blockState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues())) {
@@ -119,10 +119,7 @@ public class RightClickBlockHandler {
    */
   private void damageHoe(Player player, InteractionHand interactionHand) {
     if (requireHoe && damageOnHarvest > 0 && !player.isCreative()) {
-      ItemStack hoe = player.getItemInHand(interactionHand);
-      if (hoe.isDamageableItem()) {
-        hoe.setDamageValue(hoe.getDamageValue() + (damageOnHarvest > hoe.getMaxDamage() ? hoe.getMaxDamage() : damageOnHarvest));
-      }
+      player.getItemInHand(interactionHand).hurtAndBreak(damageOnHarvest, player, playerEntity -> playerEntity.broadcastBreakEvent(interactionHand));
     }
   }
 

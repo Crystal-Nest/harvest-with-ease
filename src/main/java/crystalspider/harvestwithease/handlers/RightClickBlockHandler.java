@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nullable;
+
+import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -47,6 +49,11 @@ public class RightClickBlockHandler {
    * Effective only if greater than 0 and {@link #requireHoe} is true.
    */
 	private final Integer damageOnHarvest;
+  /**
+   * Amount of experience to grant on harvest.
+   * Effective only if greater than 0.
+   */
+  private final Integer grantedExp;
 
   /**
    * 
@@ -54,10 +61,11 @@ public class RightClickBlockHandler {
    * @param requireHoe
    * @param damageOnHarvest
    */
-	public RightClickBlockHandler(ArrayList<String> configCropsList, Boolean requireHoe, Integer damageOnHarvest) {
-		crops.addAll(configCropsList);
-		this.requireHoe = requireHoe;
-    this.damageOnHarvest = damageOnHarvest;
+	public RightClickBlockHandler() {
+		crops.addAll(HarvestWithEaseConfig.getCrops());
+		this.requireHoe = HarvestWithEaseConfig.getRequireHoe();
+    this.damageOnHarvest = HarvestWithEaseConfig.getDamageOnHarvest();
+    this.grantedExp = HarvestWithEaseConfig.getGrantedExp();
 	}
 
   /**
@@ -84,6 +92,7 @@ public class RightClickBlockHandler {
           if (blockState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues())) {
             cancel(event);
             if (!world.isClientSide()) {
+              grantExp(player);
               damageHoe(player, interactionHand);
               dropResources(world.getServer().getLevel(world.dimension()), blockState, event.getFace(), blockPos, player, interactionHand);
               world.setBlockAndUpdate(blockPos, blockState.setValue(age, Integer.valueOf(0)));
@@ -94,6 +103,12 @@ public class RightClickBlockHandler {
           e.printStackTrace();
         }
       }
+    }
+  }
+
+  private void grantExp(Player player) {
+    if (grantedExp >= 0) {
+      player.giveExperiencePoints(grantedExp);
     }
   }
 

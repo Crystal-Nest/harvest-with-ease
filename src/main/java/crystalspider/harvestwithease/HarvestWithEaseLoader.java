@@ -28,6 +28,6 @@ public class HarvestWithEaseLoader {
    * @param event
    */
   private void setup(final FMLCommonSetupEvent event) {
-    MinecraftForge.EVENT_BUS.register(new RightClickBlockHandler(HarvestWithEaseConfig.getCrops(), HarvestWithEaseConfig.getRequireHoe(), HarvestWithEaseConfig.getDamageOnHarvest()));
+    MinecraftForge.EVENT_BUS.register(new RightClickBlockHandler());
   }
 }

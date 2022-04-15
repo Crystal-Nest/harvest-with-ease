@@ -134,7 +134,7 @@ public class RightClickBlockHandler {
    * @param serverLevel - {@link ServerLevel server level} of the {@link Level world} the drops should come from.
    * @param blockState - {@link BlockState state} of the crop being harvested.
    * @param face - {@link Direction face} clicked of the crop.
-   * @param blockPos crop {@link BlockPos position}.
+   * @param blockPos - crop {@link BlockPos position}.
    * @param player - {@link Player player} harvesting the crop.
    * @param interactionHand - {@link InteractionHand hand} used to harvest the crop.
    */

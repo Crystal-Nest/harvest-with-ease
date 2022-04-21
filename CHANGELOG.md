@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - Nothing new
 
+## [1.4.0] - 2022/04/21
+- Added configuration option to set whether to play a sound when harvesting a crop. Defaults to true.
+- Added some logs.
+- Upgrated to Forge 40.1.0.
+
 ## [1.3.1] - 2022/04/16
 - Fixed a bug that damaged hoes upon use in creative when "damage on harvest" was set to true.
 - Fixed a bug that prevented hoes from breaking even when their damages was <= 0.
@@ -63,6 +68,7 @@ It must be an integer value and will be effective only if greater than 0 and req
 
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
+[1.4.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.4.0
 [1.3.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.3.1
 [1.3.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.3.0
 [1.2.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.2.0

@@ -2,19 +2,20 @@
 ### Harvest your crops with ease by simply right clicking on them, without having to tediously destroy and replant them all the time!
 
 ## Features
-- Right-click to harvest any crop, works with both Vanilla and modded out of the box
-- Works on nether warts and cocoa beans too
-- Correctly consumes 1 crop seed to simulate replanting
-- Right-click while holding an item with fortune to increase drops
-- Customizable: a config file is provided with several options, see next section for more details
-- Integrable: as stated, should work with any crop, Vanilla and modded; Furthermore if it doesn't work with some crop, such crop ID can be added in the config file to make it compatible
+- Right-click to harvest any crop, works with both Vanilla and modded out of the box!
+- Works on nether warts and cocoa beans too!
+- Correctly consumes 1 crop seed to simulate replanting!
+- Right-click while holding an item with fortune to increase drops!
+- Customizable: a config file is provided with several options, see next section for more details.
+- Integrable: as stated, should work with any crop, Vanilla and modded; Furthermore if it doesn't work with some crop, such crop ID can be added in the config file to make it compatible.
 
 ## Configuration
 ### This mod works already out of the box, configuration is only for further tweakings
 - crops: \[List\<String\>\] - list of additional in-game IDs for crops that are not supported out of the box.
-- require hoe: \[Boolean\] - whether holding a hoe (either hands) is required to right-click harvest
-- damage on harvest: \[Integer\] - how much damage the hoe should receive upon use, if any (effective only if greater than 0 and "require hoe" is set to true)
-- exp on harvest: \[Integer\] - how many experience points should be granted when right-click harvesting (effective only if greater than 0; note it's exp points and not exp levels)
+- require hoe: \[Boolean\] - whether holding a hoe (either hands) is required to right-click harvest.
+- damage on harvest: \[Integer\] - how much damage the hoe should receive upon use, if any (effective only if greater than 0 and "require hoe" is set to true).
+- exp on harvest: \[Integer\] - how many experience points should be granted when right-click harvesting (effective only if greater than 0; note it's exp points and not exp levels).
+- play sound \[Boolean\] - whether to play a sound when harvesting a crop.
 
 ## Downloads
 This is the FORGE version, the FABRIC version is available [here](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease-fabric).  

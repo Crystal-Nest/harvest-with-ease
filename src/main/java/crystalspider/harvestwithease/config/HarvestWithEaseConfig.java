@@ -59,6 +59,15 @@ public class HarvestWithEaseConfig {
 	}
 
   /**
+   * Returns the value of {@link CommonConfig#playSound}.
+   *
+   * @return {@link CommonConfig#playSound} as read from the {@link #COMMON common} configuration file.
+   */
+  public static Boolean getPlaySound() {
+		return COMMON.playSound.get();
+	}
+
+  /**
    * Common Configuration for Harvest with ease.
    */
   public static class CommonConfig {
@@ -80,6 +89,10 @@ public class HarvestWithEaseConfig {
      * Effective only if greater than 0.
      */
     private final ConfigValue<Integer> grantedExp;
+    /**
+     * Whether to play a sound when harvesting a crop.
+     */
+    private final ConfigValue<Boolean> playSound;
 
     /**
      * Defines the configuration options, their default values and their comments.
@@ -91,6 +104,7 @@ public class HarvestWithEaseConfig {
 			requireHoe = builder.comment("Require holding a hoe (either hands) to right-click harvest").define("require hoe", false);
 			damageOnHarvest = builder.comment("If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer)").define("damage on harvest", Integer.valueOf(0));
 			grantedExp = builder.comment("Amount of experience to grant on harvest (0 to disable, must be an integer).").define("exp on harvest", Integer.valueOf(0));
+			playSound = builder.comment("Play a sound when harvesting a crop.").define("play sound", true);
 		}
 	}
 }

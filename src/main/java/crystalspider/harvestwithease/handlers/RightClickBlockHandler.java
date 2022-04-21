@@ -8,9 +8,12 @@ import java.util.NoSuchElementException;
 import javax.annotation.Nullable;
 
 import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -19,12 +22,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -54,12 +59,17 @@ public class RightClickBlockHandler {
    * Effective only if greater than 0.
    */
   private final Integer grantedExp;
+  /**
+   * Whether to play a sound when harvesting a crop.
+   */
+  private final Boolean playSound;
 
 	public RightClickBlockHandler() {
 		crops.addAll(HarvestWithEaseConfig.getCrops());
 		this.requireHoe = HarvestWithEaseConfig.getRequireHoe();
     this.damageOnHarvest = HarvestWithEaseConfig.getDamageOnHarvest();
     this.grantedExp = HarvestWithEaseConfig.getGrantedExp();
+    this.playSound = HarvestWithEaseConfig.getPlaySound();
 	}
 
   /**
@@ -90,10 +100,11 @@ public class RightClickBlockHandler {
               damageHoe(player, interactionHand);
               dropResources(world.getServer().getLevel(world.dimension()), blockState, event.getFace(), blockPos, player, interactionHand);
               world.setBlockAndUpdate(blockPos, blockState.setValue(age, Integer.valueOf(0)));
+              playSound(world, player, blockState, blockPos);
             }
           }
         } catch (NullPointerException | NoSuchElementException | ClassCastException e) {
-          e.printStackTrace();
+          // TODO: Log warning.
         }
       }
     }
@@ -165,6 +176,21 @@ public class RightClickBlockHandler {
         .withParameter(LootContextParams.THIS_ENTITY, player)
         .withParameter(LootContextParams.TOOL, player.getItemInHand(interactionHand))
     );
+  }
+
+  /**
+   * If {@link #playSound} is true, plays the block breaking sound.
+   * 
+   * @param world - {@link Level} to play the sound.
+   * @param player - {@link Player player} activating the sound.
+   * @param blockState - {@link BlockState state} of the block emitting the sound.
+   * @param blockPos - {@link BlockPos position} of the block emitting the sound.
+   */
+  private void playSound(Level world, Player player, BlockState blockState, BlockPos blockPos) {
+    if (playSound) {
+      SoundType soundType = blockState.getBlock().getSoundType(blockState, world, blockPos, player);
+      world.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, soundType.getVolume(), soundType.getPitch());
+    }
   }
 
   /**

@@ -12,8 +12,13 @@ import net.minecraftforge.fml.config.ModConfig;
 /**
  * Harvest with ease mod loader.
  */
-@Mod("harvestwithease")
+@Mod(HarvestWithEaseLoader.MODID)
 public class HarvestWithEaseLoader {
+  /**
+   * ID of this mod.
+   */
+  public static final String MODID = "harvestwithease";
+
   /**
    * Adds {@link #setup(FMLCommonSetupEvent)} to the Mod event bus listeners and registers the {@link HarvestWithEaseConfig configuration}.
    */

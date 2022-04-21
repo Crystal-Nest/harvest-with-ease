@@ -44,6 +44,9 @@ import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
  * See {@link #onRightClickBlock(RightClickBlock)} for more details.
  */
 public class RightClickBlockHandler {
+  /**
+   * Logger.
+   */
   private final Logger LOGGER = LogUtils.getLogger();
   /**
    * List of additional in-game IDs for crops that need to be supported but do not extend {@link CropBlock}.

@@ -27,7 +27,7 @@ To open a new issue visit the [issues tab](https://github.com/Nyphet/harvest-wit
 ## Technical details
 This mod is required on both server and client to work properly.  
 Your modded crops will work with this mod out of the box only if they extend the CropBlock class (which generally is how new crops should do).  
-If for whatever reason you can't extend that class in your mod you can add its in-game ID to the config file, however note that this will work only if your crops have an IntegerProperty whose name is set to be "age" and represents the age values your crops can have, from 0 to a max value.
+If for whatever reason you can't extend that class in your mod you can add its in-game ID to the config file, however note that this will work only if your crops have an IntegerProperty (IntProperty for Fabric) whose name is set to be "age" and represents the age values your crops can have, from 0 to a max value.
 
 ## License and right of use
 Feel free to use this mod for any modpack or video, just be sure to give credit and possibly link [here](https://github.com/Nyphet/harvest-with-ease#readme).  

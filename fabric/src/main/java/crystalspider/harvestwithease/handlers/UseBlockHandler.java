@@ -7,8 +7,6 @@ import java.util.NoSuchElementException;
 
 import javax.annotation.Nullable;
 
-
-
 import crystalspider.harvestwithease.HarvestWithEaseLoader;
 import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;

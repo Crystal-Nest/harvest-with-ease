@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="GNU AGPLv3"
+issueTrackerURL="https://github.com/Nyphet/harvest-with-ease/issues" #optional
+[[mods]]
+modId="harvestwithease"
+version="${file.jarVersion}"
+displayName="Harvest with ease"
+updateJSONURL="https://raw.githubusercontent.com/Nyphet/harvest-with-ease/1.18.2/main/forge/updates.json" #optional
+displayURL="https://github.com/Nyphet/harvest-with-ease" #optional
+logoFile="harvest-with-ease.png" #optional
+authors="Crystal Spider" #optional
+description="Harvest your crops with ease by simply right clicking on them, without having to tediously destroy and replant them all the time!"
+[[dependencies.harvestwithease]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.harvestwithease]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"
+#optional

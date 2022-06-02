@@ -3,10 +3,16 @@
 All notable changes to the "harvest-with-ease" Minecraft mod will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+and this project adheres to [Forge Semantic Versioning](https://mcforge.readthedocs.io/en/1.18.x/gettingstarted/versioning/#versioning).
 
 ## [Unreleased]
 - Nothing new
+
+## [1.18.2-1.0.0.0] - 2022/06/dd
+- Merged Fabric version and Forge version into a single project.
+- Changed semantic versioning system.
+
+# Legacy versions
 
 ## [1.4.0] - 2022/04/21
 - Added configuration option to set whether to play a sound when harvesting a crop. Defaults to true.
@@ -68,6 +74,7 @@ It must be an integer value and will be effective only if greater than 0 and req
 
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
+[1.18.2-1.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-1.0.0.0
 [1.4.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.4.0
 [1.3.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.3.1
 [1.3.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.3.0

@@ -13,14 +13,24 @@ out
 *.iml
 .idea
 
+# vscode
+bin/
+.classpath
+.project
+.vscode
+
 # gradle
 build
+out
+classes
 .gradle
 
 # other
 eclipse
 run
-.vscode
+
+# macos
+*.DS_Store
 
 # Files from Forge MDK
 forge*changelog.txt

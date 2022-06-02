@@ -15,7 +15,7 @@ plugins {
 }
 apply plugin: 'net.minecraftforge.gradle'
 
-version = '1.4.0'
+version = 'forge-1.18.2-1.0.0.0'
 group = 'crystalspider.harvestwithease'
 archivesBaseName = 'harvestwithease'
 
@@ -91,11 +91,11 @@ jar {
   manifest {
     attributes([
       "Specification-Title"     : "harvestwithease",
-      "Specification-Vendor"    : "harvestwitheasesareus",
+      "Specification-Vendor"    : "harvestwithease",
       "Specification-Version"   : "1", // We are version 1 of ourselves
       "Implementation-Title"    : project.name,
       "Implementation-Version"  : project.jar.archiveVersion,
-      "Implementation-Vendor"   : "harvestwitheasesareus",
+      "Implementation-Vendor"   : "harvestwithease",
       "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
     ])
   }

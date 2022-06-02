@@ -18,16 +18,16 @@
 - play sound \[Boolean\] - whether to play a sound when harvesting a crop.
 
 ## Downloads
-This is the FORGE version, the FABRIC version is available [here](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease-fabric).  
+This is BOTH the FORGE and FABRIC version, so make sure you're downloading the correct version that suits your needs.  
 Downloads are available [here](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files).
 
 ## Issues
 To open a new issue visit the [issues tab](https://github.com/Nyphet/harvest-with-ease/issues).
 
 ## Technical details
+This mod is required on both server and client to work properly.  
 Your modded crops will work with this mod out of the box only if they extend the CropBlock class (which generally is how new crops should do).  
-If for whatever reason you can't extend that class in your mod you can add its in-game ID to the config file, however note that this will work only if your crops have an IntegerProperty whose name is set to be "age" and represents the age values your crops can have, from 0 to a max value.  
-Tutorial on how this mod was developed is available [here](https://www.twitch.tv/collections/9gBoBVnX4RZ38A).
+If for whatever reason you can't extend that class in your mod you can add its in-game ID to the config file, however note that this will work only if your crops have an IntegerProperty whose name is set to be "age" and represents the age values your crops can have, from 0 to a max value.
 
 ## License and right of use
 Feel free to use this mod for any modpack or video, just be sure to give credit and possibly link [here](https://github.com/Nyphet/harvest-with-ease#readme).  

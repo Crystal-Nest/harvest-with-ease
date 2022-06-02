@@ -8,7 +8,7 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new
 
-## [1.18.2-1.0.0.0] - 2022/06/dd
+## [1.18.2-1.0.0.0] - 2022/06/02
 - Merged Fabric version and Forge version into a single project.
 - Changed semantic versioning system.
 

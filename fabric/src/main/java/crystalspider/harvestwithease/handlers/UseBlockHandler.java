@@ -99,7 +99,7 @@ public class UseBlockHandler {
               grantExp(player);
               damageHoe(player, hand);
               dropResources(world.getServer().getWorld(world.getRegistryKey()), blockState, result.getSide(), blockPos, player, hand);
-              world.setBlockState(blockPos, blockState.with(age, Integer.valueOf(0)));
+              world.setBlockState(blockPos, blockState.with(age, 0));
               playSound(world, blockState, blockPos);
             }
           }

@@ -95,9 +95,9 @@ public class HarvestWithEaseConfig {
     @Override
     public void register(FabricConfig.Builder builder) {
       crops = builder.registerProperty("crops", new ArrayList<String>(), "List of in-game IDs of additional crops", "Changes should not be necessary, edit only if you're sure of what you're doing!");
-			requireHoe = builder.registerProperty("require hoe", Boolean.valueOf(false), "Require holding a hoe (either hands) to right-click harvest");
-			damageOnHarvest = builder.registerProperty("damage on harvest", Integer.valueOf(0), "If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer)");
-			grantedExp = builder.registerProperty("exp on harvest", Integer.valueOf(0), "Amount of experience to grant on harvest (0 to disable, must be an integer).");
+			requireHoe = builder.registerProperty("require hoe", false, "Require holding a hoe (either hands) to right-click harvest");
+			damageOnHarvest = builder.registerProperty("damage on harvest", 0, "If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer)");
+			grantedExp = builder.registerProperty("exp on harvest", 0, "Amount of experience to grant on harvest (0 to disable, must be an integer).");
 			playSound = builder.registerProperty("play sound", true, "Play a sound when harvesting a crop.");
     }
 	}

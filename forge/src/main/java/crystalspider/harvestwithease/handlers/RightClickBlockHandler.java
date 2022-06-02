@@ -97,7 +97,7 @@ public class RightClickBlockHandler {
               grantExp(player);
               damageHoe(player, interactionHand);
               dropResources(world.getServer().getLevel(world.dimension()), blockState, event.getFace(), blockPos, player, interactionHand);
-              world.setBlockAndUpdate(blockPos, blockState.setValue(age, Integer.valueOf(0)));
+              world.setBlockAndUpdate(blockPos, blockState.setValue(age, 0));
               playSound(world, player, blockState, blockPos);
             }
           }

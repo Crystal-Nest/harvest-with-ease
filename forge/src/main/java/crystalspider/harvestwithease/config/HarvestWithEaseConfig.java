@@ -102,8 +102,8 @@ public class HarvestWithEaseConfig {
 		public CommonConfig(ForgeConfigSpec.Builder builder) {
 			crops = builder.comment("List of in-game IDs of additional crops").define("crops", new ArrayList<String>());
 			requireHoe = builder.comment("Require holding a hoe (either hands) to right-click harvest").define("require hoe", false);
-			damageOnHarvest = builder.comment("If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer)").define("damage on harvest", Integer.valueOf(0));
-			grantedExp = builder.comment("Amount of experience to grant on harvest (0 to disable, must be an integer).").define("exp on harvest", Integer.valueOf(0));
+			damageOnHarvest = builder.comment("If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer)").define("damage on harvest", 0);
+			grantedExp = builder.comment("Amount of experience to grant on harvest (0 to disable, must be an integer).").define("exp on harvest", 0);
 			playSound = builder.comment("Play a sound when harvesting a crop.").define("play sound", true);
 		}
 	}

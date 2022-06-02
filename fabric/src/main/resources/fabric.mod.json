@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "harvest-with-ease",
+  "version": "${version}",
+  "name": "Harvest with ease",
+  "description": "Harvest your crops with ease by simply right clicking on them, without having to tediously destroy and replant them all the time!",
+  "authors": [
+    "Crystal Spider"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease",
+    "issues": "https://github.com/Nyphet/harvest-with-ease/issues",
+    "sources": "https://github.com/Nyphet/harvest-with-ease"
+  },
+  "license": "GPL-3.0-or-later",
+  "icon": "assets/harvest-with-ease/harvest-with-ease.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "crystalspider.harvestwithease.HarvestWithEaseLoader"
+    ]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  }
+}

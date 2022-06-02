@@ -1,6 +1,6 @@
 ---
 name: Information request
-about: Ask a question about the project
+about: Ask a question about the mod
 title: Information request
 labels: question
 assignees: Nyphet

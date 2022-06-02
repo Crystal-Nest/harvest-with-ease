@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Describe a bug you've encountered.
+about: Describe a bug you've encountered
 title: Bug
 labels: bug
 assignees: Nyphet
@@ -12,10 +12,7 @@ A clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+List of steps.
 
 **Expected behavior**
 A clear and concise description of what you expected to happen.
@@ -27,9 +24,9 @@ If applicable, add screenshots to help explain your problem.
 If applicable, copy and paste relevant logs.
 
 **System information:**
- - OS:  
- - Minecraft version: 
- - Release version: 
+ - Mod loader (Fabric or Forge)
+ - Mod version
+ - Minecraft version
 
 **Additional context**
-Add any other context about the problem here.
+Add any other context about the problem here and other mods installed, if any.

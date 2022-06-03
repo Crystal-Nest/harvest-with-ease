@@ -8,6 +8,9 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new
 
+## [1.18.2-1.0.0.1] - 2022/06/04
+- Changed standard naming: moved "forge" and "fabric" notation to the end of the version to avoid crashes with Forge.
+
 ## [1.18.2-1.0.0.0] - 2022/06/02
 - Merged Fabric version and Forge version into a single project.
 - Changed semantic versioning system.
@@ -74,6 +77,7 @@ It must be an integer value and will be effective only if greater than 0 and req
 
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
+[1.18.2-1.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-1.0.0.1
 [1.18.2-1.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-1.0.0.0
 [1.4.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.4.0
 [1.3.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.3.1

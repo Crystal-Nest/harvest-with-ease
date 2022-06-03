@@ -14,7 +14,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-
 /**
  * Harvest with ease mod loader.
  */

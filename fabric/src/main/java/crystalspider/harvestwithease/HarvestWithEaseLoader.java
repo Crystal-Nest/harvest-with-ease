@@ -17,10 +17,10 @@ public class HarvestWithEaseLoader implements ModInitializer {
    */
   public static final String MODID = "harvestwithease";
 
-    /**
+  /**
    * Logger.
    */
-  public static final Logger LOGGER = LoggerFactory.getLogger("Harvestwithease");
+  public static final Logger LOGGER = LoggerFactory.getLogger("harvestwithease");
 
   @Override
 	public void onInitialize() {

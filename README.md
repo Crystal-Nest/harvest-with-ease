@@ -31,4 +31,4 @@ If for whatever reason you can't extend that class in your mod you can add its i
 
 ## License and right of use
 Feel free to use this mod for any modpack or video, just be sure to give credit and possibly link [here](https://github.com/Nyphet/harvest-with-ease#readme).  
-This project is published under the [GNU General Public License v3.0](https://github.com/Nyphet/harvest-with-ease/blob/1.18.2/main/LICENSE).
+This project is published under the [GNU General Public License v3.0](https://github.com/Nyphet/harvest-with-ease/blob/master/LICENSE).

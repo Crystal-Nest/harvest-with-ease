@@ -88,7 +88,7 @@ public class UseBlockHandler {
     if (!player.isSpectator()) {
       BlockPos blockPos = result.getBlockPos();
       BlockState blockState = world.getBlockState(blockPos);
-      if (isCrop(blockState.getBlock()) && getInteractionHand(player) == hand) {
+      if (isCrop(blockState.getBlock()) && getInteractionHand(player) == hand && canHarvest(player.getStackInHand(hand), blockState)) {
         try {
           IntProperty age = getAge(blockState);
           if (blockState.getOrEmpty(age).orElse(0) >= Collections.max(age.getValues())) {
@@ -247,6 +247,17 @@ public class UseBlockHandler {
   private boolean isCrop(Block block) {
 		return block instanceof CropBlock || crops.contains(getKey(block));
 	}
+
+  /**
+   * Checks whether a tool is required to harvest the crop and, in case, if the tool in hand satisfies the requirement.
+   * 
+   * @param itemStack - Tool held in hand.
+   * @param blockState - {@link BlockState} of the crop to harvest.
+   * @return whether the given tool can harvest the given crop.
+   */
+  private boolean canHarvest(ItemStack itemStack, BlockState blockState) {
+    return !blockState.isToolRequired() || itemStack.isSuitableFor(blockState);
+  }
 
   /**
    * Returns the in-game ID of the block passed as parameter.

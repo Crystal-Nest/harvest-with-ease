@@ -88,7 +88,7 @@ public class RightClickBlockHandler {
       BlockPos blockPos = event.getPos();
       BlockState blockState = world.getBlockState(blockPos);
       InteractionHand interactionHand = getInteractionHand(player);
-      if (isCrop(blockState.getBlock()) && interactionHand == event.getHand()) {
+      if (isCrop(blockState.getBlock()) && interactionHand == event.getHand() && canHarvest(player.getItemInHand(interactionHand), blockState)) {
         try {
           IntegerProperty age = getAge(blockState);
           if (blockState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues())) {
@@ -258,6 +258,17 @@ public class RightClickBlockHandler {
   private boolean isCrop(Block block) {
 		return block instanceof CropBlock || crops.contains(getKey(block));
 	}
+
+  /**
+   * Checks whether a tool is required to harvest the crop and, in case, if the tool in hand satisfies the requirement.
+   * 
+   * @param itemStack - Tool held in hand.
+   * @param blockState - {@link BlockState} of the crop to harvest.
+   * @return whether the given tool can harvest the given crop.
+   */
+  private boolean canHarvest(ItemStack itemStack, BlockState blockState) {
+    return !blockState.requiresCorrectToolForDrops() || itemStack.isCorrectToolForDrops(blockState);
+  }
 
   /**
    * Returns the in-game ID of the block passed as parameter.

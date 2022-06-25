@@ -8,6 +8,12 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new
 
+## [1.19-2.0.0.1] - 2022/06/25
+- Fixed a bug that would ignore required tool for crops.
+
+## [1.18.2-2.0.0.1] - 2022/06/25
+- Fixed a bug that would ignore required tool for crops.
+
 ## [1.19-2.0.0.0] - 2022/06/08
 - Updated to Minecraft 1.19.
 

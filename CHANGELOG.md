@@ -89,6 +89,8 @@ It must be an integer value and will be effective only if greater than 0 and req
 
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
+[1.19-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.1
+[1.18.2-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-2.0.0.1
 [1.19-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.0
 [1.18.2-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-2.0.0.0
 [1.18.2-1.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-1.0.0.1

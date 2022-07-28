@@ -82,23 +82,23 @@ public class RightClickBlockHandler {
    */
 	@SubscribeEvent(priority = EventPriority.HIGH)
   public void onRightClickBlock(RightClickBlock event) {
-    Level world = event.getWorld();
-    Player player = event.getPlayer();
+    Level level = event.getLevel();
+    Player player = event.getEntity();
     if (!player.isSpectator()) {
       BlockPos blockPos = event.getPos();
-      BlockState blockState = world.getBlockState(blockPos);
+      BlockState blockState = level.getBlockState(blockPos);
       InteractionHand interactionHand = getInteractionHand(player);
       if (isCrop(blockState.getBlock()) && interactionHand == event.getHand() && canHarvest(player.getItemInHand(interactionHand), blockState)) {
         try {
           IntegerProperty age = getAge(blockState);
           if (blockState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues())) {
             cancel(event);
-            if (!world.isClientSide()) {
+            if (!level.isClientSide()) {
               grantExp(player);
               damageHoe(player, interactionHand);
-              dropResources(world.getServer().getLevel(world.dimension()), blockState, event.getFace(), blockPos, player, interactionHand);
-              world.setBlockAndUpdate(blockPos, blockState.setValue(age, 0));
-              playSound(world, player, blockState, blockPos);
+              dropResources(level.getServer().getLevel(level.dimension()), blockState, event.getFace(), blockPos, player, interactionHand);
+              level.setBlockAndUpdate(blockPos, blockState.setValue(age, 0));
+              playSound(level, player, blockState, blockPos);
             }
           }
         } catch (NullPointerException | NoSuchElementException | ClassCastException e) {

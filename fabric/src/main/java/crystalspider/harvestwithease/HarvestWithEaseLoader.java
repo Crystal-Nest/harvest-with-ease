@@ -20,7 +20,7 @@ public class HarvestWithEaseLoader implements ModInitializer {
   /**
    * Logger.
    */
-  public static final Logger LOGGER = LoggerFactory.getLogger("harvestwithease");
+  public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
   @Override
 	public void onInitialize() {

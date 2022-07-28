@@ -10,7 +10,7 @@
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease",
     "issues": "https://github.com/Nyphet/harvest-with-ease/issues",
-    "sources": "https://github.com/Nyphet/harvest-with-ease/tree/1.19/main"
+    "sources": "https://github.com/Nyphet/harvest-with-ease/tree/1.19"
   },
   "license": "GPL-3.0-or-later",
   "icon": "assets/harvest-with-ease/harvest-with-ease.png",
@@ -24,7 +24,7 @@
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": "*",
-    "minecraft": "~1.19",
+    "minecraft": "1.19",
     "java": ">=17"
   }
 }

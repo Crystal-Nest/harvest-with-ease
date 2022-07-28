@@ -8,6 +8,18 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new
 
+## [1.19.1-3.0.0.0] - 2022/07/29
+- Updated project and repository structure.
+- Updated to Minecraft 1.19.1.
+
+## [1.19-3.0.0.0] - 2022/07/29
+- Updated project and repository structure.
+- Updated version to comply with Forge Semantic Versioning.
+
+## [1.18.2-3.0.0.0] - 2022/07/29
+- Updated project and repository structure.
+- Updated version to comply with Forge Semantic Versioning.
+
 ## [1.19-2.0.0.1] - 2022/06/25
 - Fixed a bug that would ignore required tool for crops.
 
@@ -89,12 +101,19 @@ It must be an integer value and will be effective only if greater than 0 and req
 
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
+
+[1.19.1-3.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.1-3.0.0.0
+
+[1.19-3.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-3.0.0.0
 [1.19-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.1
-[1.18.2-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-2.0.0.1
 [1.19-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.0
+
+[1.18.2-3.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-3.0.0.0
+[1.18.2-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-2.0.0.1
 [1.18.2-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-2.0.0.0
 [1.18.2-1.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-1.0.0.1
 [1.18.2-1.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-1.0.0.0
+
 [1.4.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.4.0
 [1.3.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.3.1
 [1.3.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.3.0

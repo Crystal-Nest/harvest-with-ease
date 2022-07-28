@@ -9,6 +9,7 @@ displayName="${modTitle}"
 updateJSONURL="https://raw.githubusercontent.com/Nyphet/harvest-with-ease/master/forge/updates.json" #optional
 displayURL="https://github.com/Nyphet/harvest-with-ease/${mcVersion}" #optional
 logoFile="harvest-with-ease.png" #optional
+# credits="Thank who deserves it." #optional
 authors="${author}" #optional
 # Display Test controls the display for your mod in the server connection screen
 # MATCH_VERSION means that your mod will cause a red X if the versions on client and server differ. This is the default behaviour and should be what you choose if you have server and client elements to your mod.
@@ -27,7 +28,7 @@ description="Harvest your crops with ease by simply right clicking on them, with
 [[dependencies.modid]]
     modId="minecraft"
     mandatory=true
-    versionRange="[${mcVersion},1.19)"
+    versionRange="[${mcVersion},)"
     ordering="NONE"
     side="BOTH"
 #optional

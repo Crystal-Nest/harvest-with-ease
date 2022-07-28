@@ -85,7 +85,7 @@ dependencies {
   minecraft "net.minecraftforge:forge:${mcVersion}-${forgeVersion}"
 }
 
-def resourceTargets = ['META-INF/mods.toml']
+def resourceTarget = 'META-INF/mods.toml'
 def intoTargets = ["$rootDir/out/production/resources/", "$rootDir/out/production/${project.name}.main/", "$rootDir/bin/main/"]
 def replaceProperties = [
   modTitle: modTitle,
@@ -99,7 +99,7 @@ processResources {
   inputs.properties replaceProperties
   replaceProperties.put 'project', project
 
-  filesMatching(resourceTargets) {
+  filesMatching(resourceTarget) {
     expand replaceProperties
   }
 
@@ -107,12 +107,12 @@ processResources {
     if (file(target).exists()) {
       copy {
         from(sourceSets.main.resources) {
-          include resourceTargets
+          include resourceTarget
           expand replaceProperties
         }
         into target
       }
-      file("${target}/${resourceTargets[0]}").text = file("${target}/${resourceTargets[0]}").text.replaceAll('modid', project.modid)
+      file("${target}/${resourceTarget}").text = file("${target}/${resourceTarget}").text.replaceAll('modid', project.modid)
     }
   }
 }

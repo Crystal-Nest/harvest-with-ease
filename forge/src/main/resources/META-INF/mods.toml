@@ -1,14 +1,14 @@
 modLoader="javafml"
-loaderVersion="[40,)"
+loaderVersion="[${loader_version},)"
 license="GNU AGPLv3"
-issueTrackerURL="https://github.com/Nyphet/harvest-with-ease/issues" #optional
+issueTrackerURL="https://github.com/${github_user}/${modid_kebab}/issues" #optional
 [[mods]]
-modId="modid"
-version="${modVersion}"
-displayName="${modTitle}"
-updateJSONURL="https://raw.githubusercontent.com/Nyphet/harvest-with-ease/master/forge/updates.json" #optional
-displayURL="https://github.com/Nyphet/harvest-with-ease/tree/${mcVersion}" #optional
-logoFile="harvest-with-ease.png" #optional
+modId="${modid}"
+version="${mod_version}"
+displayName="${mod_title}"
+updateJSONURL="https://raw.githubusercontent.com/${github_user}/${modid_kebab}/master/forge/updates.json" #optional
+displayURL="https://github.com/${github_user}/${modid_kebab}/tree/${minecraft_version}" #optional
+logoFile="${modid_kebab}.png" #optional
 # credits="Thank who deserves it." #optional
 authors="${author}" #optional
 # Display Test controls the display for your mod in the server connection screen
@@ -19,16 +19,16 @@ authors="${author}" #optional
 # IMPORTANT NOTE: this is NOT an instruction as to which environments (CLIENT or DEDICATED SERVER) your mod loads on. Your mod should load (and maybe do nothing!) whereever it finds itself.
 #displayTest="MATCH_VERSION" # MATCH_VERSION is the default if nothing is specified #optional
 description="Harvest your crops with ease by simply right clicking on them, without having to tediously destroy and replant them all the time!"
-[[dependencies.modid]]
+[[dependencies.${modid}]]
     modId="forge"
     mandatory=true
-    versionRange="[${forgeVersion},)"
+    versionRange="[${loader_version}${forge_subversion},)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.modid]]
+[[dependencies.${modid}]]
     modId="minecraft"
     mandatory=true
-    versionRange="[${mcVersion},)"
+    versionRange="[${minecraft_version},)"
     ordering="NONE"
     side="BOTH"
 #optional

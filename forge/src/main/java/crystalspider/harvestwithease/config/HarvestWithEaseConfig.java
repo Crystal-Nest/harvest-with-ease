@@ -3,6 +3,7 @@ package crystalspider.harvestwithease.config;
 import java.util.ArrayList;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 
 /**
@@ -78,7 +79,7 @@ public class HarvestWithEaseConfig {
     /**
      * Whether holding a hoe (either hands) is required.
      */
-    private final ConfigValue<Boolean> requireHoe;
+    private final BooleanValue requireHoe;
     /**
      * Amount of damage to deal on a hoe when it is used to right-click harvest.
      * Effective only if greater than 0 and {@link #requireHoe} is true.
@@ -92,7 +93,7 @@ public class HarvestWithEaseConfig {
     /**
      * Whether to play a sound when harvesting a crop.
      */
-    private final ConfigValue<Boolean> playSound;
+    private final BooleanValue playSound;
 
     /**
      * Defines the configuration options, their default values and their comments.

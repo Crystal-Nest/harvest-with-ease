@@ -135,12 +135,12 @@ jar {
   }
 }
 
-// jar.finalizedBy('reobfJar')
-
 tasks.withType(JavaCompile).configureEach {
   it.options.encoding = 'UTF-8'
   it.options.release = 17
 }
+
+def changelog = "See [Changelog](https://github.com/${github_user}/${modid_kebab}/blob/master/CHANGELOG.md#${minecraft_version.replaceAll('\\.', '')}-${mod_version.replaceAll('\\.', '')}---${new Date().format("yyyyMMdd")})."
 
 file("../api-keys.properties").withReader { 
   Properties props = new Properties()
@@ -153,13 +153,13 @@ curseforge {
   project {
     id = "${curseforge_id}"
     changelogType = 'markdown'
-    changelog = file('../CHANGELOG.md')
+    changelog = changelog
     releaseType = 'release'
     addGameVersion "${loader}"
     addGameVersion "${minecraft_version}"
     mainArtifact(jar) {
       displayName = "[${loader} - ${minecraft_version}] ${mod_title} v${mod_version}"
-      relations {}
+      // relations {}
     }
   }
   options {
@@ -173,13 +173,16 @@ githubRelease {
   repo "${modid_kebab}"
   tagName "v${minecraft_version}-${mod_version}"
   targetCommitish "${minecraft_version}"
-  // releaseName "" // Release title, by default this is the same as the tagName
+  releaseName "v${minecraft_version}-${mod_version}"
   generateReleaseNotes false
-  body "See [Changelog](https://github.com/${github_user}/${modid_kebab}/blob/master/CHANGELOG.md#${minecraft_version.replaceAll('\\.', '')}-${mod_version.replaceAll('\\.', '')}---${new Date().format("yyyyMMdd")})."
+  body changelog
   draft true
   prerelease false
-  releaseAssets jar.archiveFile
-  allowUploadToExisting false // Setting this to true will allow this plugin to upload artifacts to a release if it found an existing one. If overwrite is set to true, this option is ignored.  
-  // overwrite false // by default false; if set to true, will delete an existing release with the same tag and name
-  // dryRun false // by default false; you can use this to see what actions would be taken without making a release
+  releaseAssets jar
+  // Setting this to true will allow this plugin to upload artifacts to a release if it found an existing one. If overwrite is set to true, this option is ignored.
+  allowUploadToExisting true
+  // By default false; if set to true, will delete an existing release with the same tag and name
+  // overwrite true
+  // by default false; you can use this to see what actions would be taken without making a release
+  // dryRun false
 }

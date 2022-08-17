@@ -42,7 +42,7 @@ public class RightClickBlockHandler {
   /**
    * List of additional in-game IDs for crops that need to be supported but do not extend {@link CropBlock}.
    */
-	private final ArrayList<String> crops = new ArrayList<String>(List.of(getKey(Blocks.NETHER_WART), getKey(Blocks.COCOA)));
+  private final ArrayList<String> crops = new ArrayList<String>(List.of(getKey(Blocks.NETHER_WART), getKey(Blocks.COCOA)));
   /**
    * Whether holding a hoe (either hands) is required.
    */
@@ -51,7 +51,7 @@ public class RightClickBlockHandler {
    * Amount of damage to deal on a hoe when it is used to right-click harvest.
    * Effective only if greater than 0 and {@link #requireHoe} is true.
    */
-	private final Integer damageOnHarvest;
+  private final Integer damageOnHarvest;
   /**
    * Amount of experience to grant on harvest.
    * Effective only if greater than 0.
@@ -62,13 +62,13 @@ public class RightClickBlockHandler {
    */
   private final Boolean playSound;
 
-	public RightClickBlockHandler() {
-		crops.addAll(HarvestWithEaseConfig.getCrops());
-		this.requireHoe = HarvestWithEaseConfig.getRequireHoe();
+  public RightClickBlockHandler() {
+    crops.addAll(HarvestWithEaseConfig.getCrops());
+    this.requireHoe = HarvestWithEaseConfig.getRequireHoe();
     this.damageOnHarvest = HarvestWithEaseConfig.getDamageOnHarvest();
     this.grantedExp = HarvestWithEaseConfig.getGrantedExp();
     this.playSound = HarvestWithEaseConfig.getPlaySound();
-	}
+  }
 
   /**
    * Listens and handles the event {@link RightClickBlock} with {@link EventPriority#HIGH high priority}.
@@ -80,7 +80,7 @@ public class RightClickBlockHandler {
    * 
    * @param event
    */
-	@SubscribeEvent(priority = EventPriority.HIGH)
+  @SubscribeEvent(priority = EventPriority.HIGH)
   public void onRightClickBlock(RightClickBlock event) {
     Level level = event.getLevel();
     Player player = event.getEntity();
@@ -146,7 +146,7 @@ public class RightClickBlockHandler {
    * @param interactionHand - {@link InteractionHand hand} used to harvest the crop.
    */
   @SuppressWarnings("deprecation")
-	private void dropResources(ServerLevel serverLevel, BlockState blockState, Direction face, BlockPos blockPos, Player player, InteractionHand interactionHand) {
+  private void dropResources(ServerLevel serverLevel, BlockState blockState, Direction face, BlockPos blockPos, Player player, InteractionHand interactionHand) {
     List<ItemStack> drops = getDrops(serverLevel, blockState, blockPos, player, interactionHand);
     boolean seedRemoved = false;
     for (ItemStack stack : drops) {
@@ -200,7 +200,7 @@ public class RightClickBlockHandler {
    */
   private void cancel(RightClickBlock event) {
     event.setCancellationResult(InteractionResult.SUCCESS);
-		event.setCanceled(true);
+    event.setCanceled(true);
   }
 
   /**
@@ -256,8 +256,8 @@ public class RightClickBlockHandler {
    * @return whether the given block it's a valid crop.
    */
   private boolean isCrop(Block block) {
-		return block instanceof CropBlock || crops.contains(getKey(block));
-	}
+    return block instanceof CropBlock || crops.contains(getKey(block));
+  }
 
   /**
    * Checks whether a tool is required to harvest the crop and, in case, if the tool in hand satisfies the requirement.

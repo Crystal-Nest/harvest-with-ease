@@ -32,5 +32,5 @@ run
 # macos
 *.DS_Store
 
-# Files from Forge MDK
-forge*changelog.txt
+# api keys
+api-keys.properties

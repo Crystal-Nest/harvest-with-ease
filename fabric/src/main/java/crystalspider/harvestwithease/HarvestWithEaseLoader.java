@@ -1,12 +1,14 @@
 package crystalspider.harvestwithease;
 
-import crystalspider.config.FabricConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
 import crystalspider.harvestwithease.handlers.UseBlockHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.minecraftforge.api.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig.Type;
 
 /**
  * Harvest with ease mod loader.
@@ -23,8 +25,8 @@ public class HarvestWithEaseLoader implements ModInitializer {
   public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
   @Override
-	public void onInitialize() {
-    FabricConfig.register(HarvestWithEaseConfig.BUILDER);
-		UseBlockCallback.EVENT.register(new UseBlockHandler()::handle);
-	}
+  public void onInitialize() {
+    ModLoadingContext.registerConfig(MODID, Type.COMMON, HarvestWithEaseConfig.SPEC);
+    UseBlockCallback.EVENT.register(new UseBlockHandler()::handle);
+  }
 }

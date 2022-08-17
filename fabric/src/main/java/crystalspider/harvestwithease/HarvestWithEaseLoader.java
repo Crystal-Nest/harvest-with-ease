@@ -26,8 +26,8 @@ public class HarvestWithEaseLoader implements ModInitializer {
   public static final Logger LOGGER = LoggerFactory.getLogger("harvestwithease");
 
   @Override
-	public void onInitialize() {
+  public void onInitialize() {
     ModLoadingContext.registerConfig(MODID, Type.COMMON, HarvestWithEaseConfig.SPEC);
-		UseBlockCallback.EVENT.register(new UseBlockHandler()::handle);
-	}
+    UseBlockCallback.EVENT.register(new UseBlockHandler()::handle);
+  }
 }

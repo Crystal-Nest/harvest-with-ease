@@ -5,7 +5,7 @@
   "name": "${mod_title}",
   "description": "Harvest your crops with ease by simply right clicking on them, without having to tediously destroy and replant them all the time!",
   "authors": [
-    "Crystal Spider"
+    "${author}"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/${modid_kebab}",

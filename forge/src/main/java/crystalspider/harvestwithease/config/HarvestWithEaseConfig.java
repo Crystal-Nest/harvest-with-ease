@@ -18,7 +18,7 @@ public class HarvestWithEaseConfig {
   /**
    * Common Configuration as read from the configuration file.
    */
-  public static final CommonConfig COMMON = new CommonConfig(BUILDER);
+  private static final CommonConfig COMMON = new CommonConfig(BUILDER);
   /**
    * {@link ForgeConfigSpec}.
    */

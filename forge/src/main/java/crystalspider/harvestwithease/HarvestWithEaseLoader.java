@@ -39,7 +39,7 @@ public class HarvestWithEaseLoader {
   public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(MODID, "main"), () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals);
 
   public HarvestWithEaseLoader() {
-    MinecraftForge.EVENT_BUS.register(new RightClickBlockHandler());
     ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, HarvestWithEaseConfig.SPEC);
+    MinecraftForge.EVENT_BUS.register(new RightClickBlockHandler());
   }
 }

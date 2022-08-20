@@ -1,6 +1,5 @@
 package crystalspider.harvestwithease.handlers;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -39,42 +38,11 @@ import net.minecraft.world.World;
  */
 public class UseBlockHandler {
   /**
-   * List of additional in-game IDs for crops that need to be supported but do not extend {@link CropBlock}.
-   */
-  private final ArrayList<String> crops = new ArrayList<String>(List.of(getKey(Blocks.NETHER_WART), getKey(Blocks.COCOA)));
-  /**
-   * Whether holding a hoe (either hands) is required.
-   */
-  private final Boolean requireHoe;
-  /**
-   * Amount of damage to deal on a hoe when it is used to right-click harvest.
-   * Effective only if greater than 0 and {@link #requireHoe} is true.
-   */
-  private final Integer damageOnHarvest;
-  /**
-   * Amount of experience to grant on harvest.
-   * Effective only if greater than 0.
-   */
-  private final Integer grantedExp;
-  /**
-   * Whether to play a sound when harvesting a crop.
-   */
-  private final Boolean playSound;
-
-  public UseBlockHandler() {
-    crops.addAll(HarvestWithEaseConfig.getCrops());
-    this.requireHoe = HarvestWithEaseConfig.getRequireHoe();
-    this.damageOnHarvest = HarvestWithEaseConfig.getDamageOnHarvest();
-    this.grantedExp = HarvestWithEaseConfig.getGrantedExp();
-    this.playSound = HarvestWithEaseConfig.getPlaySound();
-  }
-
-  /**
    * Handles the event {@link UseBlockCallback}.
    * Will cancel further event processing only if the {@link PlayerEntity player}
    * is not in spectator mode,
    * is not crouching,
-   * is holding the correct item (depends on {@link #requireHoe})
+   * is holding the correct item (depends on {@link #HarvestWithEaseConfig.getRequireHoe()})
    * and the interaction involves a fully grown {@link #isCrop crop}.
    * 
    * @param player - {@link PlayerEntity player} executing the action.
@@ -117,20 +85,20 @@ public class UseBlockHandler {
    * @param player - {@link PlayerEntity player} to grant the experience to.
    */
   private void grantExp(PlayerEntity player) {
-    if (grantedExp >= 0) {
-      player.addExperience(grantedExp);
+    if (HarvestWithEaseConfig.getGrantedExp() > 0) {
+      player.addExperience(HarvestWithEaseConfig.getGrantedExp());
     }
   }
 
   /**
-   * If needed and possible, damages the hoe of the given {@link #damageOnHarvest damage}.
+   * If needed and possible, damages the hoe of the given {@link #HarvestWithEaseConfig.getDamageOnHarvest() damage}.
    * 
    * @param player - {@link PlayerEntity player} holding the hoe. 
    * @param interactionHand - {@link Hand hand} holding the hoe.
    */
   private void damageHoe(PlayerEntity player, Hand interactionHand) {
-    if (requireHoe && damageOnHarvest > 0 && !player.isCreative()) {
-      player.getStackInHand(interactionHand).damage(damageOnHarvest, player, playerEntity -> playerEntity.sendToolBreakStatus(interactionHand));
+    if (HarvestWithEaseConfig.getRequireHoe() && HarvestWithEaseConfig.getDamageOnHarvest() > 0 && !player.isCreative()) {
+      player.getStackInHand(interactionHand).damage(HarvestWithEaseConfig.getDamageOnHarvest(), player, playerEntity -> playerEntity.sendToolBreakStatus(interactionHand));
     }
   }
 
@@ -186,7 +154,7 @@ public class UseBlockHandler {
    * @param blockPos - {@link BlockPos position} of the block emitting the sound.
    */
   private void playSound(World world, BlockState blockState, BlockPos blockPos) {
-    if (playSound) {
+    if (HarvestWithEaseConfig.getPlaySound()) {
       BlockSoundGroup soundGroup = blockState.getBlock().getSoundGroup(blockState);
       world.playSound(null, blockPos, soundGroup.getBreakSound(), SoundCategory.BLOCKS, soundGroup.getVolume(), soundGroup.getPitch());
     }
@@ -221,7 +189,7 @@ public class UseBlockHandler {
       if (isHoe(player.getStackInHand(Hand.OFF_HAND))) {
         return Hand.OFF_HAND;
       }
-      if (!requireHoe) {
+      if (!HarvestWithEaseConfig.getRequireHoe()) {
         return Hand.MAIN_HAND;
       }
     }
@@ -245,7 +213,7 @@ public class UseBlockHandler {
    * @return whether the given block it's a valid crop.
    */
   private boolean isCrop(Block block) {
-    return block instanceof CropBlock || crops.contains(getKey(block));
+    return block instanceof CropBlock || block == Blocks.NETHER_WART || block == Blocks.COCOA || HarvestWithEaseConfig.getCrops().contains(getKey(block));
   }
 
   /**

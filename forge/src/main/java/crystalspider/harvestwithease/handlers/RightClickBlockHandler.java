@@ -1,6 +1,5 @@
 package crystalspider.harvestwithease.handlers;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -40,42 +39,11 @@ import net.minecraftforge.registries.ForgeRegistries;
  */
 public class RightClickBlockHandler {
   /**
-   * List of additional in-game IDs for crops that need to be supported but do not extend {@link CropBlock}.
-   */
-  private final ArrayList<String> crops = new ArrayList<String>(List.of(getKey(Blocks.NETHER_WART), getKey(Blocks.COCOA)));
-  /**
-   * Whether holding a hoe (either hands) is required.
-   */
-  private final Boolean requireHoe;
-  /**
-   * Amount of damage to deal on a hoe when it is used to right-click harvest.
-   * Effective only if greater than 0 and {@link #requireHoe} is true.
-   */
-  private final Integer damageOnHarvest;
-  /**
-   * Amount of experience to grant on harvest.
-   * Effective only if greater than 0.
-   */
-  private final Integer grantedExp;
-  /**
-   * Whether to play a sound when harvesting a crop.
-   */
-  private final Boolean playSound;
-
-  public RightClickBlockHandler() {
-    crops.addAll(HarvestWithEaseConfig.getCrops());
-    this.requireHoe = HarvestWithEaseConfig.getRequireHoe();
-    this.damageOnHarvest = HarvestWithEaseConfig.getDamageOnHarvest();
-    this.grantedExp = HarvestWithEaseConfig.getGrantedExp();
-    this.playSound = HarvestWithEaseConfig.getPlaySound();
-  }
-
-  /**
    * Listens and handles the event {@link RightClickBlock} with {@link EventPriority#HIGH high priority}.
    * Will cancel further event processing only if the {@link Player player}
    * is not in spectator mode,
    * is not crouching,
-   * is holding the correct item (depends on {@link #requireHoe})
+   * is holding the correct item (depends on {@link HarvestWithEaseConfig#getRequireHoe() requireHoe})
    * and the interaction involves a fully grown {@link #isCrop crop}.
    * 
    * @param event
@@ -116,20 +84,20 @@ public class RightClickBlockHandler {
    * @param player - {@link Player player} to grant the experience to.
    */
   private void grantExp(Player player) {
-    if (grantedExp >= 0) {
-      player.giveExperiencePoints(grantedExp);
+    if (HarvestWithEaseConfig.getGrantedExp() >= 0) {
+      player.giveExperiencePoints(HarvestWithEaseConfig.getGrantedExp());
     }
   }
 
   /**
-   * If needed and possible, damages the hoe of the given {@link #damageOnHarvest damage}.
+   * If needed and possible, damages the hoe of the given {@link HarvestWithEaseConfig#getDamageOnHarvest() damage}.
    * 
-   * @param player - {@link Player player} holding the hoe. 
+   * @param player - {@link Player player} holding the hoe.
    * @param interactionHand - {@link InteractionHand hand} holding the hoe.
    */
   private void damageHoe(Player player, InteractionHand interactionHand) {
-    if (requireHoe && damageOnHarvest > 0 && !player.isCreative()) {
-      player.getItemInHand(interactionHand).hurtAndBreak(damageOnHarvest, player, playerEntity -> playerEntity.broadcastBreakEvent(interactionHand));
+    if (HarvestWithEaseConfig.getRequireHoe() && HarvestWithEaseConfig.getDamageOnHarvest() > 0 && !player.isCreative()) {
+      player.getItemInHand(interactionHand).hurtAndBreak(HarvestWithEaseConfig.getDamageOnHarvest(), player, playerEntity -> playerEntity.broadcastBreakEvent(interactionHand));
     }
   }
 
@@ -179,7 +147,7 @@ public class RightClickBlockHandler {
   }
 
   /**
-   * If {@link #playSound} is true, plays the block breaking sound.
+   * If {@link HarvestWithEaseConfig#getPlaySound() playSound} is true, plays the block breaking sound.
    * 
    * @param world - {@link Level} to play the sound.
    * @param player - {@link Player player} activating the sound.
@@ -187,7 +155,7 @@ public class RightClickBlockHandler {
    * @param blockPos - {@link BlockPos position} of the block emitting the sound.
    */
   private void playSound(Level world, Player player, BlockState blockState, BlockPos blockPos) {
-    if (playSound) {
+    if (HarvestWithEaseConfig.getPlaySound()) {
       SoundType soundType = blockState.getBlock().getSoundType(blockState, world, blockPos, player);
       world.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, soundType.getVolume(), soundType.getPitch());
     }
@@ -232,7 +200,7 @@ public class RightClickBlockHandler {
       if (isHoe(player.getOffhandItem())) {
         return InteractionHand.OFF_HAND;
       }
-      if (!requireHoe) {
+      if (!HarvestWithEaseConfig.getRequireHoe()) {
         return InteractionHand.MAIN_HAND;
       }
     }
@@ -256,7 +224,7 @@ public class RightClickBlockHandler {
    * @return whether the given block it's a valid crop.
    */
   private boolean isCrop(Block block) {
-    return block instanceof CropBlock || crops.contains(getKey(block));
+    return block instanceof CropBlock || block == Blocks.NETHER_WART || block == Blocks.COCOA || HarvestWithEaseConfig.getCrops().contains(getKey(block));
   }
 
   /**

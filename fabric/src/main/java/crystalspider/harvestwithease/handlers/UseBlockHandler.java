@@ -42,7 +42,7 @@ public class UseBlockHandler {
    * Will cancel further event processing only if the {@link PlayerEntity player}
    * is not in spectator mode,
    * is not crouching,
-   * is holding the correct item (depends on {@link #HarvestWithEaseConfig.getRequireHoe()})
+   * is holding the correct item (depends on {@link HarvestWithEaseConfig#getRequireHoe() requireHoe})
    * and the interaction involves a fully grown {@link #isCrop crop}.
    * 
    * @param player - {@link PlayerEntity player} executing the action.
@@ -91,7 +91,7 @@ public class UseBlockHandler {
   }
 
   /**
-   * If needed and possible, damages the hoe of the given {@link #HarvestWithEaseConfig.getDamageOnHarvest() damage}.
+   * If needed and possible, damages the hoe of the given {@link HarvestWithEaseConfig#getDamageOnHarvest() damage}.
    * 
    * @param player - {@link PlayerEntity player} holding the hoe. 
    * @param interactionHand - {@link Hand hand} holding the hoe.
@@ -147,7 +147,7 @@ public class UseBlockHandler {
   }
 
   /**
-   * If {@link #playSound} is true, plays the block breaking sound.
+   * If {@link HarvestWithEaseConfig#getPlaySound() playSound} is true, plays the block breaking sound.
    * 
    * @param world - {@link World} to play the sound.
    * @param blockState - {@link BlockState state} of the block emitting the sound.

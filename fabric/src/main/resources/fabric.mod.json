@@ -3,7 +3,7 @@
   "id": "${modid}",
   "version": "${mod_version}",
   "name": "${mod_title}",
-  "description": "Harvest your crops with ease by simply right clicking on them, without having to tediously destroy and replant them all the time!",
+  "description": "Harvest your crops with ease by simply right clicking on them, without having to tediously destroy and replant all the time!",
   "authors": [
     "${author}"
   ],
@@ -24,6 +24,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
+    "forgeconfigapiport": "${forgeconfigapiport_version}",
     "minecraft": "${minecraft_version}",
     "java": ">=17"
   }

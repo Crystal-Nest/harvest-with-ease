@@ -35,7 +35,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 /**
  * {@link RightClickBlock} event handler.
  * Handles the {@link RightClickBlock} event with {@link EventPriority#HIGH high priority} to right-click harvest when possible.
- * See {@link #onRightClickBlock(RightClickBlock)} for more details.
+ * See {@link #handle(RightClickBlock)} for more details.
  */
 public class RightClickBlockHandler {
   /**
@@ -49,7 +49,7 @@ public class RightClickBlockHandler {
    * @param event
    */
   @SubscribeEvent(priority = EventPriority.HIGH)
-  public void onRightClickBlock(RightClickBlock event) {
+  public void handle(RightClickBlock event) {
     Level level = event.getLevel();
     Player player = event.getEntity();
     if (!player.isSpectator()) {
@@ -84,7 +84,7 @@ public class RightClickBlockHandler {
    * @param player - {@link Player player} to grant the experience to.
    */
   private void grantExp(Player player) {
-    if (HarvestWithEaseConfig.getGrantedExp() >= 0) {
+    if (HarvestWithEaseConfig.getGrantedExp() > 0) {
       player.giveExperiencePoints(HarvestWithEaseConfig.getGrantedExp());
     }
   }

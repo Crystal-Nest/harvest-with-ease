@@ -1,19 +1,23 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files",
   "1.19.2": {
+    "4.0.0.1": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/",
     "4.0.0.0": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3939084"
   },
   "1.19.1": {
+    "4.0.0.1-final": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3970302",
     "4.0.0.0": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3939030",
     "3.0.0.0": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3905845"
   },
   "1.19": {
+    "4.0.0.1-final": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3970280",
     "4.0.0.0": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3938998",
     "3.0.0.0": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3905837",
     "2.0.0.1": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3847214",
     "2.0.0.0": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3823525"
   },
   "1.18.2": {
+    "4.0.0.1": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3969636",
     "4.0.0.0": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3938961",
     "3.0.0.0": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3905831",
     "2.0.0.1": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3847211",
@@ -34,13 +38,13 @@
     "1.0.0": "https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3725566"
   },
   "promos": {
-    "1.19.2-latest": "4.0.0.0",
-    "1.19.2-recommended": "4.0.0.0",
-    "1.19.1-latest": "4.0.0.0",
-    "1.19.1-recommended": "4.0.0.0",
-    "1.19-latest": "4.0.0.0",
-    "1.19-recommended": "4.0.0.0",
-    "1.18.2-latest": "4.0.0.0",
-    "1.18.2-recommended": "4.0.0.0"
+    "1.19.2-latest": "4.0.0.1",
+    "1.19.2-recommended": "4.0.0.1",
+    "1.19.1-latest": "4.0.0.1-final",
+    "1.19.1-recommended": "4.0.0.1-final",
+    "1.19-latest": "4.0.0.1-final",
+    "1.19-recommended": "4.0.0.1-final",
+    "1.18.2-latest": "4.0.0.1",
+    "1.18.2-recommended": "4.0.0.1"
   }
 }

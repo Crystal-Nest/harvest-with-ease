@@ -3,7 +3,7 @@
   "id": "${modid}",
   "version": "${mod_version}",
   "name": "${mod_title}",
-  "description": "Harvest your crops with ease by simply right clicking on them, without having to tediously destroy and replant them all the time!",
+  "description": "Harvest your crops with ease by simply right clicking on them, without having to tediously destroy and replant all the time!",
   "authors": [
     "${author}"
   ],
@@ -13,7 +13,7 @@
     "sources": "https://github.com/${github_user}/${modid_kebab}/tree/${minecraft_version}"
   },
   "license": "GPL-3.0-or-later",
-  "icon": "assets/${modid}/${modid_kebab}.png",
+  "icon": "assets/${modid}/${modid_kebab}.gif",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -24,6 +24,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
+    "forgeconfigapiport_version": "${forgeconfigapiport_version}",
     "minecraft": "${minecraft_version}",
     "java": ">=17"
   }

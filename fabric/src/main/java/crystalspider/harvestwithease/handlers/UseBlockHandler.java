@@ -85,7 +85,7 @@ public class UseBlockHandler {
    * @param player - {@link PlayerEntity player} to grant the experience to.
    */
   private void grantExp(PlayerEntity player) {
-    if (HarvestWithEaseConfig.getGrantedExp() >= 0) {
+    if (HarvestWithEaseConfig.getGrantedExp() > 0) {
       player.addExperience(HarvestWithEaseConfig.getGrantedExp());
     }
   }

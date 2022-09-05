@@ -8,6 +8,20 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new
 
+## [1.19.2-4.0.0.1] - 2022/09/05
+- Fixed configuration being ignored sometimes.
+
+## [1.19.1-4.0.0.1-final] - 2022/09/05
+- Fixed configuration being ignored sometimes.
+- This is the FINAL version, 1.19.1 won't receive further updates.
+
+## [1.19-4.0.0.1-final] - 2022/09/05
+- Fixed configuration being ignored sometimes.
+- This is the FINAL version, 1.19 won't receive further updates.
+
+## [1.18.2-4.0.0.1] - 2022/09/05
+- Fixed configuration being ignored sometimes.
+
 ## [1.19.2-4.0.0.0] - 2022/08/17
 - Updated to Minecraft 1.19.2.
 
@@ -114,16 +128,20 @@ It must be an integer value and will be effective only if greater than 0 and req
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
 
+[1.19.2-4.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.1
 [1.19.2-4.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.0
 
+[1.19.1-4.0.0.1-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.1-4.0.0.1-final
 [1.19.1-4.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.1-4.0.0.0
 [1.19.1-3.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.1-3.0.0.0
 
+[1.19-4.0.0.1-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-4.0.0.1-final
 [1.19-4.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-4.0.0.0
 [1.19-3.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-3.0.0.0
 [1.19-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.1
 [1.19-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.0
 
+[1.18.2-4.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.1
 [1.18.2-4.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.0
 [1.18.2-3.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-3.0.0.0
 [1.18.2-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-2.0.0.1

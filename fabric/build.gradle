@@ -99,7 +99,7 @@ curseforge {
   project {
     id = "${curseforge_id}"
     changelogType = 'markdown'
-    changelog = changelog
+    changelog = project.changelog
     releaseType = 'release'
     addGameVersion "${loader}"
     addGameVersion "${minecraft_version}"
@@ -112,6 +112,7 @@ curseforge {
     }
   }
   options {
+    detectNewerJava = true
     forgeGradleIntegration = false
   }
 }

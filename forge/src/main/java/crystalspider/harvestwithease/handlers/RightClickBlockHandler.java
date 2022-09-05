@@ -49,7 +49,7 @@ public class RightClickBlockHandler {
    * @param event
    */
   @SubscribeEvent(priority = EventPriority.HIGH)
-  public void onRightClickBlock(RightClickBlock event) {
+  public void handle(RightClickBlock event) {
     Level level = event.getLevel();
     Player player = event.getEntity();
     if (!player.isSpectator()) {

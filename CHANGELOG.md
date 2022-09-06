@@ -8,6 +8,9 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new
 
+## [1.19.2-4.0.0.2] - 2022/09/06
+- Fixed Fabric crash ([#9](https://github.com/Nyphet/harvest-with-ease/issues/9)).
+
 ## [1.19.2-4.0.0.1] - 2022/09/05
 - Fixed configuration being ignored sometimes.
 
@@ -128,6 +131,7 @@ It must be an integer value and will be effective only if greater than 0 and req
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
 
+[1.19.2-4.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.2
 [1.19.2-4.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.1
 [1.19.2-4.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.0
 

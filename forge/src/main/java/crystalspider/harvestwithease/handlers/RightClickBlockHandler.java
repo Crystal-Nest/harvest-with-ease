@@ -10,6 +10,7 @@ import crystalspider.harvestwithease.HarvestWithEaseLoader;
 import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -245,6 +246,11 @@ public class RightClickBlockHandler {
    * @return in-game ID of the given block.
    */
   private String getKey(Block block) {
-    return ForgeRegistries.BLOCKS.getKey(block).toString();
+    ResourceLocation blockLocation = ForgeRegistries.BLOCKS.getKey(block);
+    if (blockLocation != null) {
+      return blockLocation.toString();
+    }
+    HarvestWithEaseLoader.LOGGER.debug("Couldn't get key for block [" + block + "].");
+    return "";
   }
 }

@@ -32,7 +32,7 @@ public class HarvestWithEaseLoader {
   /**
    * Network channel protocol version.
    */
-  public static final String PROTOCOL_VERSION = "1.19-4.0";
+  public static final String PROTOCOL_VERSION = "1.19-5.0";
   /**
    * {@link SimpleChannel} instance for compatibility client-server.
    */

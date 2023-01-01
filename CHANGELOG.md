@@ -8,6 +8,15 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new
 
+## [1.19.3-5.0.0.0] - 2023/01/01
+- Ported to 1.19.3.
+
+## [1.19.2-4.0.0.3] - 2022/12/03
+- Fixed Forge Config API version compatibility.
+
+## [1.18.2-4.0.0.2] - 2022/12/03
+- Fixed Forge Config API version compatibility.
+
 ## [1.19.2-4.0.0.2] - 2022/09/06
 - Fixed Fabric crash ([#9](https://github.com/Nyphet/harvest-with-ease/issues/9)).
 
@@ -131,6 +140,9 @@ It must be an integer value and will be effective only if greater than 0 and req
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
 
+[1.19.3-5.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-5.0.0.0
+
+[1.19.2-4.0.0.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.3
 [1.19.2-4.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.2
 [1.19.2-4.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.1
 [1.19.2-4.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.0
@@ -145,6 +157,7 @@ It must be an integer value and will be effective only if greater than 0 and req
 [1.19-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.1
 [1.19-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.0
 
+[1.18.2-4.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.2
 [1.18.2-4.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.1
 [1.18.2-4.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.0
 [1.18.2-3.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-3.0.0.0

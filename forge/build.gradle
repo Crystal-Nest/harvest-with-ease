@@ -1,5 +1,5 @@
 plugins {
-  id 'net.minecraftforge.gradle' version '5.+'
+  id 'net.minecraftforge.gradle' version '5.1.+'
   id 'com.matthewprenger.cursegradle' version "${cursegradle_version}"
   id "com.github.breadmoirai.github-release" version "${github_release_version}"
 }

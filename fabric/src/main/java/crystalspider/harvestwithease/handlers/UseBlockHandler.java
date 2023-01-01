@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import crystalspider.harvestwithease.HarvestWithEaseLoader;
 import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
@@ -18,6 +18,7 @@ import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
@@ -28,7 +29,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 /**
@@ -234,6 +234,6 @@ public class UseBlockHandler {
    * @return in-game ID of the given block.
    */
   private String getKey(Block block) {
-    return Registry.BLOCK.getKey(block).get().getValue().toString();
+    return Registries.BLOCK.getKey(block).get().getValue().toString();
   }
 }

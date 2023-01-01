@@ -5,10 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
 import crystalspider.harvestwithease.handlers.UseBlockHandler;
+import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraftforge.api.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig.Type;
+import net.minecraftforge.fml.config.ModConfig;
 
 /**
  * Harvest with ease mod loader.
@@ -26,7 +26,7 @@ public class HarvestWithEaseLoader implements ModInitializer {
 
   @Override
   public void onInitialize() {
-    ModLoadingContext.registerConfig(MODID, Type.COMMON, HarvestWithEaseConfig.SPEC);
+    ForgeConfigRegistry.INSTANCE.register(MODID, ModConfig.Type.COMMON, HarvestWithEaseConfig.SPEC);
     UseBlockCallback.EVENT.register(new UseBlockHandler()::handle);
   }
 }

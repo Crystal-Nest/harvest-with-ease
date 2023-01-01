@@ -1,5 +1,5 @@
 plugins {
-  id 'fabric-loom' version '0.12-SNAPSHOT'
+  id 'fabric-loom' version '1.0-SNAPSHOT'
   id 'com.matthewprenger.cursegradle' version "${cursegradle_version}"
   id "com.github.breadmoirai.github-release" version "${github_release_version}"
 }
@@ -27,7 +27,7 @@ dependencies {
   modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
   // Forge Config API Port to handle configuration.
-  modImplementation "net.minecraftforge:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
+  modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
 }
 
 def resourceTarget = 'fabric.mod.json'

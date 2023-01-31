@@ -31,6 +31,7 @@ import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
@@ -53,7 +54,7 @@ public class RightClickBlockHandler {
   public void handle(RightClickBlock event) {
     Level level = event.getLevel();
     Player player = event.getEntity();
-    if (!player.isSpectator()) {
+    if (!player.isSpectator() && event.getUseBlock() != Result.DENY && event.getUseItem() != Result.DENY && event.getResult() != Result.DENY) {
       BlockPos blockPos = event.getPos();
       BlockState blockState = level.getBlockState(blockPos);
       InteractionHand interactionHand = getInteractionHand(player);

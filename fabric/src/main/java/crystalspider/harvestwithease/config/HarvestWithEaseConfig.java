@@ -1,11 +1,13 @@
 package crystalspider.harvestwithease.config;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import net.minecraft.block.CropBlock;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 
 /**
  * Harvest with ease Configuration.
@@ -29,7 +31,7 @@ public class HarvestWithEaseConfig {
    *
    * @return {@link CommonConfig#crops} as read from the {@link #COMMON common} configuration file.
    */
-  public static ArrayList<String> getCrops() {
+  public static List<? extends String> getCrops() {
     return COMMON.crops.get();
   }
 
@@ -76,7 +78,7 @@ public class HarvestWithEaseConfig {
     /**
      * List of additional in-game IDs for crops that need to be supported but do not extend {@link CropBlock}.
      */
-    private final ConfigValue<ArrayList<String>> crops;
+    private final ConfigValue<List<? extends String>> crops;
     /**
      * Whether holding a hoe (either hands) is required.
      */
@@ -85,12 +87,12 @@ public class HarvestWithEaseConfig {
      * Amount of damage to deal on a hoe when it is used to right-click harvest.
      * Effective only if greater than 0 and {@link #requireHoe} is true.
      */
-    private final ConfigValue<Integer> damageOnHarvest;
+    private final IntValue damageOnHarvest;
     /**
      * Amount of experience to grant on harvest.
      * Effective only if greater than 0.
      */
-    private final ConfigValue<Integer> grantedExp;
+    private final IntValue grantedExp;
     /**
      * Whether to play a sound when harvesting a crop.
      */
@@ -102,10 +104,10 @@ public class HarvestWithEaseConfig {
      * @param builder
      */
     public CommonConfig(ForgeConfigSpec.Builder builder) {
-      crops = builder.comment("List of in-game IDs of additional crops").define("crops", new ArrayList<String>());
+      crops = builder.comment("List of in-game IDs of additional crops").defineListAllowEmpty(List.of("crops"), Collections::emptyList, (element) -> element instanceof String && !((String) element).isBlank());
       requireHoe = builder.comment("Require holding a hoe (either hands) to right-click harvest").define("require hoe", false);
-      damageOnHarvest = builder.comment("If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer)").define("damage on harvest", 0);
-      grantedExp = builder.comment("Amount of experience to grant on harvest (0 to disable, must be an integer).").define("exp on harvest", 0);
+      damageOnHarvest = builder.comment("If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer)").defineInRange("damage on harvest", 0, 0, 16);
+      grantedExp = builder.comment("Amount of experience to grant on harvest (0 to disable, must be an integer).").defineInRange("exp on harvest", 0, 0, 512);
       playSound = builder.comment("Play a sound when harvesting a crop.").define("play sound", true);
     }
   }

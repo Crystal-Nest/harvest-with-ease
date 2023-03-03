@@ -29,8 +29,11 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
+import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
@@ -38,6 +41,7 @@ import net.minecraftforge.registries.ForgeRegistries;
  * Handles the {@link RightClickBlock} event with {@link EventPriority#HIGH high priority} to right-click harvest when possible.
  * See {@link #handle(RightClickBlock)} for more details.
  */
+@EventBusSubscriber(bus = Bus.FORGE)
 public class RightClickBlockHandler {
   /**
    * Listens and handles the event {@link RightClickBlock} with {@link EventPriority#HIGH high priority}.
@@ -50,10 +54,10 @@ public class RightClickBlockHandler {
    * @param event
    */
   @SubscribeEvent(priority = EventPriority.HIGH)
-  public void handle(RightClickBlock event) {
+  public static void handle(RightClickBlock event) {
     Level level = event.getLevel();
     Player player = event.getEntity();
-    if (!player.isSpectator()) {
+    if (!player.isSpectator() && event.getUseBlock() != Result.DENY && event.getUseItem() != Result.DENY && event.getResult() != Result.DENY) {
       BlockPos blockPos = event.getPos();
       BlockState blockState = level.getBlockState(blockPos);
       InteractionHand interactionHand = getInteractionHand(player);
@@ -84,7 +88,7 @@ public class RightClickBlockHandler {
    * 
    * @param player - {@link Player player} to grant the experience to.
    */
-  private void grantExp(Player player) {
+  private static void grantExp(Player player) {
     if (HarvestWithEaseConfig.getGrantedExp() > 0) {
       player.giveExperiencePoints(HarvestWithEaseConfig.getGrantedExp());
     }
@@ -96,7 +100,7 @@ public class RightClickBlockHandler {
    * @param player - {@link Player player} holding the hoe.
    * @param interactionHand - {@link InteractionHand hand} holding the hoe.
    */
-  private void damageHoe(Player player, InteractionHand interactionHand) {
+  private static void damageHoe(Player player, InteractionHand interactionHand) {
     if (HarvestWithEaseConfig.getRequireHoe() && HarvestWithEaseConfig.getDamageOnHarvest() > 0 && !player.isCreative()) {
       player.getItemInHand(interactionHand).hurtAndBreak(HarvestWithEaseConfig.getDamageOnHarvest(), player, playerEntity -> playerEntity.broadcastBreakEvent(interactionHand));
     }
@@ -115,7 +119,7 @@ public class RightClickBlockHandler {
    * @param interactionHand - {@link InteractionHand hand} used to harvest the crop.
    */
   @SuppressWarnings("deprecation")
-  private void dropResources(ServerLevel serverLevel, BlockState blockState, Direction face, BlockPos blockPos, Player player, InteractionHand interactionHand) {
+  private static void dropResources(ServerLevel serverLevel, BlockState blockState, Direction face, BlockPos blockPos, Player player, InteractionHand interactionHand) {
     List<ItemStack> drops = getDrops(serverLevel, blockState, blockPos, player, interactionHand);
     boolean seedRemoved = false;
     for (ItemStack stack : drops) {
@@ -137,7 +141,7 @@ public class RightClickBlockHandler {
    * @param interactionHand - {@link InteractionHand hand} the player is using to break the block.
    * @return the list of drops.
    */
-  private List<ItemStack> getDrops(ServerLevel serverLevel, BlockState blockState, BlockPos blockPos, Player player, InteractionHand interactionHand) {
+  private static List<ItemStack> getDrops(ServerLevel serverLevel, BlockState blockState, BlockPos blockPos, Player player, InteractionHand interactionHand) {
     return blockState.getDrops(
       new LootContext.Builder(serverLevel)
         .withParameter(LootContextParams.ORIGIN, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()))
@@ -155,7 +159,7 @@ public class RightClickBlockHandler {
    * @param blockState - {@link BlockState state} of the block emitting the sound.
    * @param blockPos - {@link BlockPos position} of the block emitting the sound.
    */
-  private void playSound(Level world, Player player, BlockState blockState, BlockPos blockPos) {
+  private static void playSound(Level world, Player player, BlockState blockState, BlockPos blockPos) {
     if (HarvestWithEaseConfig.getPlaySound()) {
       SoundType soundType = blockState.getBlock().getSoundType(blockState, world, blockPos, player);
       world.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, soundType.getVolume(), soundType.getPitch());
@@ -167,7 +171,7 @@ public class RightClickBlockHandler {
    * 
    * @param event
    */
-  private void cancel(RightClickBlock event) {
+  private static void cancel(RightClickBlock event) {
     event.setCancellationResult(InteractionResult.SUCCESS);
     event.setCanceled(true);
   }
@@ -181,7 +185,7 @@ public class RightClickBlockHandler {
    * @throws NoSuchElementException - if no value for the age property is present.
    * @throws ClassCastException - if the age property is not an {@link IntegerProperty}.
    */
-  private IntegerProperty getAge(BlockState blockState) throws NullPointerException, NoSuchElementException, ClassCastException {
+  private static IntegerProperty getAge(BlockState blockState) throws NullPointerException, NoSuchElementException, ClassCastException {
     return (IntegerProperty) blockState.getProperties().stream().filter(property -> property.getName().equals("age")).findFirst().orElseThrow();
   }
 
@@ -193,7 +197,7 @@ public class RightClickBlockHandler {
    * @return most suitable interaction hand.
    */
   @Nullable
-  private InteractionHand getInteractionHand(Player player) {
+  private static InteractionHand getInteractionHand(Player player) {
     if (!player.isCrouching()) {
       if (isHoe(player.getMainHandItem())) {
         return InteractionHand.MAIN_HAND;
@@ -214,7 +218,7 @@ public class RightClickBlockHandler {
    * @param handItem
    * @return whether the given itemStack is a hoe tool.
    */
-  private boolean isHoe(ItemStack handItem) {
+  private static boolean isHoe(ItemStack handItem) {
     return ToolActions.DEFAULT_HOE_ACTIONS.stream().allMatch(toolAction -> handItem.canPerformAction(toolAction));
   }
 
@@ -224,7 +228,7 @@ public class RightClickBlockHandler {
    * @param block
    * @return whether the given block it's a valid crop.
    */
-  private boolean isCrop(Block block) {
+  private static boolean isCrop(Block block) {
     return block instanceof CropBlock || block == Blocks.NETHER_WART || block == Blocks.COCOA || HarvestWithEaseConfig.getCrops().contains(getKey(block));
   }
 
@@ -235,7 +239,7 @@ public class RightClickBlockHandler {
    * @param blockState - {@link BlockState} of the crop to harvest.
    * @return whether the given tool can harvest the given crop.
    */
-  private boolean canHarvest(ItemStack itemStack, BlockState blockState) {
+  private static boolean canHarvest(ItemStack itemStack, BlockState blockState) {
     return !blockState.requiresCorrectToolForDrops() || itemStack.isCorrectToolForDrops(blockState);
   }
 
@@ -245,7 +249,7 @@ public class RightClickBlockHandler {
    * @param block
    * @return in-game ID of the given block.
    */
-  private String getKey(Block block) {
+  private static String getKey(Block block) {
     ResourceLocation blockLocation = ForgeRegistries.BLOCKS.getKey(block);
     if (blockLocation != null) {
       return blockLocation.toString();

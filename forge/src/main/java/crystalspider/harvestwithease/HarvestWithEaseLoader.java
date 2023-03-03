@@ -5,9 +5,7 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
-import crystalspider.harvestwithease.handlers.RightClickBlockHandler;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -40,6 +38,5 @@ public class HarvestWithEaseLoader {
 
   public HarvestWithEaseLoader() {
     ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, HarvestWithEaseConfig.SPEC);
-    MinecraftForge.EVENT_BUS.register(new RightClickBlockHandler());
   }
 }

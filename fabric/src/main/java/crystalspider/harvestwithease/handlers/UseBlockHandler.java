@@ -51,7 +51,7 @@ public class UseBlockHandler {
    * @param result - {@link BlockHitResult} result of hitting the block.
    * @return - {@link ActionResult} result of the action.
    */
-  public ActionResult handle(PlayerEntity player, World world, Hand hand, BlockHitResult result) {
+  public static ActionResult handle(PlayerEntity player, World world, Hand hand, BlockHitResult result) {
     ActionResult actionResult = ActionResult.PASS;
     if (!player.isSpectator()) {
       BlockPos blockPos = result.getBlockPos();
@@ -84,7 +84,7 @@ public class UseBlockHandler {
    * 
    * @param player - {@link PlayerEntity player} to grant the experience to.
    */
-  private void grantExp(PlayerEntity player) {
+  private static void grantExp(PlayerEntity player) {
     if (HarvestWithEaseConfig.getGrantedExp() > 0) {
       player.addExperience(HarvestWithEaseConfig.getGrantedExp());
     }
@@ -96,7 +96,7 @@ public class UseBlockHandler {
    * @param player - {@link PlayerEntity player} holding the hoe. 
    * @param interactionHand - {@link Hand hand} holding the hoe.
    */
-  private void damageHoe(PlayerEntity player, Hand interactionHand) {
+  private static void damageHoe(PlayerEntity player, Hand interactionHand) {
     if (HarvestWithEaseConfig.getRequireHoe() && HarvestWithEaseConfig.getDamageOnHarvest() > 0 && !player.isCreative()) {
       player.getStackInHand(interactionHand).damage(HarvestWithEaseConfig.getDamageOnHarvest(), player, playerEntity -> playerEntity.sendToolBreakStatus(interactionHand));
     }
@@ -114,7 +114,7 @@ public class UseBlockHandler {
    * @param player - {@link PlayerEntity player} harvesting the crop.
    * @param interactionHand - {@link InteractionHand hand} used to harvest the crop.
    */
-  private void dropResources(ServerWorld serverWorld, BlockState blockState, Direction direction, BlockPos blockPos, PlayerEntity player, Hand interactionHand) {
+  private static void dropResources(ServerWorld serverWorld, BlockState blockState, Direction direction, BlockPos blockPos, PlayerEntity player, Hand interactionHand) {
     List<ItemStack> drops = getDrops(serverWorld, blockState, blockPos, player, interactionHand);
     boolean seedRemoved = false;
     for (ItemStack stack : drops) {
@@ -136,7 +136,7 @@ public class UseBlockHandler {
    * @param interactionHand - {@link Hand hand} the player is using to break the block.
    * @return
    */
-  private List<ItemStack> getDrops(ServerWorld serverWorld, BlockState blockState, BlockPos blockPos, PlayerEntity player, Hand interactionHand) {
+  private static List<ItemStack> getDrops(ServerWorld serverWorld, BlockState blockState, BlockPos blockPos, PlayerEntity player, Hand interactionHand) {
     return blockState.getDroppedStacks(
       new LootContext.Builder(serverWorld)
         .parameter(LootContextParameters.ORIGIN, new Vec3d(blockPos.getX(), blockPos.getY(), blockPos.getZ()))
@@ -153,7 +153,7 @@ public class UseBlockHandler {
    * @param blockState - {@link BlockState state} of the block emitting the sound.
    * @param blockPos - {@link BlockPos position} of the block emitting the sound.
    */
-  private void playSound(World world, BlockState blockState, BlockPos blockPos) {
+  private static void playSound(World world, BlockState blockState, BlockPos blockPos) {
     if (HarvestWithEaseConfig.getPlaySound()) {
       BlockSoundGroup soundGroup = blockState.getBlock().getSoundGroup(blockState);
       world.playSound(null, blockPos, soundGroup.getBreakSound(), SoundCategory.BLOCKS, soundGroup.getVolume(), soundGroup.getPitch());
@@ -169,7 +169,7 @@ public class UseBlockHandler {
    * @throws NoSuchElementException - if no value for the age property is present.
    * @throws ClassCastException - if the age property is not an {@link IntProperty}.
    */
-  private IntProperty getAge(BlockState blockState) throws NullPointerException, NoSuchElementException, ClassCastException {
+  private static IntProperty getAge(BlockState blockState) throws NullPointerException, NoSuchElementException, ClassCastException {
     return (IntProperty) blockState.getProperties().stream().filter(property -> property.getName().equals("age")).findFirst().orElseThrow();
   }
 
@@ -181,7 +181,7 @@ public class UseBlockHandler {
    * @return most suitable interaction hand.
    */
   @Nullable
-  private Hand getInteractionHand(PlayerEntity player) {
+  private static Hand getInteractionHand(PlayerEntity player) {
     if (!player.isSneaking()) {
       if (isHoe(player.getStackInHand(Hand.MAIN_HAND))) {
         return Hand.MAIN_HAND;
@@ -202,7 +202,7 @@ public class UseBlockHandler {
    * @param handItem
    * @return whether the given itemStack is a hoe tool.
    */
-  private boolean isHoe(ItemStack handItem) {
+  private static boolean isHoe(ItemStack handItem) {
     return handItem.getItem() instanceof HoeItem;
   }
 
@@ -212,7 +212,7 @@ public class UseBlockHandler {
    * @param block
    * @return whether the given block it's a valid crop.
    */
-  private boolean isCrop(Block block) {
+  private static boolean isCrop(Block block) {
     return block instanceof CropBlock || block == Blocks.NETHER_WART || block == Blocks.COCOA || HarvestWithEaseConfig.getCrops().contains(getKey(block));
   }
 
@@ -223,7 +223,7 @@ public class UseBlockHandler {
    * @param blockState - {@link BlockState} of the crop to harvest.
    * @return whether the given tool can harvest the given crop.
    */
-  private boolean canHarvest(ItemStack itemStack, BlockState blockState) {
+  private static boolean canHarvest(ItemStack itemStack, BlockState blockState) {
     return !blockState.isToolRequired() || itemStack.isSuitableFor(blockState);
   }
 
@@ -233,7 +233,7 @@ public class UseBlockHandler {
    * @param block
    * @return in-game ID of the given block.
    */
-  private String getKey(Block block) {
+  private static String getKey(Block block) {
     return Registries.BLOCK.getKey(block).get().getValue().toString();
   }
 }

@@ -3,7 +3,7 @@
   "id": "${modid}",
   "version": "${mod_version}",
   "name": "${mod_title}",
-  "description": "Harvest your crops with ease by simply right clicking on them, without having to tediously destroy and replant all the time!",
+  "description": "Dont't break crops, right click them!",
   "authors": [
     "${author}"
   ],

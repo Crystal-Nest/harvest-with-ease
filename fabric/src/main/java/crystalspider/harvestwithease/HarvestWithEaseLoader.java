@@ -27,6 +27,6 @@ public class HarvestWithEaseLoader implements ModInitializer {
   @Override
   public void onInitialize() {
     ForgeConfigRegistry.INSTANCE.register(MODID, ModConfig.Type.COMMON, HarvestWithEaseConfig.SPEC);
-    UseBlockCallback.EVENT.register(new UseBlockHandler()::handle);
+    UseBlockCallback.EVENT.register(UseBlockHandler::handle);
   }
 }

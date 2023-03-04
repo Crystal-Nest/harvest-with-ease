@@ -1,9 +1,9 @@
 ![Harvest with ease banner](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/harvest-with-ease/banner.gif)
 
 ---
-![Minecraft](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/minecraft.svg)[![1.19.3](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-19-3.svg)](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/all?filter-status=1&filter-game-version=2020709689%3A9550)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.19.2](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-19-2.svg)](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/all?filter-status=1&filter-game-version=2020709689%3A9366)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.19.1](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-19-1.svg)](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/all?filter-status=1&filter-game-version=2020709689%3A9259)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.19](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-19.svg)](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/all?filter-status=1&filter-game-version=2020709689%3A9186)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.18.2](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-18-2.svg)](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/all?filter-status=1&filter-game-version=2020709689%3A9008)
+![Minecraft](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/minecraft.svg)[![1.19.3](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-19-3.svg)](https://modrinth.com/mod/harvest-with-ease/versions?g=1.19.3)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.19.2](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-19-2.svg)](https://modrinth.com/mod/harvest-with-ease/versions?g=1.19.2)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.18.2](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-18-2.svg)](https://modrinth.com/mod/harvest-with-ease/versions?g=1.18.2)
 
-![Loader](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/loader/loader.svg)[![Forge](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/loader/forge.svg)](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/all?filter-status=1&filter-game-version=2020709689%3A7498)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![Fabric](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/loader/fabric.svg)](https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/all?filter-status=1&filter-game-version=2020709689%3A7499)
+![Loader](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/loader/loader.svg)[![Forge](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/loader/forge.svg)](https://modrinth.com/mod/harvest-with-ease/versions?l=forge)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![Fabric](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/loader/fabric.svg)](https://modrinth.com/mod/harvest-with-ease/versions?l=fabric)
 
 ![Overlay](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/side/client-server.svg)
 
@@ -13,7 +13,7 @@
 ## **Description**
 Harvesting crops is such a pain, breaking them all to get the drops and then having to replant each one.  
 Well, not anymore! With this mod you can just right click on your crops to harvest them and leaving a new plant to grow!  
-It's also compatible with **any** modded crops, to ease your mind of one thing more!
+It's also compatible with **any** modded crops, to ease your mind of one more thing!
 
 ## **Features**
 - Right-click to harvest any crop, works with both Vanilla and modded out of the box!  
@@ -46,4 +46,7 @@ If, for whatever reason, you can't extend that class the **`crops`** config opti
 [![Patreon](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/patreon/patreon64.png "Patreon")](https://www.patreon.com/crystalspider)
 [![Ko-fi](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/kofi/kofi64.png "Ko-fi")](https://ko-fi.com/crystalspider)
 [![GitHub](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/github/github64.png "My other projects")](https://github.com/Nyphet)
-[![My other projects](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/curseforge/curseforge64.png "My other projects")](https://www.curseforge.com/members/crystal_spider_/projects)
+[![Modrinth](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/modrinth/modrinth64.png "Modrinth")](https://www.curseforge.com/members/crystal_spider_/projects)
+[![Curseforge](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/curseforge/curseforge64.png "Curseforge")](https://www.curseforge.com/members/crystal_spider_/projects)
+
+[![Kinetic Hosting](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/hosting/banner-small.png "Kinetic Hosting")](https://billing.kinetichosting.net/aff.php?aff=122)

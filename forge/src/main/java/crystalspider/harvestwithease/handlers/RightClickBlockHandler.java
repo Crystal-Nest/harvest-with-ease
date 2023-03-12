@@ -57,7 +57,7 @@ public class RightClickBlockHandler {
   public static void handle(RightClickBlock event) {
     Level level = event.getLevel();
     Player player = event.getEntity();
-    if (!player.isSpectator() && event.getUseBlock() != Result.DENY && event.getUseItem() != Result.DENY && event.getResult() != Result.DENY) {
+    if (canInteract(player, event)) {
       BlockPos blockPos = event.getPos();
       BlockState blockState = level.getBlockState(blockPos);
       InteractionHand interactionHand = getInteractionHand(player);
@@ -81,6 +81,17 @@ public class RightClickBlockHandler {
         }
       }
     }
+  }
+
+  /**
+   * Checks whether the {@link Player} can interact with the {@link RightClickBlock event}.
+   * 
+   * @param player
+   * @param event
+   * @return whether the {@link Player} can interact with the {@link RightClickBlock event}.
+   */
+  private static boolean canInteract(Player player, RightClickBlock event) {
+    return !player.isSpectator() && event.getUseBlock() != Result.DENY && !(HarvestWithEaseConfig.getRequireHoe() || event.getUseItem() == Result.DENY) && event.getResult() != Result.DENY;
   }
 
   /**

@@ -8,8 +8,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.CocoaBlock;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.NetherWartBlock;
-import net.minecraft.registry.Registries;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.util.registry.Registry;
 
 /**
  * Utility class that serves as an API for mods interfacing with Harvest With Ease mod.
@@ -47,6 +47,6 @@ public final class HarvestWithEaseAPI {
    * @return in-game ID of the given block.
    */
   private static String getKey(Block block) {
-    return Registries.BLOCK.getKey(block).get().getValue().toString();
+    return Registry.BLOCK.getKey(block).get().getValue().toString();
   }
 }

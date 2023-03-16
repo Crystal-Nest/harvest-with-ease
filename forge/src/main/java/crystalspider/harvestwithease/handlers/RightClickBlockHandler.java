@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 
 import crystalspider.harvestwithease.HarvestWithEaseLoader;
 import crystalspider.harvestwithease.api.HarvestWithEaseAPI;
-import crystalspider.harvestwithease.api.events.HarvestWithEaseEvent;
 import crystalspider.harvestwithease.api.events.HarvestWithEaseEvent.AfterHarvest;
 import crystalspider.harvestwithease.api.events.HarvestWithEaseEvent.BeforeHarvest;
 import crystalspider.harvestwithease.api.events.HarvestWithEaseEvent.HarvestDrops;

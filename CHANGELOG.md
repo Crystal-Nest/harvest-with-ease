@@ -6,7 +6,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Forge Semantic Versioning](https://mcforge.readthedocs.io/en/latest/gettingstarted/versioning/#versioning).
 
 ## [Unreleased]
-- Nothing new
+- Ported to 1.19.4
+- Added API for better compatibility and integration with other mods.
+- Changed in-game mod picture.
+- Fixed a bug that would prevent crops extending `CocoaBlock` or `NetherWartBlock` to be correctly recognized as right-click harvestable crops.
+- Improved compatibility with other mods.
+
+## [1.19.4-6.0.0.0] - 2023/03/dd
+- Ported to 1.19.4
+- Added API for better compatibility and integration with other mods.
+- Changed in-game mod picture.
+- Fixed a bug that would prevent crops extending `CocoaBlock` or `NetherWartBlock` to be correctly recognized as right-click harvestable crops.
+- Improved compatibility with other mods.
+
+## [1.19.3-6.0.0.0] - 2023/03/dd
+- Added API for better compatibility and integration with other mods.
+- Changed in-game mod picture.
+- Fixed a bug that would prevent crops extending `CocoaBlock` or `NetherWartBlock` to be correctly recognized as right-click harvestable crops.
+- Improved compatibility with other mods.
+
+## [1.19.2-6.0.0.0] - 2023/03/dd
+- Added API for better compatibility and integration with other mods.
+- Changed in-game mod picture.
+- Fixed a bug that would prevent crops extending `CocoaBlock` or `NetherWartBlock` to be correctly recognized as right-click harvestable crops.
+- Improved compatibility with other mods.
+
+## [1.18.2-6.0.0.0] - 2023/03/dd
+- Added API for better compatibility and integration with other mods.
+- Changed in-game mod picture.
+- Fixed a bug that would prevent crops extending `CocoaBlock` or `NetherWartBlock` to be correctly recognized as right-click harvestable crops.
+- Improved compatibility with other mods.
 
 ## [1.19.3-5.0.0.0] - 2023/01/01
 - Ported to 1.19.3.
@@ -140,8 +169,14 @@ It must be an integer value and will be effective only if greater than 0 and req
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
 
+[1.19.4-6.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.0.0
+
+[1.19.3-6.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-6.0.0.0
+[1.19.3-5.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-5.0.0.1
 [1.19.3-5.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-5.0.0.0
 
+[1.19.2-6.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.0.0
+[1.19.2-4.0.0.4]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.4
 [1.19.2-4.0.0.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.3
 [1.19.2-4.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.2
 [1.19.2-4.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.1
@@ -157,6 +192,8 @@ It must be an integer value and will be effective only if greater than 0 and req
 [1.19-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.1
 [1.19-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.0
 
+[1.18.2-6.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.0.0
+[1.18.2-4.0.0.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.3
 [1.18.2-4.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.2
 [1.18.2-4.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.1
 [1.18.2-4.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.0

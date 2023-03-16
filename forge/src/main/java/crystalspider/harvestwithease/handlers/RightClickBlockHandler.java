@@ -1,17 +1,21 @@
 package crystalspider.harvestwithease.handlers;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nullable;
 
 import crystalspider.harvestwithease.HarvestWithEaseLoader;
+import crystalspider.harvestwithease.api.HarvestWithEaseAPI;
+import crystalspider.harvestwithease.api.events.HarvestWithEaseEvent.AfterHarvest;
+import crystalspider.harvestwithease.api.events.HarvestWithEaseEvent.BeforeHarvest;
+import crystalspider.harvestwithease.api.events.HarvestWithEaseEvent.HarvestDrops;
+import crystalspider.harvestwithease.api.events.HarvestWithEaseEvent.RightClickHarvestCheck;
 import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -19,14 +23,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.Event.Result;
@@ -34,7 +35,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * {@link RightClickBlock} event handler.
@@ -50,6 +50,7 @@ public class RightClickBlockHandler {
    * is not crouching,
    * is holding the correct item (depends on {@link HarvestWithEaseConfig#getRequireHoe() requireHoe})
    * and the interaction involves a fully grown {@link #isCrop crop}.
+   * Will also dispatch some events related to right-click harvesting.
    * 
    * @param event
    */
@@ -60,18 +61,14 @@ public class RightClickBlockHandler {
     if (canInteract(player, event)) {
       BlockPos blockPos = event.getPos();
       BlockState blockState = level.getBlockState(blockPos);
-      InteractionHand interactionHand = getInteractionHand(player);
-      if (isCrop(blockState.getBlock()) && interactionHand == event.getHand() && canHarvest(player.getItemInHand(interactionHand), blockState)) {
+      InteractionHand hand = getInteractionHand(player);
+      if (hand == event.getHand() && canHarvest(level, blockState, blockPos, player, hand)) {
         try {
-          IntegerProperty age = getAge(blockState);
+          IntegerProperty age = HarvestWithEaseAPI.getAge(blockState);
           if (blockState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues())) {
             cancel(event);
             if (!level.isClientSide()) {
-              grantExp(player);
-              damageHoe(player, interactionHand);
-              dropResources(level.getServer().getLevel(level.dimension()), blockState, event.getFace(), blockPos, player, interactionHand);
-              level.setBlockAndUpdate(blockPos, blockState.setValue(age, 0));
-              playSound(level, player, blockState, blockPos);
+              harvest((ServerLevel) level, age, blockState, blockPos, event.getFace(), event.getHitVec(), (ServerPlayer) player, hand);
             }
           }
         } catch (NullPointerException | NoSuchElementException | ClassCastException e) {
@@ -81,6 +78,28 @@ public class RightClickBlockHandler {
         }
       }
     }
+  }
+
+  /**
+   * Harvests the crop, handles all related actions (exp granting, hoe damaging, dropping resources, etc.) and dispatches all related events.
+   * 
+   * @param level - {@link ServerLevel level}.
+   * @param age - {@link IntegerProperty age} of the crop.
+   * @param blockState - {@link BlockState} of the crop.
+   * @param blockPos - {@link BlockPos} of the crop.
+   * @param face - clicked {@link Direction face} of the crop block.
+   * @param hitResult - {@link BlockHitResult} of the {@link RightClickBlock} event.
+   * @param player - {@link ServerPlayer player} harvesting the crop.
+   * @param hand - {@link InteractionHand hand} used to harvest.
+   */
+  private static void harvest(ServerLevel level, IntegerProperty age, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
+    MinecraftForge.EVENT_BUS.post(new BeforeHarvest(level, blockState, blockPos, face, hitResult, player, hand));
+    grantExp(player);
+    damageHoe(player, hand);
+    dropResources(level, blockState, blockPos, face, hitResult, player, hand);
+    level.setBlockAndUpdate(blockPos, blockState.setValue(age, 0));
+    playSound(level, player, blockState, blockPos);
+    MinecraftForge.EVENT_BUS.post(new AfterHarvest(level, blockState, blockPos, face, hitResult, player, hand));
   }
 
   /**
@@ -97,9 +116,9 @@ public class RightClickBlockHandler {
   /**
    * Grants the given player the configured amount of experience, if any.
    * 
-   * @param player - {@link Player player} to grant the experience to.
+   * @param player - {@link ServerPlayer player} to grant the experience to.
    */
-  private static void grantExp(Player player) {
+  private static void grantExp(ServerPlayer player) {
     if (HarvestWithEaseConfig.getGrantedExp() > 0) {
       player.giveExperiencePoints(HarvestWithEaseConfig.getGrantedExp());
     }
@@ -108,72 +127,47 @@ public class RightClickBlockHandler {
   /**
    * If needed and possible, damages the hoe of the given {@link HarvestWithEaseConfig#getDamageOnHarvest() damage}.
    * 
-   * @param player - {@link Player player} holding the hoe.
-   * @param interactionHand - {@link InteractionHand hand} holding the hoe.
+   * @param player - {@link ServerPlayer player} holding the hoe.
+   * @param hand - {@link InteractionHand hand} holding the hoe.
    */
-  private static void damageHoe(Player player, InteractionHand interactionHand) {
+  private static void damageHoe(ServerPlayer player, InteractionHand hand) {
     if (HarvestWithEaseConfig.getRequireHoe() && HarvestWithEaseConfig.getDamageOnHarvest() > 0 && !player.isCreative()) {
-      player.getItemInHand(interactionHand).hurtAndBreak(HarvestWithEaseConfig.getDamageOnHarvest(), player, playerEntity -> playerEntity.broadcastBreakEvent(interactionHand));
+      player.getItemInHand(hand).hurtAndBreak(HarvestWithEaseConfig.getDamageOnHarvest(), player, playerEntity -> playerEntity.broadcastBreakEvent(hand));
     }
   }
 
   /**
-   * Drop the resources resulting from harvesting a crop in the given servelLevl and blockState, making them pop from the given face and using the item held in the given player hand.
-   * Also removes 1 seed from the drops, if any seed is found in the {@link #getDrops drops list}.
-   * A seed is here defined as the item needed to plant the crop.
+   * Drop the resources resulting from harvesting a crop in the given {@link ServerLevel level} and {@link BlockState blockState}, making them pop from the given face and using the item held in the given player hand.
+   * Takes care of dispatching the {@link HarvestDrops} to retrieve the drops resulting from the harvest.
    * 
-   * @param serverLevel - {@link ServerLevel server level} of the {@link Level world} the drops should come from.
+   * @param level - {@link ServerLevel server level} the drops should come from.
    * @param blockState - {@link BlockState state} of the crop being harvested.
-   * @param face - {@link Direction face} clicked of the crop.
    * @param blockPos - crop {@link BlockPos position}.
-   * @param player - {@link Player player} harvesting the crop.
-   * @param interactionHand - {@link InteractionHand hand} used to harvest the crop.
+   * @param face - {@link Direction face} clicked of the crop.
+   * @param hitResult - {@link BlockHitResult} of the {@link RightClickBlock} event.
+   * @param player - {@link ServerPlayer player} harvesting the crop.
+   * @param hand - {@link InteractionHand hand} used to harvest the crop.
    */
-  @SuppressWarnings("deprecation")
-  private static void dropResources(ServerLevel serverLevel, BlockState blockState, Direction face, BlockPos blockPos, Player player, InteractionHand interactionHand) {
-    List<ItemStack> drops = getDrops(serverLevel, blockState, blockPos, player, interactionHand);
-    boolean seedRemoved = false;
-    for (ItemStack stack : drops) {
-      if (!seedRemoved && stack.sameItem(blockState.getBlock().getCloneItemStack(serverLevel, blockPos, blockState))) {
-        stack.shrink(1);
-        seedRemoved = true;
-      }
-      Block.popResourceFromFace(serverLevel, blockPos, face, stack);
+  private static void dropResources(ServerLevel level, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
+    HarvestDrops event = new HarvestDrops(level, blockState, blockPos, face, hitResult, player, hand);
+    MinecraftForge.EVENT_BUS.post(event);
+    for (ItemStack stack : event.drops) {
+      Block.popResourceFromFace(level, blockPos, face, stack);
     }
-  }
-
-  /**
-   * Returns the list of drops calculated from the parameters.
-   * 
-   * @param serverLevel - {@link ServerLevel server level} of the {@link Level world} the drops should come from.
-   * @param blockState - {@link BlockState state} of the block breaking.
-   * @param blockPos - {@link BlockPos position} of the block breaking.
-   * @param player - {@link Player player} breaking the block.
-   * @param interactionHand - {@link InteractionHand hand} the player is using to break the block.
-   * @return the list of drops.
-   */
-  private static List<ItemStack> getDrops(ServerLevel serverLevel, BlockState blockState, BlockPos blockPos, Player player, InteractionHand interactionHand) {
-    return blockState.getDrops(
-      new LootContext.Builder(serverLevel)
-        .withParameter(LootContextParams.ORIGIN, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()))
-        .withParameter(LootContextParams.BLOCK_STATE, blockState)
-        .withParameter(LootContextParams.THIS_ENTITY, player)
-        .withParameter(LootContextParams.TOOL, player.getItemInHand(interactionHand))
-    );
   }
 
   /**
    * If {@link HarvestWithEaseConfig#getPlaySound() playSound} is true, plays the block breaking sound.
    * 
-   * @param world - {@link Level} to play the sound.
-   * @param player - {@link Player player} activating the sound.
+   * @param level - {@link ServerLevel} to play the sound.
+   * @param player - {@link ServerPlayer player} activating the sound.
    * @param blockState - {@link BlockState state} of the block emitting the sound.
    * @param blockPos - {@link BlockPos position} of the block emitting the sound.
    */
-  private static void playSound(Level world, Player player, BlockState blockState, BlockPos blockPos) {
+  private static void playSound(ServerLevel level, ServerPlayer player, BlockState blockState, BlockPos blockPos) {
     if (HarvestWithEaseConfig.getPlaySound()) {
-      SoundType soundType = blockState.getBlock().getSoundType(blockState, world, blockPos, player);
-      world.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, soundType.getVolume(), soundType.getPitch());
+      SoundType soundType = blockState.getBlock().getSoundType(blockState, level, blockPos, player);
+      level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, soundType.getVolume(), soundType.getPitch());
     }
   }
 
@@ -185,19 +179,6 @@ public class RightClickBlockHandler {
   private static void cancel(RightClickBlock event) {
     event.setCancellationResult(InteractionResult.SUCCESS);
     event.setCanceled(true);
-  }
-
-  /**
-   * Returns the age integer property from the given blockState.
-   * 
-   * @param blockState - {@link BlockState state} to take the age property from.
-   * @return the age property from the given blockState.
-   * @throws NullPointerException - if the age property was null.
-   * @throws NoSuchElementException - if no value for the age property is present.
-   * @throws ClassCastException - if the age property is not an {@link IntegerProperty}.
-   */
-  private static IntegerProperty getAge(BlockState blockState) throws NullPointerException, NoSuchElementException, ClassCastException {
-    return (IntegerProperty) blockState.getProperties().stream().filter(property -> property.getName().equals("age")).findFirst().orElseThrow();
   }
 
   /**
@@ -234,38 +215,22 @@ public class RightClickBlockHandler {
   }
 
   /**
-   * Checks whether or not the block passed as parameter is a crop that can be harvested using this mod.
+   * Checks whether the given {@link Player} can right-click harvest the crop.
+   * Dispatches the {@link RightClickHarvestCheck} event if the right-clicked block is indeed a crop.
    * 
-   * @param block
-   * @return whether the given block it's a valid crop.
-   */
-  private static boolean isCrop(Block block) {
-    return block instanceof CropBlock || block == Blocks.NETHER_WART || block == Blocks.COCOA || HarvestWithEaseConfig.getCrops().contains(getKey(block));
-  }
-
-  /**
-   * Checks whether a tool is required to harvest the crop and, in case, if the tool in hand satisfies the requirement.
-   * 
-   * @param itemStack - Tool held in hand.
+   * @param level - {@link Level} of the interaction.
    * @param blockState - {@link BlockState} of the crop to harvest.
-   * @return whether the given tool can harvest the given crop.
+   * @param blockPos - {@link BlockPos} of the crop.
+   * @param player - {@link Player} trying to harvest.
+   * @param hand - {@link InteractionHand hand} being used to harvest the crop.
+   * @return whether the player can right-click harvest the crop.
    */
-  private static boolean canHarvest(ItemStack itemStack, BlockState blockState) {
-    return !blockState.requiresCorrectToolForDrops() || itemStack.isCorrectToolForDrops(blockState);
-  }
-
-  /**
-   * Returns the in-game ID of the block passed as parameter.
-   * 
-   * @param block
-   * @return in-game ID of the given block.
-   */
-  private static String getKey(Block block) {
-    ResourceLocation blockLocation = ForgeRegistries.BLOCKS.getKey(block);
-    if (blockLocation != null) {
-      return blockLocation.toString();
+  private static boolean canHarvest(Level level, BlockState blockState, BlockPos blockPos, Player player, InteractionHand hand) {
+    if (HarvestWithEaseAPI.isCrop(blockState.getBlock()) && player.hasCorrectToolForDrops(blockState)) {
+      RightClickHarvestCheck event = new RightClickHarvestCheck(level, blockState, blockPos, player, hand, true);
+      MinecraftForge.EVENT_BUS.post(event);
+      return event.canHarvest();
     }
-    HarvestWithEaseLoader.LOGGER.debug("Couldn't get key for block [" + block + "].");
-    return "";
+    return false;
   }
 }

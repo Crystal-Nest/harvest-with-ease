@@ -41,6 +41,8 @@ This project is published under the [GNU General Public License v3.0](https://gi
 Your modded crops will work with this mod out of the box only if they extend the CropBlock class, which is how it should be.  
 If, for whatever reason, you can't extend that class the **`crops`** config option is there exactly for you. Just add the in-game ID of your crop(s) to make it work, however note that this will work only if your crops have an Integer Property whose name is set to be `"age"` and represents the age values your crops can have, from `0` to a `max` value.
 
+Since version 6.0.0.0, an API is available to better integrate your mod with this one. Note however that this should rarely be necessary. To learn how to use the provided API follow the [Wiki](https://github.com/Nyphet/harvest-with-ease/wiki) on [GitHub](https://github.com/Nyphet/harvest-with-ease).
+
 ## **Support me**
 [![Twitch](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/twitch/twitch64.png "Twitch")](https://www.twitch.tv/crystal_spider_)
 [![Patreon](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/patreon/patreon64.png "Patreon")](https://www.patreon.com/crystalspider)

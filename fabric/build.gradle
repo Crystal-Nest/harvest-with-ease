@@ -119,19 +119,23 @@ curseforge {
   }
 }
 
+
 modrinth {
   token = api_keys.modrinth
   projectId = modid_kebab
   versionNumber = mod_version
+  versionName = "[${loader} - ${minecraft_version}] ${mod_title} v${mod_version}"
+  changelog = changelog_body
+  uploadFile = remapJar
   versionType = "release"
-  uploadFile = jar
   gameVersions = [minecraft_version]
   loaders = [loader.toLowerCase()]
   dependencies {
     required.project "fabric-api"
-    required.project "forge-config-api-port-fabric"
+    required.project "forge-config-api-port"
   }
 }
+
 
 githubRelease {
   token api_keys.github

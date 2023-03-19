@@ -4,7 +4,9 @@ import java.util.NoSuchElementException;
 
 import crystalspider.harvestwithease.HarvestWithEaseLoader;
 import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CocoaBlock;
 import net.minecraft.world.level.block.CropBlock;
@@ -40,6 +42,18 @@ public final class HarvestWithEaseAPI {
    */
   public static IntegerProperty getAge(BlockState blockState) throws NullPointerException, NoSuchElementException, ClassCastException {
     return (IntegerProperty) blockState.getProperties().stream().filter(property -> property.getName().equals("age")).findFirst().orElseThrow();
+  }
+
+  /**
+   * Checks whether the given crop is a multi-block crop (a crop made of multiple vertically connected blocks).
+   * 
+   * @param level - {@link Level world} in which the crop is placed.
+   * @param blockState - {@link BlockState} of the crop.
+   * @param blockPos - {@link BlockPos} of the crop.
+   * @return whether the given crop is a multi-block crop.
+   */
+  public static boolean isTallCrop(Level level, BlockState blockState, BlockPos blockPos) {
+    return level.getBlockState(blockPos.below()).is(blockState.getBlock()) || level.getBlockState(blockPos.above()).is(blockState.getBlock());
   }
 
   /**

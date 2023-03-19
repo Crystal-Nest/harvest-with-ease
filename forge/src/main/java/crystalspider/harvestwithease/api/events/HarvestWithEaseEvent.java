@@ -1,5 +1,6 @@
 package crystalspider.harvestwithease.api.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.core.BlockPos;
@@ -215,6 +216,11 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
     public final List<ItemStack> drops;
 
     /**
+     * Reference to the default drops.
+     */
+    private final List<ItemStack> defaultDrops;
+
+    /**
      * @param level {@link #level}.
      * @param target {@link #target}.
      * @param pos {@link #pos}.
@@ -225,7 +231,25 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
      */
     public HarvestDrops(ServerLevel level, BlockState target, BlockPos pos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
       super(level, target, pos, face, hitResult, player, hand);
-      this.drops = initDrops();
+      defaultDrops = initDrops();
+      drops = new ArrayList<>(defaultDrops.stream().map(item -> item.copy()).toList());
+    }
+
+    /**
+     * Returns whether the list of drops changed from its default value.
+     * 
+     * @return whether the list of drops changed from its default value.
+     */
+    public boolean haveDropsChanged() {
+      if (defaultDrops.size() == drops.size()) {
+        for (int c = 0; c < defaultDrops.size(); c++) {
+          if (!ItemStack.matches(defaultDrops.get(c), drops.get(c))) {
+            return true;
+          }
+        }
+        return false;
+      }
+      return true;
     }
 
     /**

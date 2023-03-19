@@ -87,10 +87,28 @@ public class UseBlockHandler {
     HarvestWithEaseEvents.BEFORE_HARVEST.invoker().beforeHarvest(world, blockState, blockPos, face, hitResult, player, hand);
     grantExp(player);
     damageHoe(player, hand);
-    dropResources(world, blockState, blockPos, face, hitResult, player, hand);
-    world.setBlockState(blockPos, blockState.with(age, 0));
+    updateCrop(world, age, blockState.getBlock(), blockPos, player, dropResources(world, blockState, blockPos, face, hitResult, player, hand));
     playSound(world, blockState, blockPos);
     HarvestWithEaseEvents.AFTER_HARVEST.invoker().afterHarvest(world, blockState, blockPos, face, hitResult, player, hand);
+  }
+
+  /**
+   * Updates the crop in the world, finding its base block and reverting it to age 0 (simulate replanting) and, if it's a multi-block crop, breaks the crop blocks above.
+   * 
+   * @param world - {@link ServerWorld world}.
+   * @param age - {@link IntProperty age} of the crop.
+   * @param block - {@link Block} of the crop clicked.
+   * @param blockPos - {@link BlockPos} of the crop block clicked.
+   * @param player - {@link ServerPlayerEntity player} harvesting the crop.
+   * @param customDrops - whether {@link HarvestDrops} listeners have changed the drops to drop.
+   */
+  private static void updateCrop(ServerWorld world, IntProperty age, Block block, BlockPos blockPos, ServerPlayerEntity player, boolean customDrops) {
+    BlockPos basePos;
+    for (basePos = blockPos; world.getBlockState(basePos.down()).isOf(block); basePos = basePos.down());
+    world.setBlockState(basePos, world.getBlockState(basePos).with(age, 0));
+    if (world.getBlockState(basePos.up()).isOf(block)) {
+      world.breakBlock(basePos.up(), !customDrops, player);
+    }
   }
 
   /**
@@ -127,11 +145,14 @@ public class UseBlockHandler {
    * @param hitResult - {@link BlockHitResult} of the {@link RightClickBlock} event.
    * @param player - {@link ServerPlayer player} harvesting the crop.
    * @param hand - {@link InteractionHand hand} used to harvest the crop.
+   * @return whether {@link HarvestDrops} listeners have changed the drops to drop.
    */
-  private static void dropResources(ServerWorld world, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayerEntity player, Hand hand) {
-    for (ItemStack stack : HarvestWithEaseEvents.HARVEST_DROPS.invoker().getDrops(world, blockState, blockPos, face, hitResult, player, hand, new HarvestWithEaseEvents.HarvestDropsEvent(world, blockState, blockPos, player, hand))) {
+  private static boolean dropResources(ServerWorld world, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayerEntity player, Hand hand) {
+    HarvestWithEaseEvents.HarvestDropsEvent event = new HarvestWithEaseEvents.HarvestDropsEvent(world, blockState, blockPos, player, hand);
+    for (ItemStack stack : HarvestWithEaseEvents.HARVEST_DROPS.invoker().getDrops(world, blockState, blockPos, face, hitResult, player, hand, event)) {
       Block.dropStack(world, blockPos, face, stack);
     }
+    return event.haveDropsChanged();
   }
 
   /**

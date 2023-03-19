@@ -96,10 +96,28 @@ public class RightClickBlockHandler {
     MinecraftForge.EVENT_BUS.post(new BeforeHarvest(level, blockState, blockPos, face, hitResult, player, hand));
     grantExp(player);
     damageHoe(player, hand);
-    dropResources(level, blockState, blockPos, face, hitResult, player, hand);
-    level.setBlockAndUpdate(blockPos, blockState.setValue(age, 0));
+    updateCrop(level, age, blockState.getBlock(), blockPos, player, dropResources(level, blockState, blockPos, face, hitResult, player, hand));
     playSound(level, player, blockState, blockPos);
     MinecraftForge.EVENT_BUS.post(new AfterHarvest(level, blockState, blockPos, face, hitResult, player, hand));
+  }
+
+  /**
+   * Updates the crop in the world, finding its base block and reverting it to age 0 (simulate replanting) and, if it's a multi-block crop, breaks the crop blocks above.
+   * 
+   * @param level - {@link ServerLevel level}.
+   * @param age - {@link IntegerProperty age} of the crop.
+   * @param block - {@link Block} of the crop clicked.
+   * @param blockPos - {@link BlockPos} of the crop block clicked.
+   * @param player - {@link ServerPlayer player} harvesting the crop.
+   * @param customDrops - whether {@link HarvestDrops} listeners have changed the drops to drop.
+   */
+  private static void updateCrop(ServerLevel level, IntegerProperty age, Block block, BlockPos blockPos, ServerPlayer player, boolean customDrops) {
+    BlockPos basePos;
+    for (basePos = blockPos; level.getBlockState(basePos.below()).is(block); basePos = basePos.below());
+    level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
+    if (level.getBlockState(basePos.above()).is(block)) {
+      level.destroyBlock(basePos.above(), !customDrops, player);
+    }
   }
 
   /**
@@ -147,13 +165,15 @@ public class RightClickBlockHandler {
    * @param hitResult - {@link BlockHitResult} of the {@link RightClickBlock} event.
    * @param player - {@link ServerPlayer player} harvesting the crop.
    * @param hand - {@link InteractionHand hand} used to harvest the crop.
+   * @return whether {@link HarvestDrops} listeners have changed the drops to drop.
    */
-  private static void dropResources(ServerLevel level, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
+  private static boolean dropResources(ServerLevel level, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
     HarvestDrops event = new HarvestDrops(level, blockState, blockPos, face, hitResult, player, hand);
     MinecraftForge.EVENT_BUS.post(event);
     for (ItemStack stack : event.drops) {
       Block.popResourceFromFace(level, blockPos, face, stack);
     }
+    return event.haveDropsChanged();
   }
 
   /**

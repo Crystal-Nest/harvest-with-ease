@@ -9,7 +9,9 @@ import net.minecraft.block.CocoaBlock;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.NetherWartBlock;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 
 /**
  * Utility class that serves as an API for mods interfacing with Harvest With Ease mod.
@@ -38,6 +40,18 @@ public final class HarvestWithEaseAPI {
    */
   public static IntProperty getAge(BlockState blockState) throws NullPointerException, NoSuchElementException, ClassCastException {
     return (IntProperty) blockState.getProperties().stream().filter(property -> property.getName().equals("age")).findFirst().orElseThrow();
+  }
+
+  /**
+   * Checks whether the given crop is a multi-block crop (a crop made of multiple vertically connected blocks).
+   * 
+   * @param level - {@link World} in which the crop is placed.
+   * @param blockState - {@link BlockState} of the crop.
+   * @param blockPos - {@link BlockPos} of the crop.
+   * @return whether the given crop is a multi-block crop.
+   */
+  public static boolean isTallCrop(World level, BlockState blockState, BlockPos blockPos) {
+    return level.getBlockState(blockPos.down()).isOf(blockState.getBlock()) || level.getBlockState(blockPos.up()).isOf(blockState.getBlock());
   }
 
   /**

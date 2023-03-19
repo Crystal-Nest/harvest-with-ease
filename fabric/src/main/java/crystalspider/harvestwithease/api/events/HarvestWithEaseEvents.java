@@ -1,5 +1,6 @@
 package crystalspider.harvestwithease.api.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import crystalspider.harvestwithease.HarvestWithEaseLoader;
@@ -237,6 +238,11 @@ public final class HarvestWithEaseEvents {
     private List<ItemStack> drops;
 
     /**
+     * Reference to the default drops.
+     */
+    private final List<ItemStack> defaultDrops;
+
+    /**
      * @param world {@link World} of the interaction.
      * @param crop {@link BlockState} of the crop being harvested.
      * @param pos {@link BlockPos} of the crop being harvested.
@@ -244,7 +250,25 @@ public final class HarvestWithEaseEvents {
      * @param hand {@link Hand} used to harvest.
      */
     public HarvestDropsEvent(ServerWorld world, BlockState crop, BlockPos pos, ServerPlayerEntity player, Hand hand) {
-      this.drops = initDrops(world, crop, pos, player, hand);
+      defaultDrops = initDrops(world, crop, pos, player, hand);
+      drops = new ArrayList<>(defaultDrops.stream().map(item -> item.copy()).toList());
+    }
+
+    /**
+     * Returns whether the list of drops changed from its default value.
+     * 
+     * @return whether the list of drops changed from its default value.
+     */
+    public boolean haveDropsChanged() {
+      if (defaultDrops.size() == drops.size()) {
+        for (int c = 0; c < defaultDrops.size(); c++) {
+          if (!ItemStack.areEqual(defaultDrops.get(c), drops.get(c))) {
+            return true;
+          }
+        }
+        return false;
+      }
+      return true;
     }
 
     /**

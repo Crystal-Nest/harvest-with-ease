@@ -15,6 +15,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
@@ -104,9 +105,10 @@ public class UseBlockHandler {
    */
   private static void updateCrop(ServerWorld world, IntProperty age, Block block, BlockPos blockPos, ServerPlayerEntity player, boolean customDrops) {
     BlockPos basePos;
-    for (basePos = blockPos; world.getBlockState(basePos.down()).isOf(block); basePos = basePos.down());
+    boolean isActualCrop = world.getBlockState(blockPos).isIn(BlockTags.CROPS);
+    for (basePos = blockPos; isActualCrop && world.getBlockState(basePos.down()).isOf(block); basePos = basePos.down());
     world.setBlockState(basePos, world.getBlockState(basePos).with(age, 0));
-    if (world.getBlockState(basePos.up()).isOf(block)) {
+    if (isActualCrop && world.getBlockState(basePos.up()).isOf(block)) {
       world.breakBlock(basePos.up(), !customDrops, player);
     }
   }

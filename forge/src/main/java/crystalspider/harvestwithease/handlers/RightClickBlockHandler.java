@@ -17,6 +17,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -113,9 +114,10 @@ public class RightClickBlockHandler {
    */
   private static void updateCrop(ServerLevel level, IntegerProperty age, Block block, BlockPos blockPos, ServerPlayer player, boolean customDrops) {
     BlockPos basePos;
-    for (basePos = blockPos; level.getBlockState(basePos.below()).is(block); basePos = basePos.below());
+    boolean isActualCrop = level.getBlockState(blockPos).is(BlockTags.CROPS);
+    for (basePos = blockPos; isActualCrop && level.getBlockState(basePos.below()).is(block); basePos = basePos.below());
     level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
-    if (level.getBlockState(basePos.above()).is(block)) {
+    if (isActualCrop && level.getBlockState(basePos.above()).is(block)) {
       level.destroyBlock(basePos.above(), !customDrops, player);
     }
   }

@@ -9,6 +9,7 @@ import net.minecraft.block.CocoaBlock;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.NetherWartBlock;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -51,7 +52,7 @@ public final class HarvestWithEaseAPI {
    * @return whether the given crop is a multi-block crop.
    */
   public static boolean isTallCrop(World level, BlockState blockState, BlockPos blockPos) {
-    return level.getBlockState(blockPos.down()).isOf(blockState.getBlock()) || level.getBlockState(blockPos.up()).isOf(blockState.getBlock());
+    return blockState.isIn(BlockTags.CROPS) && level.getBlockState(blockPos.down()).isOf(blockState.getBlock()) || level.getBlockState(blockPos.up()).isOf(blockState.getBlock());
   }
 
   /**

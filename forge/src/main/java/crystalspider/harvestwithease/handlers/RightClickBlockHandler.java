@@ -130,7 +130,7 @@ public class RightClickBlockHandler {
    * @return whether the {@link Player} can interact with the {@link RightClickBlock event}.
    */
   private static boolean canInteract(Player player, RightClickBlock event) {
-    return !player.isSpectator() && event.getUseBlock() != Result.DENY && !(HarvestWithEaseConfig.getRequireHoe() || event.getUseItem() == Result.DENY) && event.getResult() != Result.DENY;
+    return !player.isSpectator() && event.getUseBlock() != Result.DENY && event.getUseItem() != Result.DENY && event.getResult() != Result.DENY;
   }
 
   /**

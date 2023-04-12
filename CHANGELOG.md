@@ -8,6 +8,19 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new.
 
+## [1.19.4-6.0.1.2] - 2023/04/12
+- Fix `require hoe` configuration option always preventing harvest when set to true.
+
+## [1.19.3-6.0.1.2] - 2023/04/12
+- Fix `require hoe` configuration option always preventing harvest when set to true.
+
+## [1.19.2-6.0.1.2-final] - 2023/04/12
+- Fix `require hoe` configuration option always preventing harvest when set to true.
+- I know it's the fourth "final" version for this Minecraft version...
+
+## [1.18.2-6.0.1.2] - 2023/04/12
+- Fix `require hoe` configuration option always preventing harvest when set to true.
+
 ## [1.19.4-6.0.1.1] - 2023/04/02
 - Fix [#21](https://github.com/Nyphet/harvest-with-ease/issues/21).
 
@@ -194,16 +207,19 @@ It must be an integer value and will be effective only if greater than 0 and req
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
 
+[1.19.4-6.0.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.2
 [1.19.4-6.0.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.1
 [1.19.4-6.0.1.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.0
 [1.19.4-6.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.0.0
 
+[1.19.3-6.0.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-6.0.1.2
 [1.19.3-6.0.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-6.0.1.1
 [1.19.3-6.0.1.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-6.0.1.0
 [1.19.3-6.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-6.0.0.0
 [1.19.3-5.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-5.0.0.1
 [1.19.3-5.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-5.0.0.0
 
+[1.19.2-6.0.1.2-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.1.2-final
 [1.19.2-6.0.1.1-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.1.1-final
 [1.19.2-6.0.1.0-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.1.0-final
 [1.19.2-6.0.0.0-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.0.0-final
@@ -223,6 +239,7 @@ It must be an integer value and will be effective only if greater than 0 and req
 [1.19-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.1
 [1.19-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.0
 
+[1.18.2-6.0.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.2
 [1.18.2-6.0.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.1
 [1.18.2-6.0.1.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.0
 [1.18.2-6.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.0.0

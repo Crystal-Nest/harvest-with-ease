@@ -33,6 +33,11 @@ It's also compatible with **any** modded crops, to ease your mind of one more th
 - **`crops`**: list of additional in-game IDs for crops that are not supported out of the box, defaults to an empty list.  
   This last config option is just a safety measure, so far no crop needs it.
 
+## **Dependencies**
+| Mod | Loader | Requirement |
+| :-: | :----: | :---------: |
+| [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) | Fabric | Required |
+
 ## **License and right of use**
 Feel free to use this mod for any modpack or video, just be sure to give credit and possibly link [here](https://github.com/Nyphet/harvest-with-ease#readme).  
 This project is published under the [GNU General Public License v3.0](https://github.com/Nyphet/harvest-with-ease/blob/master/LICENSE).

@@ -294,7 +294,7 @@ public final class HarvestWithEaseEvents {
       List<ItemStack> drops = Block.getDroppedStacks(crop, world, pos, crop.hasBlockEntity() ? world.getBlockEntity(pos) : null, player, player.getStackInHand(hand));
       boolean seedRemoved = false;
       for (ItemStack stack : drops) {
-        if (!seedRemoved && stack.isItemEqual(crop.getBlock().getPickStack(world, pos, crop))) {
+        if (!seedRemoved && stack.isOf(crop.getBlock().getPickStack(world, pos, crop).getItem())) {
           stack.decrement(1);
           seedRemoved = true;
         }

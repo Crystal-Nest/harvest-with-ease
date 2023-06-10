@@ -25,7 +25,7 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "forgeconfigapiport": "^${forgeconfigapiport_version}",
-    "minecraft": "${minecraft_version}",
+    "minecraft": "~${minecraft_version}",
     "java": ">=17"
   }
 }

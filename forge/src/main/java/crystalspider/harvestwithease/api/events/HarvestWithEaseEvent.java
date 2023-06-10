@@ -261,7 +261,7 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
       List<ItemStack> drops = Block.getDrops(target, level, pos, target.hasBlockEntity() ? level.getBlockEntity(pos) : null, getEntity(), getEntity().getItemInHand(hand));
       boolean seedRemoved = false;
       for (ItemStack stack : drops) {
-        if (!seedRemoved && stack.sameItem(target.getBlock().getCloneItemStack(target, hitResult, level, pos, getEntity()))) {
+        if (!seedRemoved && stack.is(target.getBlock().getCloneItemStack(target, hitResult, level, pos, getEntity()).getItem())) {
           stack.shrink(1);
           seedRemoved = true;
         }

@@ -1,7 +1,7 @@
 ![Harvest with ease banner](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/harvest-with-ease/banner.gif)
 
 ---
-![Minecraft](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/minecraft.svg)[![1.19.4](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-19-4.svg)](https://modrinth.com/mod/harvest-with-ease/versions?g=1.19.4)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.19.3](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-19-3.svg)](https://modrinth.com/mod/harvest-with-ease/versions?g=1.19.3)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.19.2](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-19-2.svg)](https://modrinth.com/mod/harvest-with-ease/versions?g=1.19.2)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.18.2](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-18-2.svg)](https://modrinth.com/mod/harvest-with-ease/versions?g=1.18.2)
+![Minecraft](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/minecraft.svg)[![1.20](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-20.svg)](https://modrinth.com/mod/harvest-with-ease/versions?g=1.20)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.19.4](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-19-4.svg)](https://modrinth.com/mod/harvest-with-ease/versions?g=1.19.4)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.19.3](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-19-3.svg)](https://modrinth.com/mod/harvest-with-ease/versions?g=1.19.3)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.19.2](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-19-2.svg)](https://modrinth.com/mod/harvest-with-ease/versions?g=1.19.2)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![1.18.2](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/minecraft/1-18-2.svg)](https://modrinth.com/mod/harvest-with-ease/versions?g=1.18.2)
 
 ![Loader](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/loader/loader.svg)[![Forge](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/loader/forge.svg)](https://modrinth.com/mod/harvest-with-ease/versions?l=forge)![Separator](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/separator.svg)[![Fabric](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/loader/fabric.svg)](https://modrinth.com/mod/harvest-with-ease/versions?l=fabric)
 
@@ -14,6 +14,10 @@
 Harvesting crops is such a pain, breaking them all to get the drops and then having to replant each one.  
 Well, not anymore! With this mod you can just right click on your crops to harvest them and leaving a new plant to grow!  
 It's also compatible with **any** modded crops, to ease your mind of one more thing!
+
+***Note:***  
+*Altough it's stated that the mod is required on both sides, it can be safely installed server-side only and still work.*  
+*However when a client that does not have the mod connects to a server that does, and the player tries to harvest a crop while holding a block, it cause block flashing. The only way to prevent this glitch is to set `require hoe` to `true`.*
 
 ## **Features**
 - Right-click to harvest any crop, works with both Vanilla and modded out of the box!  

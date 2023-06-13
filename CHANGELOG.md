@@ -8,6 +8,12 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new.
 
+## [1.20.1-7.0.0.0] - 2023/06/13
+- Ported to 1.20.1.
+
+## [1.20-7.0.0.0] - 2023/06/10
+- Ported to 1.20.
+
 ## [1.19.4-6.0.1.2] - 2023/04/12
 - Fix `require hoe` configuration option always preventing harvest when set to true.
 
@@ -206,6 +212,10 @@ It must be an integer value and will be effective only if greater than 0 and req
 
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
+
+[1.20.1-7.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.1-7.0.0.0
+
+[1.20-7.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20-7.0.0.0
 
 [1.19.4-6.0.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.2
 [1.19.4-6.0.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.1

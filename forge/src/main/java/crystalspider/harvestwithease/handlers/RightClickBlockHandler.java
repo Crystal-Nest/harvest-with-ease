@@ -97,29 +97,42 @@ public class RightClickBlockHandler {
     MinecraftForge.EVENT_BUS.post(new BeforeHarvest(level, blockState, blockPos, face, hitResult, player, hand));
     grantExp(player);
     damageHoe(player, hand);
-    updateCrop(level, age, blockState.getBlock(), blockPos, player, dropResources(level, blockState, blockPos, face, hitResult, player, hand));
+    BlockPos basePos = getBasePos(level, blockState.getBlock(), blockPos);
+    updateCrop(level, age, blockState.getBlock(), basePos, player, dropResources(level, level.getBlockState(basePos), basePos, face, hitResult, player, hand));
     playSound(level, player, blockState, blockPos);
     MinecraftForge.EVENT_BUS.post(new AfterHarvest(level, blockState, blockPos, face, hitResult, player, hand));
   }
 
   /**
-   * Updates the crop in the world, finding its base block and reverting it to age 0 (simulate replanting) and, if it's a multi-block crop, breaks the crop blocks above.
+   * Updates the crop in the world, reverting it to age 0 (simulate replanting) and, if it's a multi-block crop, breaks the crop blocks above.
    * 
    * @param level - {@link ServerLevel level}.
    * @param age - {@link IntegerProperty age} of the crop.
    * @param block - {@link Block} of the crop clicked.
-   * @param blockPos - {@link BlockPos} of the crop block clicked.
+   * @param basePos - {@link BlockPos} of the crop block clicked.
    * @param player - {@link ServerPlayer player} harvesting the crop.
    * @param customDrops - whether {@link HarvestDrops} listeners have changed the drops to drop.
    */
-  private static void updateCrop(ServerLevel level, IntegerProperty age, Block block, BlockPos blockPos, ServerPlayer player, boolean customDrops) {
-    BlockPos basePos;
-    boolean isActualCrop = level.getBlockState(blockPos).is(BlockTags.CROPS);
-    for (basePos = blockPos; isActualCrop && level.getBlockState(basePos.below()).is(block); basePos = basePos.below());
+  private static void updateCrop(ServerLevel level, IntegerProperty age, Block block, BlockPos basePos, ServerPlayer player, boolean customDrops) {
     level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
-    if (isActualCrop && level.getBlockState(basePos.above()).is(block)) {
+    if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(block)) {
       level.destroyBlock(basePos.above(), !customDrops, player);
     }
+  }
+
+  /**
+   * Returns the base pos of the clicked crop.
+   * 
+   * @param world - {@link ServerLevel level}.
+   * @param block - {@link Block} of the clicked crop.
+   * @param blockPos - {@link BlockPos} of the crop block clicked.
+   * @return the base pos of the clicked crop.
+   */
+  private static BlockPos getBasePos(ServerLevel world, Block block, BlockPos blockPos) {
+    BlockPos basePos;
+    boolean isActualCrop = world.getBlockState(blockPos).is(BlockTags.CROPS);
+    for (basePos = blockPos; isActualCrop && world.getBlockState(basePos.below()).is(block); basePos = basePos.below());
+    return basePos;
   }
 
   /**

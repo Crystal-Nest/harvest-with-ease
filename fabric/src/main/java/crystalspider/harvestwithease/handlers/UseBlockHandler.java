@@ -88,29 +88,42 @@ public class UseBlockHandler {
     HarvestWithEaseEvents.BEFORE_HARVEST.invoker().beforeHarvest(world, blockState, blockPos, face, hitResult, player, hand);
     grantExp(player);
     damageHoe(player, hand);
-    updateCrop(world, age, blockState.getBlock(), blockPos, player, dropResources(world, blockState, blockPos, face, hitResult, player, hand));
+    BlockPos basePos = getBasePos(world, blockState.getBlock(), blockPos);
+    updateCrop(world, age, blockState.getBlock(), basePos, player, dropResources(world, world.getBlockState(basePos), basePos, face, hitResult, player, hand));
     playSound(world, blockState, blockPos);
     HarvestWithEaseEvents.AFTER_HARVEST.invoker().afterHarvest(world, blockState, blockPos, face, hitResult, player, hand);
   }
 
   /**
-   * Updates the crop in the world, finding its base block and reverting it to age 0 (simulate replanting) and, if it's a multi-block crop, breaks the crop blocks above.
+   * Updates the crop in the world, reverting it to age 0 (simulate replanting) and, if it's a multi-block crop, breaks the crop blocks above.
    * 
    * @param world - {@link ServerWorld world}.
    * @param age - {@link IntProperty age} of the crop.
-   * @param block - {@link Block} of the crop clicked.
-   * @param blockPos - {@link BlockPos} of the crop block clicked.
+   * @param block - {@link Block} of the clicked crop.
+   * @param basePos - {@link BlockPos} of the clicked crop base.
    * @param player - {@link ServerPlayerEntity player} harvesting the crop.
    * @param customDrops - whether {@link HarvestDrops} listeners have changed the drops to drop.
    */
-  private static void updateCrop(ServerWorld world, IntProperty age, Block block, BlockPos blockPos, ServerPlayerEntity player, boolean customDrops) {
+  private static void updateCrop(ServerWorld world, IntProperty age, Block block, BlockPos basePos, ServerPlayerEntity player, boolean customDrops) {
+    world.setBlockState(basePos, world.getBlockState(basePos).with(age, 0));
+    if (world.getBlockState(basePos).isIn(BlockTags.CROPS) && world.getBlockState(basePos.up()).isOf(block)) {
+      world.breakBlock(basePos.up(), !customDrops, player);
+    }
+  }
+
+  /**
+   * Returns the base pos of the clicked crop.
+   * 
+   * @param world - {@link ServerWorld world}.
+   * @param block - {@link Block} of the clicked crop.
+   * @param blockPos - {@link BlockPos} of the crop block clicked.
+   * @return the base pos of the clicked crop.
+   */
+  private static BlockPos getBasePos(ServerWorld world, Block block, BlockPos blockPos) {
     BlockPos basePos;
     boolean isActualCrop = world.getBlockState(blockPos).isIn(BlockTags.CROPS);
     for (basePos = blockPos; isActualCrop && world.getBlockState(basePos.down()).isOf(block); basePos = basePos.down());
-    world.setBlockState(basePos, world.getBlockState(basePos).with(age, 0));
-    if (isActualCrop && world.getBlockState(basePos.up()).isOf(block)) {
-      world.breakBlock(basePos.up(), !customDrops, player);
-    }
+    return basePos;
   }
 
   /**

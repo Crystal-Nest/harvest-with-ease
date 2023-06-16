@@ -27,7 +27,8 @@ public final class HarvestWithEaseAPI {
    * @return whether the given block it's a valid crop.
    */
   public static boolean isCrop(Block block) {
-    return block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || HarvestWithEaseConfig.getCrops().contains(getKey(block));
+    // Hardcoded block id, might consider importing the mod and get the id from its list of registered blocks.
+    return (block instanceof CropBlock && !getKey(block).equals("farmersdelight:tomatoes")) || block instanceof NetherWartBlock || block instanceof CocoaBlock || HarvestWithEaseConfig.getCrops().contains(getKey(block));
   }
 
   /**

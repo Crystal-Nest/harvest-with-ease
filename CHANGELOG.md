@@ -8,20 +8,20 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new.
 
-## [1.20.1-7.0.0.1] - 2023/06/07
+## [1.20.1-7.0.0.1] - 2023/06/17
 - Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
 
-## [1.20-7.0.0.1] - 2023/06/07
+## [1.20-7.0.0.1] - 2023/06/17
 - Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
 
-## [1.19.4-6.0.1.3] - 2023/06/07
+## [1.19.4-6.0.1.3] - 2023/06/17
 - Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
 
-## [1.19.2-6.0.1.3-final] - 2023/06/07
+## [1.19.2-6.0.1.3-final] - 2023/06/17
 - Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
 - Sigh... I should just stop using "final" at this point...
 
-## [1.18.2-6.0.1.3] - 2023/06/07
+## [1.18.2-6.0.1.3] - 2023/06/17
 - Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
 
 ## [1.20.1-7.0.0.0] - 2023/06/13

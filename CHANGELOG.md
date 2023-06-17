@@ -8,6 +8,22 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new.
 
+## [1.20.1-7.0.0.1] - 2023/06/xx
+- Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
+
+## [1.20-7.0.0.1] - 2023/06/xx
+- Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
+
+## [1.19.4-6.0.1.3] - 2023/06/xx
+- Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
+
+## [1.19.2-6.0.1.3-final] - 2023/06/xx
+- Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
+- Sigh... I should just stop using "final" at this point...
+
+## [1.18.2-6.0.1.3] - 2023/06/xx
+- Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
+
 ## [1.20.1-7.0.0.0] - 2023/06/13
 - Ported to 1.20.1.
 
@@ -213,10 +229,13 @@ It must be an integer value and will be effective only if greater than 0 and req
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
 
+[1.20.1-7.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.1-7.0.0.1
 [1.20.1-7.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.1-7.0.0.0
 
+[1.20-7.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20-7.0.0.1
 [1.20-7.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20-7.0.0.0
 
+[1.19.4-6.0.1.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.3
 [1.19.4-6.0.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.2
 [1.19.4-6.0.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.1
 [1.19.4-6.0.1.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.0
@@ -229,6 +248,7 @@ It must be an integer value and will be effective only if greater than 0 and req
 [1.19.3-5.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-5.0.0.1
 [1.19.3-5.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-5.0.0.0
 
+[1.19.2-6.0.1.3-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.1.3-final
 [1.19.2-6.0.1.2-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.1.2-final
 [1.19.2-6.0.1.1-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.1.1-final
 [1.19.2-6.0.1.0-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.1.0-final
@@ -249,6 +269,7 @@ It must be an integer value and will be effective only if greater than 0 and req
 [1.19-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.1
 [1.19-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.0
 
+[1.18.2-6.0.1.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.3
 [1.18.2-6.0.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.2
 [1.18.2-6.0.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.1
 [1.18.2-6.0.1.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.0

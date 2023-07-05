@@ -21,9 +21,6 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 - Fix [#24](https://github.com/Nyphet/harvest-with-ease/issues/24)
 - I don't know why I kept the "final", but whatever.
 
-## [1.18.2-6.0.1.4] - 2023/07/05
-- Fix [#24](https://github.com/Nyphet/harvest-with-ease/issues/24)
-
 ## [1.20.1-7.0.0.1] - 2023/06/17
 - Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
 
@@ -289,7 +286,6 @@ It must be an integer value and will be effective only if greater than 0 and req
 [1.19-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.1
 [1.19-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.0
 
-[1.18.2-6.0.1.4]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.4
 [1.18.2-6.0.1.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.3
 [1.18.2-6.0.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.2
 [1.18.2-6.0.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.1

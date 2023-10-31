@@ -1,13 +1,13 @@
-package crystalspider.harvestwithease.handlers;
+package crystalspider.harvestwithease.handler;
 
-import java.util.Collections;
 import java.util.NoSuchElementException;
 
 import org.jetbrains.annotations.Nullable;
 
 import crystalspider.harvestwithease.HarvestWithEaseLoader;
 import crystalspider.harvestwithease.api.HarvestWithEaseAPI;
-import crystalspider.harvestwithease.api.events.HarvestWithEaseEvents;
+import crystalspider.harvestwithease.api.event.HarvestWithEaseEvents;
+import crystalspider.harvestwithease.api.event.HarvestWithEaseEvents.HarvestDrops;
 import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Block;
@@ -33,7 +33,7 @@ import net.minecraft.world.World;
  * Handles the {@link UseBlockCallback} event to right-click harvest when possible.
  * See {@link #handle(PlayerEntity, World, Hand, BlockHitResult)} for more details.
  */
-public class UseBlockHandler {
+public final class UseBlockHandler {
   /**
    * Handles the event {@link UseBlockCallback}.
    * Will cancel further event processing only if the {@link PlayerEntity player}
@@ -56,7 +56,7 @@ public class UseBlockHandler {
       if (hand == getInteractionHand(player) && canHarvest(world, blockState, blockPos, player, hand)) {
         try {
           IntProperty age = HarvestWithEaseAPI.getAge(blockState);
-          if (blockState.getOrEmpty(age).orElse(0) >= Collections.max(age.getValues())) {
+          if (HarvestWithEaseAPI.isMature(blockState, age)) {
             actionResult = ActionResult.SUCCESS;
             if (!world.isClient()) {
               harvest((ServerWorld) world, age, blockState, blockPos, result.getSide(), result, (ServerPlayerEntity) player, hand);

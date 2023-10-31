@@ -1,16 +1,15 @@
-package crystalspider.harvestwithease.handlers;
+package crystalspider.harvestwithease.handler;
 
-import java.util.Collections;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nullable;
 
 import crystalspider.harvestwithease.HarvestWithEaseLoader;
 import crystalspider.harvestwithease.api.HarvestWithEaseAPI;
-import crystalspider.harvestwithease.api.events.HarvestWithEaseEvent.AfterHarvest;
-import crystalspider.harvestwithease.api.events.HarvestWithEaseEvent.BeforeHarvest;
-import crystalspider.harvestwithease.api.events.HarvestWithEaseEvent.HarvestDrops;
-import crystalspider.harvestwithease.api.events.HarvestWithEaseEvent.RightClickHarvestCheck;
+import crystalspider.harvestwithease.api.event.HarvestWithEaseEvent.AfterHarvest;
+import crystalspider.harvestwithease.api.event.HarvestWithEaseEvent.BeforeHarvest;
+import crystalspider.harvestwithease.api.event.HarvestWithEaseEvent.HarvestDrops;
+import crystalspider.harvestwithease.api.event.HarvestWithEaseEvent.RightClickHarvestCheck;
 import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,8 +41,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
  * Handles the {@link RightClickBlock} event with {@link EventPriority#HIGH high priority} to right-click harvest when possible.
  * See {@link #handle(RightClickBlock)} for more details.
  */
-@EventBusSubscriber(bus = Bus.FORGE)
-public class RightClickBlockHandler {
+@EventBusSubscriber(modid = HarvestWithEaseLoader.MODID, bus = Bus.FORGE)
+public final class RightClickBlockHandler {
   /**
    * Listens and handles the event {@link RightClickBlock} with {@link EventPriority#HIGH high priority}.
    * Will cancel further event processing only if the {@link Player player}
@@ -66,7 +65,7 @@ public class RightClickBlockHandler {
       if (hand == event.getHand() && canHarvest(level, blockState, blockPos, player, hand)) {
         try {
           IntegerProperty age = HarvestWithEaseAPI.getAge(blockState);
-          if (blockState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues())) {
+          if (HarvestWithEaseAPI.isMature(blockState, age)) {
             cancel(event);
             if (!level.isClientSide()) {
               harvest((ServerLevel) level, age, blockState, blockPos, event.getFace(), event.getHitVec(), (ServerPlayer) player, hand);

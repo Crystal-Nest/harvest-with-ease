@@ -1,4 +1,4 @@
-package crystalspider.harvestwithease.api.events;
+package crystalspider.harvestwithease.api.event;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,9 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
-import crystalspider.harvestwithease.handlers.UseBlockHandler;
+import crystalspider.harvestwithease.handler.PlayerBlockBreakHandler;
+import crystalspider.harvestwithease.handler.UseBlockHandler;
 import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraftforge.fml.config.ModConfig;
 
@@ -28,5 +30,6 @@ public class HarvestWithEaseLoader implements ModInitializer {
   public void onInitialize() {
     ForgeConfigRegistry.INSTANCE.register(MODID, ModConfig.Type.COMMON, HarvestWithEaseConfig.SPEC);
     UseBlockCallback.EVENT.register(UseBlockHandler::handle);
+    PlayerBlockBreakEvents.AFTER.register(PlayerBlockBreakHandler::handle);
   }
 }

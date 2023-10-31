@@ -1,5 +1,6 @@
 package crystalspider.harvestwithease.api;
 
+import java.util.Collections;
 import java.util.NoSuchElementException;
 
 import crystalspider.harvestwithease.HarvestWithEaseLoader;
@@ -23,14 +24,24 @@ public final class HarvestWithEaseAPI {
   private HarvestWithEaseAPI() {}
 
   /**
-   * Checks whether or not the block passed as parameter is a crop that can be harvested using this mod.
+   * Checks whether the given block is a crop that can be harvested using this mod.
    * 
    * @param block
-   * @return whether the given block it's a valid crop.
+   * @return whether the given block is a valid crop.
    */
   public static boolean isCrop(Block block) {
     // Hardcoded block id, might consider importing the mod and get the id from its list of registered blocks.
-    return (block instanceof CropBlock && !getKey(block).equals("farmersdelight:tomatoes")) || block instanceof NetherWartBlock || block instanceof CocoaBlock || HarvestWithEaseConfig.getCrops().contains(getKey(block));
+    return !getKey(block).equals("farmersdelight:tomatoes") && isBreakableCrop(block);
+  }
+
+  /**
+   * Checks whether the given block is a crop that can be broken and, optionally, drop xp.
+   * 
+   * @param block
+   * @return whether the given block is a valid breakable crop.
+   */
+  public static boolean isBreakableCrop(Block block) {
+    return block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || HarvestWithEaseConfig.getCrops().contains(getKey(block));
   }
 
   /**
@@ -38,12 +49,36 @@ public final class HarvestWithEaseAPI {
    * 
    * @param blockState - {@link BlockState state} to take the age property from.
    * @return the age property from the given blockState.
-   * @throws NullPointerException - if the age property was null.
-   * @throws NoSuchElementException - if no value for the age property is present.
-   * @throws ClassCastException - if the age property is not an {@link IntegerProperty}.
+   * @throws NullPointerException if the age property was null.
+   * @throws NoSuchElementException if no value for the age property is present.
+   * @throws ClassCastException if the age property is not an {@link IntegerProperty}.
    */
   public static IntegerProperty getAge(BlockState blockState) throws NullPointerException, NoSuchElementException, ClassCastException {
     return (IntegerProperty) blockState.getProperties().stream().filter(property -> property.getName().equals("age")).findFirst().orElseThrow();
+  }
+
+  /**
+   * Checks whether the given blockstate is a mature crop.
+   * 
+   * @param blockState - {@link BlockState state} to take the age property from.
+   * @param age - {@link IntegerProperty integer property} for the crop age.
+   * @return whether the given blockstate is a mature crop.
+   */
+  public static boolean isMature(BlockState blockState, IntegerProperty age) {
+    return blockState.getOptionalValue(age).orElse(0) >= Collections.max(age.getPossibleValues());
+  }
+
+  /**
+   * Checks whether the given blockstate is a mature crop.
+   * 
+   * @param blockState - {@link BlockState state} to take the age property from.
+   * @return whether the given blockstate is a mature crop.
+   * @throws NullPointerException if the age property was null.
+   * @throws NoSuchElementException if no value for the age property is present.
+   * @throws ClassCastException if the age property is not an {@link IntegerProperty}.
+   */
+  public static boolean isMature(BlockState blockState) throws NullPointerException, NoSuchElementException, ClassCastException {
+    return HarvestWithEaseAPI.isMature(blockState, HarvestWithEaseAPI.getAge(blockState));
   }
 
   /**

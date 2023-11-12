@@ -1,5 +1,6 @@
 plugins {
-  id "net.minecraftforge.gradle" version "[6.0,6.2)"
+  id 'java-library'
+  id 'net.neoforged.gradle.userdev' version '7.0.26'
   id "com.modrinth.minotaur" version "2.+"
   id "com.matthewprenger.cursegradle" version "1.4.+"
   id "com.github.breadmoirai.github-release" version "2.4.+"
@@ -11,59 +12,35 @@ group = project.group
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-minecraft {
-  mappings channel: "official", version: minecraft_version
-  copyIdeResources = true
-  // accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg") // Currently, this location cannot be changed from the default.
-  runs {
-    client {
-      workingDirectory project.file("run")
-      property "forge.logging.markers", "REGISTRIES"
-      // https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-      property "forge.logging.console.level", "debug"
-      property "forge.enabledGameTestNamespaces", modid
-      mods {
-        "${modid}" {
-          source sourceSets.main
-        }
-      }
-    }
-    server {
-      workingDirectory project.file("run")
-      property "forge.logging.markers", "REGISTRIES"
-      // https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-      property "forge.logging.console.level", "debug"
-      property "forge.enabledGameTestNamespaces", modid
-      mods {
-        "${modid}" {
-          source sourceSets.main
-        }
-      }
-    }
-    gameTestServer {
-      workingDirectory project.file("run")
-      property "forge.logging.markers", "REGISTRIES"
-      // https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-      property "forge.logging.console.level", "debug"
-      property "forge.enabledGameTestNamespaces", modid
-      mods {
-        "${modid}" {
-          source sourceSets.main
-        }
-      }
-    }
-    data {
-      workingDirectory project.file("run")
-      property "forge.logging.markers", "REGISTRIES"
-      // https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-      property "forge.logging.console.level", "debug"
-      args "--mod", modid, "--all", "--output", file("src/generated/resources/"), "--existing", file("src/main/resources/")
-      mods {
-        "${modid}" {
-          source sourceSets.main
-        }
-      }
-    }
+runs {
+  configureEach {
+    // Recommended logging data for a userdev environment
+    // The markers can be added/remove as needed separated by commas.
+    // "SCAN": For mods scan.
+    // "REGISTRIES": For firing of registry events.
+    // "REGISTRYDUMP": For getting the contents of all registries.
+    systemProperty 'forge.logging.markers', 'REGISTRIES'
+    // Recommended logging level for the console
+    // You can set various levels here.
+    // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+    systemProperty 'forge.logging.console.level', 'debug'
+    modSource project.sourceSets.main
+  }
+  client {
+    systemProperty 'forge.enabledGameTestNamespaces', modid
+  }
+  server {
+    systemProperty 'forge.enabledGameTestNamespaces', modid
+    programArgument '--nogui'
+  }
+  gameTestServer {
+    systemProperty 'forge.enabledGameTestNamespaces', modid
+  }
+  data {
+    // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
+    // workingDirectory project.file('run-data')
+    // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+    programArguments.addAll '--mod', modid, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
   }
 }
 
@@ -72,7 +49,7 @@ sourceSets.main.resources { srcDir "src/generated/resources" }
 repositories {}
 
 dependencies {
-  minecraft "net.minecraftforge:forge:${minecraft_version}-${loader_version}${forge_subversion}"
+  implementation "net.neoforged:neoforge:${loader_version}${loader_subversion}"
 }
 
 def resourceTargets = ["META-INF/mods.toml", "pack.mcmeta"]
@@ -84,7 +61,7 @@ def replaceProperties = [
   minecraft_version: minecraft_version,
   mod_version: mod_version,
   loader_version: loader_version,
-  forge_subversion: forge_subversion,
+  loader_subversion: loader_subversion,
   author: author,
   github_user: github_user
 ]

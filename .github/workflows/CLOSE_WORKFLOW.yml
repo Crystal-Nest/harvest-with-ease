@@ -15,6 +15,7 @@ jobs:
           days-before-issue-stale: 30
           days-before-issue-close: 14
           stale-issue-label: "stale"
+          exempt-issue-labels: "pending,other mod"
           stale-issue-message: "This issue is stale because it has been open for 21 days with no activity. In 7 days it is going to be closed."
           close-issue-message: "This issue was closed because it has been inactive for 7 days since being marked as stale."
           days-before-pr-stale: -1

@@ -85,7 +85,7 @@ dependencies {
   minecraft "net.minecraftforge:forge:${minecraft_version}-${loader_version}${forge_subversion}"
 }
 
-def resourceTarget = "META-INF/mods.toml"
+def resourceTargets = ["META-INF/mods.toml", "pack.mcmeta"]
 def intoTargets = ["$rootDir/bin/main/"]
 def replaceProperties = [
   modid: modid,
@@ -103,7 +103,7 @@ processResources {
   inputs.properties replaceProperties
   replaceProperties.put "project", project
 
-  filesMatching(resourceTarget) {
+  filesMatching(resourceTargets) {
     expand replaceProperties
   }
 
@@ -111,7 +111,7 @@ processResources {
     if (file(target).exists()) {
       copy {
         from(sourceSets.main.resources) {
-          include resourceTarget
+          include resourceTargets
           expand replaceProperties
         }
         into target
@@ -157,6 +157,7 @@ curseforge {
     changelog = changelog_body
     releaseType = "release"
     addGameVersion loader
+    addGameVersion "NeoForge"
     addGameVersion minecraft_version
     mainArtifact(jar) {
       displayName = "[${loader} - ${minecraft_version}] ${mod_title} v${mod_version}"
@@ -178,7 +179,7 @@ modrinth {
   uploadFile = jar
   versionType = "release"
   gameVersions = [minecraft_version]
-  loaders = [loader.toLowerCase()]
+  loaders = [loader.toLowerCase(), "neoforge"]
   dependencies {}
 }
 

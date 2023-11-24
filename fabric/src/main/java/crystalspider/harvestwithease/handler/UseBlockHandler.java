@@ -15,6 +15,7 @@ import crystalspider.harvestwithease.config.ModConfig;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
@@ -129,7 +130,7 @@ public final class UseBlockHandler {
    * @param customDrops - whether {@link HarvestDrops} listeners have changed the drops to drop.
    */
   private static void updateCrop(ServerWorld world, IntProperty age, Block block, BlockPos basePos, ServerPlayerEntity player, boolean customDrops) {
-    world.setBlockState(basePos, world.getBlockState(basePos).with(age, 0));
+    world.setBlockState(basePos, block == Blocks.PITCHER_CROP ? Blocks.AIR.getDefaultState() : world.getBlockState(basePos).with(age, 0));
     if (world.getBlockState(basePos).isIn(BlockTags.CROPS) && world.getBlockState(basePos.up()).isOf(block) && !isTallButSeparate(block)) {
       world.breakBlock(basePos.up(), !customDrops, player);
     }

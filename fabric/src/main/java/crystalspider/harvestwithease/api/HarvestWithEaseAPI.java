@@ -16,6 +16,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.CocoaBlock;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.NetherWartBlock;
+import net.minecraft.block.PitcherCropBlock;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.ToolMaterials;
@@ -44,7 +45,7 @@ public final class HarvestWithEaseAPI {
    * @return whether the given block is a valid breakable crop.
    */
   public static boolean isCrop(Block block) {
-    return block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || ModConfig.getCrops().contains(getKey(block));
+    return block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || block instanceof PitcherCropBlock || ModConfig.getCrops().contains(getKey(block));
   }
 
   /**

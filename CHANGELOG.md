@@ -11,10 +11,12 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [1.20.2-8.0.0.0] - 2023/11/24
 - Fixed [#28](https://github.com/Nyphet/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.
 - Implemented [#30](https://github.com/Nyphet/harvest-with-ease/issues/30), multi-harvest.
+- Fixed interaction with Pitcher Crop.
 
 ## [1.20.1-8.0.0.0] - 2023/11/24
 - Fixed [#28](https://github.com/Nyphet/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.
 - Implemented [#30](https://github.com/Nyphet/harvest-with-ease/issues/30), multi-harvest.
+- Fixed interaction with Pitcher Crop.
 
 ## [1.19.4-8.0.0.0] - 2023/11/24
 - Fixed [#28](https://github.com/Nyphet/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.

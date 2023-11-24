@@ -17,7 +17,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "${group}.${modid}.HarvestWithEaseLoader"
+      "${group}.${modid}.ModLoader"
     ]
   },
   "mixins": [],

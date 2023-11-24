@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CocoaBlock;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.NetherWartBlock;
+import net.minecraft.world.level.block.PitcherCropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.neoforged.neoforge.common.TierSortingRegistry;
@@ -42,7 +43,7 @@ public final class HarvestWithEaseAPI {
    * @return whether the given block is a valid breakable crop.
    */
   public static boolean isCrop(Block block) {
-    return block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || ModConfig.getCrops().contains(getKey(block));
+    return block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || block instanceof PitcherCropBlock || ModConfig.getCrops().contains(getKey(block));
   }
 
   /**

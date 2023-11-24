@@ -27,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -136,7 +137,7 @@ public final class RightClickBlockHandler {
    * @param customDrops - whether {@link HarvestDrops} listeners have changed the drops to drop.
    */
   private static void updateCrop(ServerLevel level, IntegerProperty age, Block block, BlockPos basePos, ServerPlayer player, boolean customDrops) {
-    level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
+    level.setBlockAndUpdate(basePos, block == Blocks.PITCHER_CROP ? Blocks.AIR.defaultBlockState() : level.getBlockState(basePos).setValue(age, 0));
     if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(block) && !isTallButSeparate(block)) {
       level.destroyBlock(basePos.above(), !customDrops, player);
     }

@@ -147,6 +147,7 @@ curseforge {
     changelog = changelog_body
     releaseType = "release"
     addGameVersion loader
+    addGameVersion "NeoForge"
     addGameVersion minecraft_version
     mainArtifact(jar) {
       displayName = "[${loader} - ${minecraft_version}] ${mod_title} v${mod_version}"
@@ -168,7 +169,7 @@ modrinth {
   uploadFile = jar
   versionType = "release"
   gameVersions = [minecraft_version]
-  loaders = [loader.toLowerCase()]
+  loaders = [loader.toLowerCase(), "neoforge"]
   dependencies {}
 }
 

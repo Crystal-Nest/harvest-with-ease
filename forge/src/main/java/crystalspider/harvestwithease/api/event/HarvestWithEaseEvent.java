@@ -3,6 +3,8 @@ package crystalspider.harvestwithease.api.event;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -40,6 +42,10 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
    * {@link InteractionHand} used when harvesting.
    */
   protected final InteractionHand hand;
+  /**
+   * Whether the current crop is the actual right-clicked crop (the one also at the center of the harvest area).
+   */
+  protected final boolean first;
 
   /**
    * @param level {@link #level}.
@@ -47,13 +53,15 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
    * @param pos {@link #pos}.
    * @param player player right-click harvesting.
    * @param hand {@link #hand}.
+   * @param first {@link #first}.
    */
-  public HarvestWithEaseEvent(L level, BlockState target, BlockPos pos, P player, InteractionHand hand) {
+  public HarvestWithEaseEvent(L level, BlockState target, BlockPos pos, P player, InteractionHand hand, boolean first) {
     super(player);
     this.level = level;
     this.target = target;
     this.pos = pos;
     this.hand = hand;
+    this.first = first;
   }
 
   @Override
@@ -108,8 +116,10 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
     protected final Direction face;
     /**
      * {@link BlockHitResult}.
+     * <p>
+     * Can be {@code null} if the current crop is being harvested via multi-harvest. 
      */
-    protected final BlockHitResult hitResult;
+    protected final @Nullable BlockHitResult hitResult;
 
     /**
      * @param level {@link #level}.
@@ -120,8 +130,8 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
      * @param player {@link ServerPlayer player} right-click harvesting.
      * @param hand {@link #hand}.
      */
-    public HarvestWithEaseServerEvent(ServerLevel level, BlockState target, BlockPos pos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
-      super(level, target, pos, player, hand);
+    public HarvestWithEaseServerEvent(ServerLevel level, BlockState target, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
+      super(level, target, pos, player, hand, hitResult != null);
       this.face = face;
       this.hitResult = hitResult;
     }
@@ -140,6 +150,7 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
      * 
      * @return this {@link hitResult}.
      */
+    @Nullable
     public BlockHitResult getHitVec() {
       return hitResult;
     }
@@ -163,8 +174,8 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
      * @param hand {@link #hand}.
      * @param canHarvest {@link #canHarvest}.
      */
-    public RightClickHarvestCheck(Level level, BlockState target, BlockPos pos, Player player, InteractionHand hand, boolean canHarvest) {
-      super(level, target, pos, player, hand);
+    public RightClickHarvestCheck(Level level, BlockState target, BlockPos pos, Player player, InteractionHand hand, boolean canHarvest, boolean first) {
+      super(level, target, pos, player, hand, first);
       this.canHarvest = canHarvest;
     }
     
@@ -200,7 +211,7 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
      * @param player {@link #player}.
      * @param hand {@link #hand}.
      */
-    public BeforeHarvest(ServerLevel level, BlockState target, BlockPos pos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
+    public BeforeHarvest(ServerLevel level, BlockState target, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
       super(level, target, pos, face, hitResult, player, hand);
     }
   }
@@ -229,7 +240,7 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
      * @param player {@link ServerPlayer player} right-click harvesting.
      * @param hand {@link #hand}.
      */
-    public HarvestDrops(ServerLevel level, BlockState target, BlockPos pos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
+    public HarvestDrops(ServerLevel level, BlockState target, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
       super(level, target, pos, face, hitResult, player, hand);
       defaultDrops = initDrops();
       drops = new ArrayList<>(defaultDrops.stream().map(item -> item.copy()).toList());
@@ -283,7 +294,7 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
      * @param player {@link #player}.
      * @param hand {@link #hand}.
      */
-    public AfterHarvest(ServerLevel level, BlockState target, BlockPos pos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
+    public AfterHarvest(ServerLevel level, BlockState target, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
       super(level, target, pos, face, hitResult, player, hand);
     }
   }

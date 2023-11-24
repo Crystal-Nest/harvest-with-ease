@@ -28,6 +28,7 @@ classes
 # other
 eclipse
 run
+runs
 
 # macos
 *.DS_Store

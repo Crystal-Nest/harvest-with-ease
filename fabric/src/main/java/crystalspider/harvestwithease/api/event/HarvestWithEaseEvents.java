@@ -3,7 +3,7 @@ package crystalspider.harvestwithease.api.event;
 import java.util.ArrayList;
 import java.util.List;
 
-import crystalspider.harvestwithease.HarvestWithEaseLoader;
+import crystalspider.harvestwithease.ModLoader;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.block.Block;
@@ -26,17 +26,17 @@ public final class HarvestWithEaseEvents {
   /**
    * Priority phase for listeners that will be called first.
    */
-  public static final Identifier PRIORITY_PHASE = new Identifier(HarvestWithEaseLoader.MODID, "priority");
+  public static final Identifier PRIORITY_PHASE = new Identifier(ModLoader.MOD_ID, "priority");
   /**
    * Deferred phase for listeners that will be called last.
    */
-  public static final Identifier DEFERRED_PHASE = new Identifier(HarvestWithEaseLoader.MODID, "deferred");
+  public static final Identifier DEFERRED_PHASE = new Identifier(ModLoader.MOD_ID, "deferred");
 
   public static final Event<HarvestCheck> HARVEST_CHECK = EventFactory.createWithPhases(
     HarvestCheck.class,
-    (listeners) -> (world, crop, pos, player, hand, event) -> {
+    (listeners) -> (world, crop, pos, player, hand, first, event) -> {
       for (HarvestCheck listener : listeners) {
-        event.setCanHarvest(listener.check(world, crop, pos, player, hand, event));
+        event.setCanHarvest(listener.check(world, crop, pos, player, hand, first, event));
         if (event.isCanceled()) {
           return event.canHarvest();
         }
@@ -50,9 +50,9 @@ public final class HarvestWithEaseEvents {
 
   public static final Event<BeforeHarvest> BEFORE_HARVEST = EventFactory.createWithPhases(
     BeforeHarvest.class,
-    (listeners) -> (world, crop, pos, face, result, player, hand) -> {
+    (listeners) -> (world, crop, pos, face, result, player, hand, first) -> {
       for (BeforeHarvest listener : listeners) {
-        listener.beforeHarvest(world, crop, pos, face, result, player, hand);
+        listener.beforeHarvest(world, crop, pos, face, result, player, hand, first);
       }
     },
     PRIORITY_PHASE,
@@ -62,9 +62,9 @@ public final class HarvestWithEaseEvents {
 
   public static final Event<HarvestDrops> HARVEST_DROPS = EventFactory.createWithPhases(
     HarvestDrops.class,
-    (listeners) -> (world, crop, pos, face, result, player, hand, event) -> {
+    (listeners) -> (world, crop, pos, face, result, player, hand, first, event) -> {
       for (HarvestDrops listener : listeners) {
-        event.setDrops(listener.getDrops(world, crop, pos, face, result, player, hand, event));
+        event.setDrops(listener.getDrops(world, crop, pos, face, result, player, hand, first, event));
         if (event.isCanceled()) {
           return event.getDrops();
         }
@@ -78,9 +78,9 @@ public final class HarvestWithEaseEvents {
 
   public static final Event<AfterHarvest> AFTER_HARVEST = EventFactory.createWithPhases(
     AfterHarvest.class,
-    (listeners) -> (world, crop, pos, face, result, player, hand) -> {
+    (listeners) -> (world, crop, pos, face, result, player, hand, first) -> {
       for (AfterHarvest listener : listeners) {
-        listener.afterHarvest(world, crop, pos, face, result, player, hand);
+        listener.afterHarvest(world, crop, pos, face, result, player, hand, first);
       }
     },
     PRIORITY_PHASE,
@@ -100,10 +100,11 @@ public final class HarvestWithEaseEvents {
      * @param pos {@link BlockPos} of the crop being harvested.
      * @param player {@link PlayerEntity} trying to harvest the crop. 
      * @param hand {@link Hand} used to harvest.
+     * @param first whether the current crop is the actual right-clicked crop (the one also at the center of the harvest area).
      * @param event {@link HarvestCheckEvent}.
      * @return whether the player can right-click harvest the crop.
      */
-    boolean check(World world, BlockState crop, BlockPos pos, PlayerEntity player, Hand hand, HarvestCheckEvent event);
+    boolean check(World world, BlockState crop, BlockPos pos, PlayerEntity player, Hand hand, boolean first, HarvestCheckEvent event);
   }
 
   @FunctionalInterface
@@ -116,10 +117,11 @@ public final class HarvestWithEaseEvents {
      * @param pos {@link BlockPos} of the crop being harvested.
      * @param face {@link Direction face} of the crop block clicked.
      * @param result {@link BlockHitResult}.
-     * @param player {@link ServerPlayerEntity} trying to harvest the crop. 
+     * @param player {@link ServerPlayerEntity} trying to harvest the crop.
+     * @param first whether the current crop is the actual right-clicked crop (the one also at the center of the harvest area).
      * @param hand {@link Hand} used to harvest.
      */
-    void beforeHarvest(ServerWorld world, BlockState crop, BlockPos pos, Direction face, BlockHitResult result, ServerPlayerEntity player, Hand hand);
+    void beforeHarvest(ServerWorld world, BlockState crop, BlockPos pos, Direction face, BlockHitResult result, ServerPlayerEntity player, Hand hand, boolean first);
   }
 
   @FunctionalInterface
@@ -134,10 +136,11 @@ public final class HarvestWithEaseEvents {
      * @param result {@link BlockHitResult}.
      * @param player {@link ServerPlayerEntity} trying to harvest the crop. 
      * @param hand {@link Hand} used to harvest.
+     * @param first whether the current crop is the actual right-clicked crop (the one also at the center of the harvest area).
      * @param event {@link HarvestDropsEvent}.
      * @return this list of drops to drop.
      */
-    List<ItemStack> getDrops(ServerWorld world, BlockState crop, BlockPos pos, Direction face, BlockHitResult result, ServerPlayerEntity player, Hand hand, HarvestDropsEvent event);
+    List<ItemStack> getDrops(ServerWorld world, BlockState crop, BlockPos pos, Direction face, BlockHitResult result, ServerPlayerEntity player, Hand hand, boolean first, HarvestDropsEvent event);
   }
 
   @FunctionalInterface
@@ -152,8 +155,9 @@ public final class HarvestWithEaseEvents {
      * @param result {@link BlockHitResult}.
      * @param player {@link ServerPlayerEntity} trying to harvest the crop. 
      * @param hand {@link Hand} used to harvest.
+     * @param first whether the current crop is the actual right-clicked crop (the one also at the center of the harvest area).
      */
-    void afterHarvest(ServerWorld world, BlockState crop, BlockPos pos, Direction face, BlockHitResult result, ServerPlayerEntity player, Hand hand);
+    void afterHarvest(ServerWorld world, BlockState crop, BlockPos pos, Direction face, BlockHitResult result, ServerPlayerEntity player, Hand hand, boolean first);
   }
 
   /**

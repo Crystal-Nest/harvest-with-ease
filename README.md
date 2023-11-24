@@ -29,11 +29,22 @@ It's also compatible with **any** modded crops, to ease your mind of one more th
 - **Highly configurable!** See next section for more details.
 
 ## **Configuration**
-#### _This mod works already out of the box, configuration is only for further tweakings_
 - **`require hoe`**: whether holding a hoe (either hands) is required to right-click harvest, defaults to `false`.
 - **`damage on harvest`**: how much damage the hoe should receive upon use, effective only if `> 0` and **`require hoe`** is enabled.
 - **`exp on harvest`**: how many experience points should be granted when right-click harvesting or break-harvesting, effective only if `> 0` (note it's exp _points_ and not exp _levels_).
 - **`play sound`**: whether to play a sound when harvesting a crop, defaults to `true`.
+- **`multi-harvest starting tier`**:  
+  Tool tier starting from which it is possible to harvest multiple crops at once.  
+  All tiers that cannot multi-harvest will have a 1x1 square area of effect (a single crop).  
+  If **`starting harvest area size`** is set to `single` and **`area increment step`** to `none` multi-harvest will be effectively disabled, regardless of this config option value.  
+  When set to `none` multi-harvest will be enabled without a tool too. Note that **`require hoe`** takes precedence.
+- **`starting harvest area size`**:  
+  Starting multi-harvest area size (square side length).  
+  The area is always a square centered on the right-clicked crop.  
+  Setting this to `single` and **`area increment step`** to `none` will effectively disable multi-harvest.
+- **`area increment step`**:  
+  Increment step for the harvest area size with higher tool tiers.  
+  Setting this to `none` and **`starting harvest area size`** to `single` will effectively disable multi-harvest.
 - **`crops`**: list of additional in-game IDs for crops that are not supported out of the box, defaults to an empty list.  
   This last config option is just a safety measure, so far no crop needs it.
 

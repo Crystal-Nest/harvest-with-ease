@@ -1,13 +1,19 @@
 package crystalspider.harvestwithease.api;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.NoSuchElementException;
 
-import crystalspider.harvestwithease.HarvestWithEaseLoader;
-import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
+import org.slf4j.Logger;
+
+import com.mojang.logging.LogUtils;
+
+import crystalspider.harvestwithease.config.ModConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CocoaBlock;
@@ -15,24 +21,19 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.NetherWartBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.neoforged.neoforge.common.TierSortingRegistry;
 import net.neoforged.neoforge.registries.ForgeRegistries;
 
 /**
  * Utility class that serves as an API for mods interfacing with Harvest With Ease mod.
  */
 public final class HarvestWithEaseAPI {
-  private HarvestWithEaseAPI() {}
-
   /**
-   * Checks whether the given block is a crop that can be harvested using this mod.
-   * 
-   * @param block
-   * @return whether the given block is a valid crop.
+   * Logger.
    */
-  public static boolean isCrop(Block block) {
-    // Hardcoded block id, might consider importing the mod and get the id from its list of registered blocks.
-    return !getKey(block).equals("farmersdelight:tomatoes") && isBreakableCrop(block);
-  }
+  private static final Logger LOGGER = LogUtils.getLogger();
+
+  private HarvestWithEaseAPI() {}
 
   /**
    * Checks whether the given block is a crop that can be broken and, optionally, drop xp.
@@ -40,8 +41,8 @@ public final class HarvestWithEaseAPI {
    * @param block
    * @return whether the given block is a valid breakable crop.
    */
-  public static boolean isBreakableCrop(Block block) {
-    return block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || HarvestWithEaseConfig.getCrops().contains(getKey(block));
+  public static boolean isCrop(Block block) {
+    return block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || ModConfig.getCrops().contains(getKey(block));
   }
 
   /**
@@ -78,7 +79,7 @@ public final class HarvestWithEaseAPI {
    * @throws ClassCastException if the age property is not an {@link IntegerProperty}.
    */
   public static boolean isMature(BlockState blockState) throws NullPointerException, NoSuchElementException, ClassCastException {
-    return HarvestWithEaseAPI.isMature(blockState, HarvestWithEaseAPI.getAge(blockState));
+    return isMature(blockState, getAge(blockState));
   }
 
   /**
@@ -94,6 +95,110 @@ public final class HarvestWithEaseAPI {
   }
 
   /**
+   * Checks whether the given {@link TieredItem tool} has an high enough tier for multi-harvest.
+   * 
+   * @param tool
+   * @return whether the given {@link TieredItem tool} is allowed to multi-harvest.
+   */
+  public static boolean isTierForMultiHarvest(TieredItem tool) {
+    Tier toolTier = tool.getTier();
+    ResourceLocation id = TierSortingRegistry.getName(toolTier);
+    String configTier = ModConfig.getMultiHarvestStartingTier();
+    return configTier.equalsIgnoreCase("none") || (
+      toolTier.toString().equalsIgnoreCase(configTier) || id != null && (
+        id.toString().equalsIgnoreCase(configTier) || isTierIn(TierSortingRegistry.getTiersLowerThan(toolTier), configTier)
+      )
+    );
+  }
+
+  /**
+   * Checks if the given tier string reference is in the given list of tiers.
+   * 
+   * @param tiers
+   * @param tierRef
+   * @return whether {@code tierRef} represents a {@link Tier} in {@code tiers}.
+   */
+  public static boolean isTierIn(List<Tier> tiers, String tierRef) {
+    return tiers.stream().anyMatch(tier -> matchesTier(tierRef, tier));
+  }
+
+  /**
+   * Checks if the given tier id is in the given list of tiers.
+   * 
+   * @param tiers
+   * @param tierRef
+   * @return whether {@code tierRef} represents a {@link Tier} in {@code tiers}.
+   */
+  public static boolean isTierIn(List<Tier> tiers, ResourceLocation tierRef) {
+    return isTierIn(tiers, tierRef.toString());
+  }
+
+  /**
+   * Checks if the given {@link Tier} is in the given list of tiers.
+   * 
+   * @param tiers
+   * @param tier
+   * @return whether {@code tier} is a {@link Tier} in {@code tiers}.
+   */
+  public static boolean isTierIn(List<Tier> tiers, Tier tier) {
+    return isTierIn(tiers, tier.toString());
+  }
+
+  /**
+   * Gets the proper tier level for the given {@link Tier}.
+   * <p>
+   * If the tier is not in the {@link TierSortingRegistry} then the level is {@code -1}.
+   * 
+   * @param tier
+   * @return tier level.
+   */
+  public static int getTierLevel(Tier tier) {
+    return TierSortingRegistry.getTiersLowerThan(tier).size() + 1;
+  }
+
+  /**
+   * Gets the proper tier level for the given {@link Tier} reference.
+   * <p>
+   * If the tier is not in the {@link TierSortingRegistry} then the level is {@code -1}.
+   * 
+   * @param tierRef
+   * @return tier level.
+   */
+  public static int getTierLevel(ResourceLocation tierRef) {
+    return getTierLevel(TierSortingRegistry.byName(tierRef));
+  }
+
+  /**
+   * Gets the proper tier level for the given {@link Tier} reference.
+   * <p>
+   * If {@code tierRef} is {@code "none"} then the level is {@code -1}.
+   * <p>
+   * If the tier is not in the {@link TierSortingRegistry} then the level is {@code 0} (same as Vanilla wood tier).
+   * 
+   * @param tierRef
+   * @return tier level.
+   */
+  public static int getTierLevel(String tierRef) {
+    try {
+      return tierRef.equalsIgnoreCase("none") ? -1 : getTierLevel(TierSortingRegistry.getSortedTiers().stream().filter(tier -> matchesTier(tierRef, tier)).findFirst().orElseThrow());
+    } catch (NoSuchElementException e) {
+      return 0;
+    }
+  }
+
+  /**
+   * Checks whether the given {@link Tier} matches the given tier reference.
+   * 
+   * @param tier
+   * @param tierRef
+   * @return whether {@code tierRef} represents {@code tier}.
+   */
+  @SuppressWarnings("null")
+  public static boolean matchesTier(String tierRef, Tier tier) {
+    return tier.toString().equalsIgnoreCase(tierRef) || TierSortingRegistry.getName(tier).toString().equalsIgnoreCase(tierRef);
+  }
+
+  /**
    * Returns the in-game ID of the block passed as parameter.
    * 
    * @param block
@@ -104,7 +209,7 @@ public final class HarvestWithEaseAPI {
     if (blockLocation != null) {
       return blockLocation.toString();
     }
-    HarvestWithEaseLoader.LOGGER.debug("Couldn't get key for block [" + block + "].");
+    LOGGER.debug("Couldn't get key for block [" + block + "].");
     return "";
   }
 }

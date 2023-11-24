@@ -3,16 +3,19 @@ package crystalspider.harvestwithease.handler;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nullable;
+import org.slf4j.Logger;
+import com.mojang.logging.LogUtils;
 
-import crystalspider.harvestwithease.HarvestWithEaseLoader;
+import crystalspider.harvestwithease.ModLoader;
 import crystalspider.harvestwithease.api.HarvestWithEaseAPI;
 import crystalspider.harvestwithease.api.event.HarvestWithEaseEvent.AfterHarvest;
 import crystalspider.harvestwithease.api.event.HarvestWithEaseEvent.BeforeHarvest;
 import crystalspider.harvestwithease.api.event.HarvestWithEaseEvent.HarvestDrops;
 import crystalspider.harvestwithease.api.event.HarvestWithEaseEvent.RightClickHarvestCheck;
-import crystalspider.harvestwithease.config.HarvestWithEaseConfig;
+import crystalspider.harvestwithease.config.ModConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -21,11 +24,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -35,20 +40,26 @@ import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.ToolActions;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 /**
  * {@link RightClickBlock} event handler.
  * Handles the {@link RightClickBlock} event with {@link EventPriority#HIGH high priority} to right-click harvest when possible.
  * See {@link #handle(RightClickBlock)} for more details.
  */
-@EventBusSubscriber(modid = HarvestWithEaseLoader.MODID, bus = Bus.FORGE)
+@EventBusSubscriber(modid = ModLoader.MOD_ID, bus = Bus.FORGE)
 public final class RightClickBlockHandler {
+  /**
+   * Logger.
+   */
+  private static final Logger LOGGER = LogUtils.getLogger();
+
   /**
    * Listens and handles the event {@link RightClickBlock} with {@link EventPriority#HIGH high priority}.
    * Will cancel further event processing only if the {@link Player player}
    * is not in spectator mode,
    * is not crouching,
-   * is holding the correct item (depends on {@link HarvestWithEaseConfig#getRequireHoe() requireHoe})
+   * is holding the correct item (depends on {@link ModConfig#getRequireHoe() requireHoe})
    * and the interaction involves a fully grown {@link #isCrop crop}.
    * Will also dispatch some events related to right-click harvesting.
    * 
@@ -62,19 +73,31 @@ public final class RightClickBlockHandler {
       BlockPos blockPos = event.getPos();
       BlockState blockState = level.getBlockState(blockPos);
       InteractionHand hand = getInteractionHand(player);
-      if (hand == event.getHand() && canHarvest(level, blockState, blockPos, player, hand)) {
+      if (hand == event.getHand() && canHarvest(level, blockState, blockPos, player, hand, true)) {
         try {
-          IntegerProperty age = HarvestWithEaseAPI.getAge(blockState);
-          if (HarvestWithEaseAPI.isMature(blockState, age)) {
+          IntegerProperty cropAge = HarvestWithEaseAPI.getAge(blockState);
+          if (HarvestWithEaseAPI.isMature(blockState, cropAge)) {
             cancel(event);
             if (!level.isClientSide()) {
-              harvest((ServerLevel) level, age, blockState, blockPos, event.getFace(), event.getHitVec(), (ServerPlayer) player, hand);
+              harvest((ServerLevel) level, cropAge, blockState, blockPos, event.getFace(), event.getHitVec(), (ServerPlayer) player, hand);
+              if (player.getItemInHand(hand).getItem() instanceof TieredItem tool && isHoe(tool.getDefaultInstance()) && HarvestWithEaseAPI.isTierForMultiHarvest(tool)) {
+                int fromCenterToEdge = ((HarvestWithEaseAPI.getTierLevel(tool.getTier()) - HarvestWithEaseAPI.getTierLevel(ModConfig.getMultiHarvestStartingTier())) * ModConfig.getAreaIncrementStep().step + ModConfig.getAreaStartingSize().size - 1) / 2;
+                BlockPos.betweenClosedStream(new AABB(blockPos, blockPos).inflate(fromCenterToEdge, 0, fromCenterToEdge)).filter(pos -> !pos.equals(blockPos)).forEach(pos -> {
+                  BlockState state = level.getBlockState(pos);
+                  if (canHarvest(level, state, pos, player, hand, false)) {
+                    IntegerProperty age = HarvestWithEaseAPI.getAge(state);
+                    if (HarvestWithEaseAPI.isMature(state, age)) {
+                      harvest((ServerLevel) level, age, state, pos, event.getFace(), null, (ServerPlayer) player, hand);
+                    }
+                  }
+                });
+              }
             }
           }
         } catch (NullPointerException | NoSuchElementException | ClassCastException e) {
-          HarvestWithEaseLoader.LOGGER.debug("Exception generated by block at [" + blockPos.getX() + ", " + blockPos.getY() + ", " + blockPos.getZ() + "]");
-          HarvestWithEaseLoader.LOGGER.debug("This is a non blocking error, but can result in incorrect behavior for mod " + HarvestWithEaseLoader.MODID);
-          HarvestWithEaseLoader.LOGGER.debug("Most probably the cause of this issue was that a non-crop ID was added in the configuration and its age property could not be retrieved, see stack trace for more details", e);
+          LOGGER.debug("Exception generated by block at [" + blockPos.toShortString() + "]");
+          LOGGER.debug("This is a non blocking error, but can result in incorrect behavior for mod " + ModLoader.MOD_ID);
+          LOGGER.debug("Most probably the cause of this issue was that a non-crop ID was added in the configuration and its age property could not be retrieved, see stack trace for more details", e);
         }
       }
     }
@@ -114,7 +137,7 @@ public final class RightClickBlockHandler {
    */
   private static void updateCrop(ServerLevel level, IntegerProperty age, Block block, BlockPos basePos, ServerPlayer player, boolean customDrops) {
     level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
-    if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(block)) {
+    if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(block) && !isTallButSeparate(block)) {
       level.destroyBlock(basePos.above(), !customDrops, player);
     }
   }
@@ -129,8 +152,7 @@ public final class RightClickBlockHandler {
    */
   private static BlockPos getBasePos(ServerLevel world, Block block, BlockPos blockPos) {
     BlockPos basePos;
-    boolean isActualCrop = world.getBlockState(blockPos).is(BlockTags.CROPS);
-    for (basePos = blockPos; isActualCrop && world.getBlockState(basePos.below()).is(block); basePos = basePos.below());
+    for (basePos = blockPos; world.getBlockState(blockPos).is(BlockTags.CROPS) && !isTallButSeparate(block) && world.getBlockState(basePos.below()).is(block); basePos = basePos.below());
     return basePos;
   }
 
@@ -151,20 +173,20 @@ public final class RightClickBlockHandler {
    * @param player - {@link ServerPlayer player} to grant the experience to.
    */
   private static void grantExp(ServerPlayer player) {
-    if (HarvestWithEaseConfig.getGrantedExp() > 0) {
-      player.giveExperiencePoints(HarvestWithEaseConfig.getGrantedExp());
+    if (ModConfig.getGrantedExp() > 0) {
+      player.giveExperiencePoints(ModConfig.getGrantedExp());
     }
   }
 
   /**
-   * If needed and possible, damages the hoe of the given {@link HarvestWithEaseConfig#getDamageOnHarvest() damage}.
+   * If needed and possible, damages the hoe of the given {@link ModConfig#getDamageOnHarvest() damage}.
    * 
    * @param player - {@link ServerPlayer player} holding the hoe.
    * @param hand - {@link InteractionHand hand} holding the hoe.
    */
   private static void damageHoe(ServerPlayer player, InteractionHand hand) {
-    if (HarvestWithEaseConfig.getRequireHoe() && HarvestWithEaseConfig.getDamageOnHarvest() > 0 && !player.isCreative()) {
-      player.getItemInHand(hand).hurtAndBreak(HarvestWithEaseConfig.getDamageOnHarvest(), player, playerEntity -> playerEntity.broadcastBreakEvent(hand));
+    if (ModConfig.getRequireHoe() && ModConfig.getDamageOnHarvest() > 0 && !player.isCreative()) {
+      player.getItemInHand(hand).hurtAndBreak(ModConfig.getDamageOnHarvest(), player, playerEntity -> playerEntity.broadcastBreakEvent(hand));
     }
   }
 
@@ -191,7 +213,7 @@ public final class RightClickBlockHandler {
   }
 
   /**
-   * If {@link HarvestWithEaseConfig#getPlaySound() playSound} is true, plays the block breaking sound.
+   * If {@link ModConfig#getPlaySound() playSound} is true, plays the block breaking sound.
    * 
    * @param level - {@link ServerLevel} to play the sound.
    * @param player - {@link ServerPlayer player} activating the sound.
@@ -199,7 +221,7 @@ public final class RightClickBlockHandler {
    * @param blockPos - {@link BlockPos position} of the block emitting the sound.
    */
   private static void playSound(ServerLevel level, ServerPlayer player, BlockState blockState, BlockPos blockPos) {
-    if (HarvestWithEaseConfig.getPlaySound()) {
+    if (ModConfig.getPlaySound()) {
       SoundType soundType = blockState.getBlock().getSoundType(blockState, level, blockPos, player);
       level.playSound(null, blockPos, soundType.getBreakSound(), SoundSource.BLOCKS, soundType.getVolume(), soundType.getPitch());
     }
@@ -231,7 +253,7 @@ public final class RightClickBlockHandler {
       if (isHoe(player.getOffhandItem())) {
         return InteractionHand.OFF_HAND;
       }
-      if (!HarvestWithEaseConfig.getRequireHoe()) {
+      if (!ModConfig.getRequireHoe()) {
         return InteractionHand.MAIN_HAND;
       }
     }
@@ -257,13 +279,30 @@ public final class RightClickBlockHandler {
    * @param blockPos - {@link BlockPos} of the crop.
    * @param player - {@link Player} trying to harvest.
    * @param hand - {@link InteractionHand hand} being used to harvest the crop.
+   * @param first - whether the current crop is the actual right-clicked crop.
    * @return whether the player can right-click harvest the crop.
    */
-  private static boolean canHarvest(Level level, BlockState blockState, BlockPos blockPos, Player player, InteractionHand hand) {
+  private static boolean canHarvest(Level level, BlockState blockState, BlockPos blockPos, Player player, InteractionHand hand, boolean first) {
     if (HarvestWithEaseAPI.isCrop(blockState.getBlock()) && player.hasCorrectToolForDrops(blockState)) {
-      RightClickHarvestCheck event = new RightClickHarvestCheck(level, blockState, blockPos, player, hand, true);
+      RightClickHarvestCheck event = new RightClickHarvestCheck(level, blockState, blockPos, player, hand, true, first);
       NeoForge.EVENT_BUS.post(event);
       return event.canHarvest();
+    }
+    return false;
+  }
+
+  /**
+   * Checks whether the given block is something that might be considered a tall crop, but should actually be treated as a normal crop.
+   * <p>
+   * Currently the only known crop with this behavior is Farmer's Delight tomatoes. 
+   * 
+   * @param block
+   * @return whether to treat a tall crop as a normal crop.
+   */
+  private static boolean isTallButSeparate(Block block) {
+    ResourceLocation location = ForgeRegistries.BLOCKS.getKey(block);
+    if (location != null) {
+      return location.toString().equals("farmersdelight:tomatoes");
     }
     return false;
   }

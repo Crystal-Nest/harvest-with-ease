@@ -25,7 +25,7 @@ public class ModLoader {
   /**
    * {@link SimpleChannel} instance for compatibility client-server.
    */
-  public static final SimpleChannel INSTANCE = ChannelBuilder.named(new ResourceLocation(MOD_ID, "main")).networkProtocolVersion(PROTOCOL_VERSION).simpleChannel();
+  public static final SimpleChannel INSTANCE = ChannelBuilder.named(new ResourceLocation(MOD_ID, "main")).networkProtocolVersion(PROTOCOL_VERSION).optionalClient().simpleChannel();
 
   public ModLoader() {
     ModLoadingContext.get().registerConfig(Type.COMMON, ModConfig.SPEC);

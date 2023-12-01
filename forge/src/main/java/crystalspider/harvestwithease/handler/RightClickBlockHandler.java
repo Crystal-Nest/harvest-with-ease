@@ -35,6 +35,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
@@ -210,7 +211,11 @@ public final class RightClickBlockHandler {
     HarvestDrops event = new HarvestDrops(level, blockState, blockPos, face, hitResult, player, hand);
     MinecraftForge.EVENT_BUS.post(event);
     for (ItemStack stack : event.drops) {
-      Block.popResourceFromFace(level, blockPos, face, stack);
+      if (blockState.getCollisionShape(level, blockPos) != Shapes.empty()) {
+        Block.popResourceFromFace(level, blockPos, face, stack);
+      } else {
+        Block.popResource(level, blockPos, stack);
+      }
     }
     return event.haveDropsChanged();
   }

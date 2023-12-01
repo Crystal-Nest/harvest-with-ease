@@ -209,7 +209,11 @@ public final class RightClickBlockHandler {
     HarvestDrops event = new HarvestDrops(level, blockState, blockPos, face, hitResult, player, hand);
     MinecraftForge.EVENT_BUS.post(event);
     for (ItemStack stack : event.drops) {
-      Block.popResourceFromFace(level, blockPos, face, stack);
+      if (blockState.getMaterial().blocksMotion()) {
+        Block.popResourceFromFace(level, blockPos, face, stack);
+      } else {
+        Block.popResource(level, blockPos, stack);
+      }
     }
     return event.haveDropsChanged();
   }

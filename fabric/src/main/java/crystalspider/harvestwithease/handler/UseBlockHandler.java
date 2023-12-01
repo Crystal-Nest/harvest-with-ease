@@ -188,7 +188,11 @@ public final class UseBlockHandler {
   private static boolean dropResources(ServerWorld world, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayerEntity player, Hand hand) {
     HarvestWithEaseEvents.HarvestDropsEvent event = new HarvestWithEaseEvents.HarvestDropsEvent(world, blockState, blockPos, player, hand);
     for (ItemStack stack : HarvestWithEaseEvents.HARVEST_DROPS.invoker().getDrops(world, blockState, blockPos, face, hitResult, player, hand, hitResult != null, event)) {
-      Block.dropStack(world, blockPos, face, stack);
+      if (blockState.getMaterial().blocksMovement()) {
+        Block.dropStack(world, blockPos, face, stack);
+      } else {
+        Block.dropStack(world, blockPos, stack);
+      }
     }
     return event.haveDropsChanged();
   }

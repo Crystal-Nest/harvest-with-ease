@@ -34,6 +34,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 
 /**
@@ -189,7 +190,11 @@ public final class UseBlockHandler {
   private static boolean dropResources(ServerWorld world, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayerEntity player, Hand hand) {
     HarvestWithEaseEvents.HarvestDropsEvent event = new HarvestWithEaseEvents.HarvestDropsEvent(world, blockState, blockPos, player, hand);
     for (ItemStack stack : HarvestWithEaseEvents.HARVEST_DROPS.invoker().getDrops(world, blockState, blockPos, face, hitResult, player, hand, hitResult != null, event)) {
-      Block.dropStack(world, blockPos, face, stack);
+      if (blockState.getCollisionShape(world, blockPos) != VoxelShapes.empty()) {
+        Block.dropStack(world, blockPos, face, stack);
+      } else {
+        Block.dropStack(world, blockPos, stack);
+      }
     }
     return event.haveDropsChanged();
   }

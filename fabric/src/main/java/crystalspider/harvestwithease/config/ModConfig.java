@@ -157,7 +157,8 @@ public class ModConfig {
         "All tiers that cannot multi-harvest will have a 1x1 square area of effect (a single crop).",
         "If [starting harvest area size] is set to \"" + AreaSize.SINGLE + "\" and [area increment step] to \"" + AreaStep.NONE + "\" multi-harvest will be effectively disabled, regardless of this config option value.",
         "From lesser to greater, Vanilla tiers are: " + String.join(", ", Stream.of(ToolMaterials.values()).sorted((t1, t2) -> t1.getMiningLevel() - t2.getMiningLevel()).map(tier -> "\"" + tier.toString().toLowerCase() + "\"").toArray(String[]::new)) + ".",
-        "When set to \"none\", the only value not in the tiers list, multi-harvest will be enabled without a tool too. Note that [require hoe] takes precedence."
+        "When set to \"none\", the only value not in the tiers list, multi-harvest will be enabled without a tool too. Note that [require hoe] takes precedence.",
+        "Unfortunately, due to Fabric tier system, it's currently possible to use only Vanilla tiers."
       ).define("multi-harvest starting tier", ToolMaterials.WOOD.toString().toLowerCase(), value -> value instanceof String string && (string.equalsIgnoreCase("none") || HarvestWithEaseAPI.isTierIn(Arrays.asList(ToolMaterials.values()), string)));
       areaStartingSize = builder.comment(getAreaSizeComments()).defineEnum("starting harvest area size", AreaSize.SINGLE, AreaSize.values());
       areaIncrementStep = builder.comment(getAreaStepComments()).defineEnum("area increment step", AreaStep.NONE, AreaStep.values());

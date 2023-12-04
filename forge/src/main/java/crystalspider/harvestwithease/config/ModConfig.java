@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import crystalspider.harvestwithease.api.HarvestWithEaseAPI;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -160,7 +160,7 @@ public class ModConfig {
         "Be aware that other mods may add other tiers and/or removing existing ones. Only the actual tiers available at runtime are allowed here.",
         "When set to \"none\", the only value not in the tiers list, multi-harvest will be enabled without a tool too. Note that [require hoe] takes precedence.",
         "The value in this config option can either be the name of the tier, e.g. \"iron\", or the id of the tier, e.g. \"minecraft:iron\"."
-      ).define("multi-harvest starting tier", Tiers.WOOD.toString().toLowerCase(), value -> value instanceof String string && (string.equalsIgnoreCase("none") || HarvestWithEaseAPI.isTierIn(TierSortingRegistry.getSortedTiers(), string)));
+      ).define("multi-harvest starting tier", Tiers.WOOD.toString().toLowerCase(), value -> value instanceof String string && (string.equalsIgnoreCase("none") || TierSortingRegistry.byName(new ResourceLocation(string.toLowerCase())) != null));
       areaStartingSize = builder.comment(getAreaSizeComments()).defineEnum("starting harvest area size", AreaSize.SINGLE, AreaSize.values());
       areaIncrementStep = builder.comment(getAreaStepComments()).defineEnum("area increment step", AreaStep.NONE, AreaStep.values());
     }

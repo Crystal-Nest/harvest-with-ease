@@ -13,14 +13,14 @@
 ## **Description**
 Harvesting crops is such a pain, breaking them all to get the drops and then having to replant each one.  
 Well, not anymore! With this mod you can just right click on your crops to harvest them and leaving a new plant to grow!  
-It's also compatible with **any** modded crops, to ease your mind of one more thing!
+It's also compatible with **almost all** modded crops, to ease your mind of one more thing!
 
 ***Note:***  
 *Altough it's stated that the mod is required on both sides, it can be safely installed server-side only and still work.*  
 *However when a client that does not have the mod connects to a server that does, and the player tries to harvest a crop while holding a block, it cause block flashing. The only way to prevent this glitch is to set `require hoe` to `true`.*
 
 ## **Features**
-- Right-click to harvest any crop, works with both Vanilla and modded out of the box!  
+- Right-click to harvest any crop, works with both Vanilla and most modded out of the box!  
   ![Harvesting wheat](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/harvest-with-ease/wheat.gif)
 - Works on nether warts and cocoa beans too!  
   ![Harvesting cocoa](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/harvest-with-ease/cocoa.gif) ![Harvesting nether wart](https://raw.githubusercontent.com/Nyphet/mod-fancy-assets/main/harvest-with-ease/wart.gif)

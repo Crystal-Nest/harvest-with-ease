@@ -1,9 +1,5 @@
 package crystalspider.harvestwithease.config;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Stream;
-
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.CropBlock;
@@ -13,6 +9,11 @@ import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 import net.neoforged.neoforge.common.ModConfigSpec.EnumValue;
 import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
 import net.neoforged.neoforge.common.TierSortingRegistry;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Harvest with ease Configuration.
@@ -30,7 +31,7 @@ public class ModConfig {
    * {@link ModConfigSpec}.
    */
   public static final ModConfigSpec SPEC = BUILDER.build();
-  
+
   /**
    * Returns the value of {@link CommonConfig#crops}.
    *
@@ -93,7 +94,7 @@ public class ModConfig {
   public static AreaSize getAreaStartingSize() {
     return COMMON.areaStartingSize.get();
   }
-  
+
   /**
    * Returns the value of {@link CommonConfig#areaIncrementStep}.
    *
@@ -157,18 +158,18 @@ public class ModConfig {
         "Tool tier starting from which it is possible to harvest multiple crops at once.",
         "All tiers that cannot multi-harvest will have a 1x1 square area of effect (a single crop).",
         "If [starting harvest area size] is set to \"" + AreaSize.SINGLE + "\" and [area increment step] to \"" + AreaStep.NONE + "\" multi-harvest will be effectively disabled, regardless of this config option value.",
-        "From lesser to greater, Vanilla tiers are: " + String.join(", ", Stream.of(Tiers.values()).sorted((t1, t2) -> t1.getLevel() - t2.getLevel()).map(tier -> "\"" + tier.toString().toLowerCase() + "\"").toArray(String[]::new)) + ".",
+        "From lesser to greater, Vanilla tiers are: " + String.join(", ", Stream.of(Tiers.values()).sorted(Comparator.comparingInt(Tiers::getLevel)).map(tier -> "\"" + tier.toString().toLowerCase() + "\"").toArray(String[]::new)) + ".",
         "Be aware that other mods may add other tiers and/or removing existing ones. Only the actual tiers available at runtime are allowed here.",
         "When set to \"none\", the only value not in the tiers list, multi-harvest will be enabled without a tool too. Note that [require hoe] takes precedence.",
         "The value in this config option can either be the name of the tier, e.g. \"iron\", or the id of the tier, e.g. \"minecraft:iron\"."
-        ).define("multi-harvest starting tier", Tiers.WOOD.toString().toLowerCase(), value -> value instanceof String string && (string.equalsIgnoreCase("none") || TierSortingRegistry.byName(new ResourceLocation(string.toLowerCase())) != null));
-        areaStartingSize = builder.comment(getAreaSizeComments()).defineEnum("starting harvest area size", AreaSize.SINGLE, AreaSize.values());
+      ).define("multi-harvest starting tier", Tiers.WOOD.toString().toLowerCase(), value -> value instanceof String string && (string.equalsIgnoreCase("none") || TierSortingRegistry.byName(new ResourceLocation(string.toLowerCase())) != null));
+      areaStartingSize = builder.comment(getAreaSizeComments()).defineEnum("starting harvest area size", AreaSize.SINGLE, AreaSize.values());
       areaIncrementStep = builder.comment(getAreaStepComments()).defineEnum("area increment step", AreaStep.NONE, AreaStep.values());
     }
 
     /**
      * Gets the comments for {@link #areaStartingSize}.
-     * 
+     *
      * @return the comments for {@link #areaStartingSize}.
      */
     private String[] getAreaSizeComments() {
@@ -185,7 +186,7 @@ public class ModConfig {
 
     /**
      * Gets the comments for {@link #areaIncrementStep}.
-     * 
+     *
      * @return the comments for {@link #areaIncrementStep}.
      */
     private String[] getAreaStepComments() {

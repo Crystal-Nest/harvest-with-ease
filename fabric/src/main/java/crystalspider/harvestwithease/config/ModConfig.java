@@ -1,36 +1,37 @@
 package crystalspider.harvestwithease.config;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Arrays;
-import java.util.stream.Stream;
-
 import crystalspider.harvestwithease.api.HarvestWithEaseAPI;
 import net.minecraft.block.CropBlock;
 import net.minecraft.item.ToolMaterials;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
+import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
+import net.neoforged.neoforge.common.ModConfigSpec.EnumValue;
+import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
- * Harvest with ease Configuration.
+ * Mod Configuration.
  */
 public class ModConfig {
   /**
-   * {@link ForgeConfigSpec} {@link ForgeConfigSpec.Builder Builder}.
+   * {@link ModConfigSpec} {@link ModConfigSpec.Builder Builder}.
    */
-  private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+  private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
   /**
    * Common Configuration as read from the configuration file.
    */
   public static final CommonConfig COMMON = new CommonConfig(BUILDER);
   /**
-   * {@link ForgeConfigSpec}.
+   * {@link ModConfigSpec}.
    */
-  public static final ForgeConfigSpec SPEC = BUILDER.build();
-  
+  public static final ModConfigSpec SPEC = BUILDER.build();
+
   /**
    * Returns the value of {@link CommonConfig#crops}.
    *
@@ -75,7 +76,7 @@ public class ModConfig {
   public static Boolean getPlaySound() {
     return COMMON.playSound.get();
   }
-  
+
   /**
    * Returns the value of {@link CommonConfig#multiHarvestStartingTier}.
    *
@@ -93,7 +94,7 @@ public class ModConfig {
   public static AreaSize getAreaStartingSize() {
     return COMMON.areaStartingSize.get();
   }
-  
+
   /**
    * Returns the value of {@link CommonConfig#areaIncrementStep}.
    *
@@ -147,7 +148,7 @@ public class ModConfig {
      *
      * @param builder
      */
-    public CommonConfig(ForgeConfigSpec.Builder builder) {
+    public CommonConfig(ModConfigSpec.Builder builder) {
       crops = builder.comment("List of in-game IDs of additional crops").defineListAllowEmpty(List.of("crops"), Collections::emptyList, element -> element instanceof String && !((String) element).isBlank());
       requireHoe = builder.comment("Require holding a hoe (either hands) to right-click harvest").define("require hoe", false);
       damageOnHarvest = builder.comment("If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer)").defineInRange("damage on harvest", 0, 0, Integer.MAX_VALUE);
@@ -157,7 +158,7 @@ public class ModConfig {
         "Tool tier starting from which it is possible to harvest multiple crops at once.",
         "All tiers that cannot multi-harvest will have a 1x1 square area of effect (a single crop).",
         "If [starting harvest area size] is set to \"" + AreaSize.SINGLE + "\" and [area increment step] to \"" + AreaStep.NONE + "\" multi-harvest will be effectively disabled, regardless of this config option value.",
-        "From lesser to greater, Vanilla tiers are: " + String.join(", ", Stream.of(ToolMaterials.values()).sorted((t1, t2) -> t1.getMiningLevel() - t2.getMiningLevel()).map(tier -> "\"" + tier.toString().toLowerCase() + "\"").toArray(String[]::new)) + ".",
+        "From lesser to greater, Vanilla tiers are: " + String.join(", ", Stream.of(ToolMaterials.values()).sorted(Comparator.comparingInt(ToolMaterials::getMiningLevel)).map(tier -> "\"" + tier.toString().toLowerCase() + "\"").toArray(String[]::new)) + ".",
         "When set to \"none\", the only value not in the tiers list, multi-harvest will be enabled without a tool too. Note that [require hoe] takes precedence.",
         "Unfortunately, due to Fabric tier system, it's currently possible to use only Vanilla tiers."
       ).define("multi-harvest starting tier", ToolMaterials.WOOD.toString().toLowerCase(), value -> value instanceof String string && (string.equalsIgnoreCase("none") || HarvestWithEaseAPI.isTierIn(Arrays.asList(ToolMaterials.values()), string)));
@@ -167,7 +168,7 @@ public class ModConfig {
 
     /**
      * Gets the comments for {@link #areaStartingSize}.
-     * 
+     *
      * @return the comments for {@link #areaStartingSize}.
      */
     private String[] getAreaSizeComments() {
@@ -184,7 +185,7 @@ public class ModConfig {
 
     /**
      * Gets the comments for {@link #areaIncrementStep}.
-     * 
+     *
      * @return the comments for {@link #areaIncrementStep}.
      */
     private String[] getAreaStepComments() {

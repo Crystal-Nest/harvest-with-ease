@@ -1,68 +1,52 @@
 plugins {
-  id "net.minecraftforge.gradle" version "[6.0,6.2)"
+  id "net.minecraftforge.gradle" version "[6.0.16,6.2)"
   id "com.modrinth.minotaur" version "2.+"
   id "com.matthewprenger.cursegradle" version "1.4.+"
   id "com.github.breadmoirai.github-release" version "2.4.+"
 }
 
-archivesBaseName = modid
 version = "${minecraft_version}-${mod_version}-${loader.toLowerCase()}"
 group = project.group
+base { archivesName = mod_id }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
   mappings channel: "official", version: minecraft_version
   copyIdeResources = true
-  // accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg") // Currently, this location cannot be changed from the default.
+
+  // This property enables access transformers for use in development.
+  // They will be applied to the Minecraft artifact.
+  // See https://docs.minecraftforge.net/en/latest/advanced/accesstransformers/ for more information.
+  // accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+
   runs {
-    client {
+    configureEach {
       workingDirectory project.file("run")
       property "forge.logging.markers", "REGISTRIES"
-      // https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+      // Recommended logging level for the console
+      // You can set various levels here.
+      // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
       property "forge.logging.console.level", "debug"
-      property "forge.enabledGameTestNamespaces", modid
-      mods {
-        "${modid}" {
-          source sourceSets.main
-        }
-      }
+    }
+    client {
+      property "forge.enabledGameTestNamespaces", mod_id
     }
     server {
-      workingDirectory project.file("run")
-      property "forge.logging.markers", "REGISTRIES"
-      // https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-      property "forge.logging.console.level", "debug"
-      property "forge.enabledGameTestNamespaces", modid
-      mods {
-        "${modid}" {
-          source sourceSets.main
-        }
-      }
+      property "forge.enabledGameTestNamespaces", mod_id
+      args "--nogui"
     }
+    // This run config launches GameTestServer and runs all registered gametests, then exits.
+    // By default, the server will crash when no gametests are provided.
+    // The gametest system is also enabled by default for other run configs under the /test command.
     gameTestServer {
-      workingDirectory project.file("run")
-      property "forge.logging.markers", "REGISTRIES"
-      // https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-      property "forge.logging.console.level", "debug"
-      property "forge.enabledGameTestNamespaces", modid
-      mods {
-        "${modid}" {
-          source sourceSets.main
-        }
-      }
+      property "forge.enabledGameTestNamespaces", mod_id
     }
     data {
-      workingDirectory project.file("run")
-      property "forge.logging.markers", "REGISTRIES"
-      // https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-      property "forge.logging.console.level", "debug"
-      args "--mod", modid, "--all", "--output", file("src/generated/resources/"), "--existing", file("src/main/resources/")
-      mods {
-        "${modid}" {
-          source sourceSets.main
-        }
-      }
+      // example of overriding the workingDirectory set in configureEach above
+      workingDirectory project.file("run-data")
+      // Specify the mod_id for data generation, where to output the resulting resource, and where to look for existing resources.
+      args "--mod", mod_id, "--all", "--output", file("src/generated/resources/"), "--existing", file("src/main/resources/")
     }
   }
 }
@@ -78,14 +62,14 @@ dependencies {
 def resourceTargets = ["META-INF/mods.toml", "pack.mcmeta"]
 def intoTargets = ["$rootDir/bin/main/"]
 def replaceProperties = [
-  modid: modid,
-  modid_kebab: modid_kebab,
+  mod_id: mod_id,
+  mod_id_kebab: mod_id_kebab,
   mod_title: mod_title,
   minecraft_version: minecraft_version,
   mod_version: mod_version,
   loader_version: loader_version,
   forge_subversion: forge_subversion,
-  author: author,
+  authors: authors,
   github_user: github_user
 ]
 
@@ -110,30 +94,38 @@ processResources {
   }
 }
 
-jar {
-  manifest {
-    attributes([
-      "Specification-Title"     : project.mod_title,
-      "Specification-Version"   : project.mod_version,
-      "Specification-Vendor"    : project.author,
-      "Implementation-Title"    : project.mod_title,
-      "Implementation-Version"  : project.mod_version,
-      "Implementation-Vendor"   : project.author,
-      "Implementation-Vendor-Id": project.group,
-      "Implementation-URL"      : "https://github.com/${github_user}/${modid_kebab}/tree/${minecraft_version}",
-      "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-    ])
-  }
-}
-
 tasks.withType(JavaCompile).configureEach {
   it.options.encoding = "UTF-8"
   it.options.release = 17
 }
 
-def changelog_body = "See [Changelog](https://github.com/${github_user}/${modid_kebab}/blob/master/CHANGELOG.md#${minecraft_version.replaceAll('\\.', '')}-${mod_version.replaceAll('\\.', '')}---${new Date().format("yyyyMMdd")})."
+tasks.named('jar', Jar).configure {
+  manifest {
+    attributes([
+      "Specification-Title"     : project.mod_title,
+      "Specification-Version"   : project.mod_version,
+      "Specification-Vendor"    : project.authors,
+      "Implementation-Title"    : project.mod_title,
+      "Implementation-Version"  : project.mod_version,
+      "Implementation-Vendor"   : project.authors,
+      "Implementation-Vendor-Id": project.group,
+      "Implementation-URL"      : "https://github.com/${github_user}/${mod_id_kebab}/tree/${minecraft_version}",
+      "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+    ])
+  }
 
-file("../api-keys.properties").withReader { 
+  finalizedBy 'reobfJar'
+}
+
+sourceSets.each {
+  def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+  it.output.resourcesDir = dir
+  it.java.destinationDirectory = dir
+}
+
+def changelog_body = "See [Changelog](https://github.com/${github_user}/${mod_id_kebab}/blob/master/CHANGELOG.md#${minecraft_version.replaceAll('\\.', '')}-${mod_version.replaceAll('\\.', '')}---${new Date().format("yyyyMMdd")})."
+
+file("../api-keys.properties").withReader {
   Properties props = new Properties()
   props.load(it)
   project.api_keys = props
@@ -161,7 +153,7 @@ curseforge {
 
 modrinth {
   token = api_keys.modrinth
-  projectId = modid_kebab
+  projectId = mod_id_kebab
   versionNumber = mod_version
   versionName = "[${loader} - ${minecraft_version}] ${mod_title} v${mod_version}"
   changelog = changelog_body
@@ -175,7 +167,7 @@ modrinth {
 githubRelease {
   token api_keys.github
   owner github_user
-  repo modid_kebab
+  repo mod_id_kebab
   tagName "v${minecraft_version}-${mod_version}"
   targetCommitish minecraft_version
   releaseName "v${minecraft_version}-${mod_version}"

@@ -1,44 +1,31 @@
 package crystalspider.harvestwithease.api;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.NoSuchElementException;
-
-import org.slf4j.Logger;
-
-import com.mojang.logging.LogUtils;
-
 import crystalspider.harvestwithease.config.ModConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CocoaBlock;
-import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.NetherWartBlock;
-import net.minecraft.world.level.block.PitcherCropBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.neoforged.neoforge.common.TierSortingRegistry;
-import net.neoforged.neoforge.registries.ForgeRegistries;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Utility class that serves as an API for mods interfacing with Harvest With Ease mod.
  */
 public final class HarvestWithEaseAPI {
-  /**
-   * Logger.
-   */
-  private static final Logger LOGGER = LogUtils.getLogger();
-
   private HarvestWithEaseAPI() {}
 
   /**
    * Checks whether the given block is a crop that can be broken and, optionally, drop xp.
-   * 
+   *
    * @param block
    * @return whether the given block is a valid breakable crop.
    */
@@ -48,8 +35,8 @@ public final class HarvestWithEaseAPI {
 
   /**
    * Returns the age integer property from the given blockState.
-   * 
-   * @param blockState - {@link BlockState state} to take the age property from.
+   *
+   * @param blockState {@link BlockState state} to take the age property from.
    * @return the age property from the given blockState.
    * @throws NullPointerException if the age property was null.
    * @throws NoSuchElementException if no value for the age property is present.
@@ -61,9 +48,9 @@ public final class HarvestWithEaseAPI {
 
   /**
    * Checks whether the given blockstate is a mature crop.
-   * 
-   * @param blockState - {@link BlockState state} to take the age property from.
-   * @param age - {@link IntegerProperty integer property} for the crop age.
+   *
+   * @param blockState {@link BlockState state} to take the age property from.
+   * @param age {@link IntegerProperty integer property} for the crop age.
    * @return whether the given blockstate is a mature crop.
    */
   public static boolean isMature(BlockState blockState, IntegerProperty age) {
@@ -72,8 +59,8 @@ public final class HarvestWithEaseAPI {
 
   /**
    * Checks whether the given blockstate is a mature crop.
-   * 
-   * @param blockState - {@link BlockState state} to take the age property from.
+   *
+   * @param blockState {@link BlockState state} to take the age property from.
    * @return whether the given blockstate is a mature crop.
    * @throws NullPointerException if the age property was null.
    * @throws NoSuchElementException if no value for the age property is present.
@@ -85,10 +72,10 @@ public final class HarvestWithEaseAPI {
 
   /**
    * Checks whether the given crop is a multi-block crop (a crop made of multiple vertically connected blocks).
-   * 
-   * @param level - {@link Level world} in which the crop is placed.
-   * @param blockState - {@link BlockState} of the crop.
-   * @param blockPos - {@link BlockPos} of the crop.
+   *
+   * @param level {@link Level world} in which the crop is placed.
+   * @param blockState {@link BlockState} of the crop.
+   * @param blockPos {@link BlockPos} of the crop.
    * @return whether the given crop is a multi-block crop.
    */
   public static boolean isTallCrop(Level level, BlockState blockState, BlockPos blockPos) {
@@ -96,8 +83,8 @@ public final class HarvestWithEaseAPI {
   }
 
   /**
-   * Checks whether the given {@link TieredItem tool} has an high enough tier for multi-harvest.
-   * 
+   * Checks whether the given {@link TieredItem tool} has a high enough tier for multi-harvest.
+   *
    * @param tool
    * @return whether the given {@link TieredItem tool} is allowed to multi-harvest.
    */
@@ -114,7 +101,7 @@ public final class HarvestWithEaseAPI {
 
   /**
    * Checks if the given tier string reference is in the given list of tiers.
-   * 
+   *
    * @param tiers
    * @param tierRef
    * @return whether {@code tierRef} represents a {@link Tier} in {@code tiers}.
@@ -125,7 +112,7 @@ public final class HarvestWithEaseAPI {
 
   /**
    * Checks if the given tier id is in the given list of tiers.
-   * 
+   *
    * @param tiers
    * @param tierRef
    * @return whether {@code tierRef} represents a {@link Tier} in {@code tiers}.
@@ -136,7 +123,7 @@ public final class HarvestWithEaseAPI {
 
   /**
    * Checks if the given {@link Tier} is in the given list of tiers.
-   * 
+   *
    * @param tiers
    * @param tier
    * @return whether {@code tier} is a {@link Tier} in {@code tiers}.
@@ -149,7 +136,7 @@ public final class HarvestWithEaseAPI {
    * Gets the proper tier level for the given {@link Tier}.
    * <p>
    * If the tier is not in the {@link TierSortingRegistry} then the level is {@code -1}.
-   * 
+   *
    * @param tier
    * @return tier level.
    */
@@ -161,7 +148,7 @@ public final class HarvestWithEaseAPI {
    * Gets the proper tier level for the given {@link Tier} reference.
    * <p>
    * If the tier is not in the {@link TierSortingRegistry} then the level is {@code -1}.
-   * 
+   *
    * @param tierRef
    * @return tier level.
    */
@@ -175,7 +162,7 @@ public final class HarvestWithEaseAPI {
    * If {@code tierRef} is {@code "none"} then the level is {@code -1}.
    * <p>
    * If the tier is not in the {@link TierSortingRegistry} then the level is {@code 0} (same as Vanilla wood tier).
-   * 
+   *
    * @param tierRef
    * @return tier level.
    */
@@ -189,7 +176,7 @@ public final class HarvestWithEaseAPI {
 
   /**
    * Checks whether the given {@link Tier} matches the given tier reference.
-   * 
+   *
    * @param tier
    * @param tierRef
    * @return whether {@code tierRef} represents {@code tier}.
@@ -201,16 +188,11 @@ public final class HarvestWithEaseAPI {
 
   /**
    * Returns the in-game ID of the block passed as parameter.
-   * 
+   *
    * @param block
    * @return in-game ID of the given block.
    */
   private static String getKey(Block block) {
-    ResourceLocation blockLocation = ForgeRegistries.BLOCKS.getKey(block);
-    if (blockLocation != null) {
-      return blockLocation.toString();
-    }
-    LOGGER.debug("Couldn't get key for block [" + block + "].");
-    return "";
+    return BuiltInRegistries.BLOCK.getKey(block).toString();
   }
 }

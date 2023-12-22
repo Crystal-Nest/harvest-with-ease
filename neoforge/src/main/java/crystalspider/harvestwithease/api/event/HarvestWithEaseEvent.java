@@ -1,10 +1,5 @@
 package crystalspider.harvestwithease.api.event;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -18,11 +13,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.bus.api.ICancellableEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Event fired by Harvest With Ease mod during right-click harvest.
  * It extends {@link PlayerEvent}, which means that a method subscribing to {@link PlayerEvent} will receive also this event and all of its children.
- * Like {@link PlayerEvent}, all children of this event are fired on the {@link MinecraftForge#EVENT_BUS}.
+ * Like {@link PlayerEvent}, all children of this event are fired on the event bus.
  */
 public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> extends PlayerEvent {
   /**
@@ -71,7 +70,7 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
 
   /**
    * Returns this {@link #level}.
-   * 
+   *
    * @return this {@link #level}.
    */
   public L getLevel() {
@@ -80,7 +79,7 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
 
   /**
    * Returns this {@link #target}.
-   * 
+   *
    * @return this {@link #target}.
    */
   public BlockState getTargetBlock() {
@@ -89,7 +88,7 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
 
   /**
    * Returns this {@link #pos}.
-   * 
+   *
    * @return this {@link #pos}.
    */
   public BlockPos getPos() {
@@ -98,7 +97,7 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
 
   /**
    * Returns this {@link #hand}.
-   * 
+   *
    * @return this {@link #hand}.
    */
   public InteractionHand getHand() {
@@ -116,7 +115,7 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
     /**
      * {@link BlockHitResult}.
      * <p>
-     * Can be {@code null} if the current crop is being harvested via multi-harvest. 
+     * Can be {@code null} if the current crop is being harvested via multi-harvest.
      */
     protected final @Nullable BlockHitResult hitResult;
 
@@ -137,8 +136,8 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
 
     /**
      * Returns this {@link #face}.
-     * 
-     * @return this {@link face}.
+     *
+     * @return this {@link #face}.
      */
     public Direction getFace() {
       return face;
@@ -146,8 +145,8 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
 
     /**
      * Returns this {@link #hitResult}.
-     * 
-     * @return this {@link hitResult}.
+     *
+     * @return this {@link #hitResult}.
      */
     @Nullable
     public BlockHitResult getHitVec() {
@@ -176,10 +175,10 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
       super(level, target, pos, player, hand, first);
       this.canHarvest = canHarvest;
     }
-    
+
     /**
      * Returns this {@link #canHarvest}.
-     * 
+     *
      * @return this {@link #canHarvest}.
      */
     public boolean canHarvest() {
@@ -188,7 +187,7 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
 
     /**
      * Sets this {@link #canHarvest}.
-     * 
+     *
      * @param canHarvest
      */
     public void setCanHarvest(boolean canHarvest) {
@@ -240,12 +239,12 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
     public HarvestDrops(ServerLevel level, BlockState target, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
       super(level, target, pos, face, hitResult, player, hand);
       defaultDrops = initDrops();
-      drops = new ArrayList<>(defaultDrops.stream().map(item -> item.copy()).toList());
+      drops = new ArrayList<>(defaultDrops.stream().map(ItemStack::copy).toList());
     }
 
     /**
      * Returns whether the list of drops changed from its default value.
-     * 
+     *
      * @return whether the list of drops changed from its default value.
      */
     public boolean haveDropsChanged() {
@@ -262,7 +261,7 @@ public abstract class HarvestWithEaseEvent<P extends Player, L extends Level> ex
 
     /**
      * Initializes the {@link #drops} list.
-     * 
+     *
      * @return the list of drops a player would get by breaking the crop, with one seed removed.
      */
     private List<ItemStack> initDrops() {

@@ -16,7 +16,7 @@ public enum AreaSize {
   /**
    * @param size {@link #size}.
    */
-  private AreaSize(int size) {
+  AreaSize(int size) {
     this.size = size;
   }
 

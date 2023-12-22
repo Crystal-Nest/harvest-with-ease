@@ -5,10 +5,7 @@ plugins {
   id "com.github.breadmoirai.github-release" version "2.4.+"
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
-
-archivesBaseName = modid
+archivesBaseName = mod_id
 version = "${minecraft_version}-${mod_version}-${loader.toLowerCase()}"
 group = project.group
 
@@ -35,14 +32,14 @@ dependencies {
 def resourceTarget = 'fabric.mod.json'
 def intoTargets = ["$rootDir/bin/main/"]
 def replaceProperties = [
-  modid: modid,
-  modid_kebab: modid_kebab,
+  mod_id: mod_id,
+  mod_id_kebab: mod_id_kebab,
   mod_title: mod_title,
   minecraft_version: minecraft_version,
   mod_version: mod_version,
   loader_version: loader_version,
   group: group,
-  author: author,
+  authors: authors,
   github_user: github_user,
   forgeconfigapiport_version: forgeconfigapiport_version
 ]
@@ -68,28 +65,34 @@ processResources {
   }
 }
 
-jar {
-  manifest {
-    attributes([
-      "Specification-Title"     : project.mod_title,
-      "Specification-Version"   : project.mod_version,
-      "Specification-Vendor"    : project.author,
-      "Implementation-Title"    : project.mod_title,
-      "Implementation-Version"  : project.mod_version,
-      "Implementation-Vendor"   : project.author,
-      "Implementation-Vendor-Id": project.group,
-      "Implementation-URL"      : "https://github.com/${github_user}/${modid_kebab}/tree/${minecraft_version}",
-      "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-    ])
-  }
-}
-
 tasks.withType(JavaCompile).configureEach {
   it.options.encoding = "UTF-8"
   it.options.release = 17
 }
 
-def changelog_body = "See [Changelog](https://github.com/${github_user}/${modid_kebab}/blob/master/CHANGELOG.md#${minecraft_version.replaceAll('\\.', '')}-${mod_version.replaceAll('\\.', '')}---${new Date().format("yyyyMMdd")})."
+java {
+	withSourcesJar()
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
+
+jar {
+  manifest {
+    attributes([
+      "Specification-Title"     : project.mod_title,
+      "Specification-Version"   : project.mod_version,
+      "Specification-Vendor"    : project.authors,
+      "Implementation-Title"    : project.mod_title,
+      "Implementation-Version"  : project.mod_version,
+      "Implementation-Vendor"   : project.authors,
+      "Implementation-Vendor-Id": project.group,
+      "Implementation-URL"      : "https://github.com/${github_user}/${mod_id_kebab}/tree/${minecraft_version}",
+      "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+    ])
+  }
+}
+
+def changelog_body = "See [Changelog](https://github.com/${github_user}/${mod_id_kebab}/blob/master/CHANGELOG.md#${minecraft_version.replaceAll('\\.', '')}-${mod_version.replaceAll('\\.', '')}---${new Date().format("yyyyMMdd")})."
 
 file("../api-keys.properties").withReader { 
   Properties props = new Properties()
@@ -123,7 +126,7 @@ curseforge {
 
 modrinth {
   token = api_keys.modrinth
-  projectId = modid_kebab
+  projectId = mod_id_kebab
   versionNumber = mod_version
   versionName = "[${loader} - ${minecraft_version}] ${mod_title} v${mod_version}"
   changelog = changelog_body
@@ -141,7 +144,7 @@ modrinth {
 githubRelease {
   token api_keys.github
   owner github_user
-  repo modid_kebab
+  repo mod_id_kebab
   tagName "v${minecraft_version}-${mod_version}"
   targetCommitish minecraft_version
   releaseName "v${minecraft_version}-${mod_version}"

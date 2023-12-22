@@ -8,6 +8,9 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new.
 
+## [1.20.4-8.0.0.2] - 2023/12/22
+- Ported to 1.20.4.
+
 ## [1.20.2-8.0.0.2] - 2023/12/04
 - Fixed [#33](https://github.com/Nyphet/harvest-with-ease/issues/33), config option being reset.
 
@@ -316,6 +319,8 @@ It must be an integer value and will be effective only if greater than 0 and req
 
 [Unreleased]: https://github.com/Nyphet/harvest-with-ease
 [README]: https://github.com/Nyphet/harvest-with-ease#readme
+
+[1.20.4-8.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.4-8.0.0.2
 
 [1.20.2-8.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.2-8.0.0.2
 [1.20.2-8.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.2-8.0.0.1

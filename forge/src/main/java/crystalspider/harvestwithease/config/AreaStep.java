@@ -10,14 +10,14 @@ public enum AreaStep {
   LARGE(6);
 
   /**
-   * Inscrease step.
+   * Increase step.
    */
   public final int step;
 
   /**
    * @param step {@link #step}.
    */
-  private AreaStep(int step) {
+  AreaStep(int step) {
     this.step = step;
   }
 

@@ -119,9 +119,9 @@ public final class RightClickBlockHandler {
    */
   private static void harvest(ServerLevel level, IntegerProperty age, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
     NeoForge.EVENT_BUS.post(new BeforeHarvest(level, blockState, blockPos, face, hitResult, player, hand));
-    grantExp(player);
-    damageHoe(player, hand);
     BlockPos basePos = getBasePos(level, blockState.getBlock(), blockPos);
+    grantExp(level, blockState.getBlock(), basePos);
+    damageHoe(player, hand);
     updateCrop(level, age, blockState.getBlock(), basePos, player, dropResources(level, level.getBlockState(basePos), basePos, face, hitResult, player, hand));
     playSound(level, player, blockState, blockPos);
     NeoForge.EVENT_BUS.post(new AfterHarvest(level, blockState, blockPos, face, hitResult, player, hand));
@@ -171,12 +171,14 @@ public final class RightClickBlockHandler {
 
   /**
    * Grants the given player the configured amount of experience, if any.
-   * 
-   * @param player - {@link ServerPlayer player} to grant the experience to.
+   *
+   * @param world
+   * @param crop
+   * @param pos
    */
-  private static void grantExp(ServerPlayer player) {
+  private static void grantExp(ServerLevel world, Block crop, BlockPos pos) {
     if (ModConfig.getGrantedExp() > 0) {
-      player.giveExperiencePoints(ModConfig.getGrantedExp());
+      crop.popExperience(world, pos, ModConfig.getGrantedExp());
     }
   }
 

@@ -64,9 +64,9 @@ public final class RightClickBlockHandler {
    * is not in spectator mode,
    * is not crouching,
    * is holding the correct item (depends on {@link ModConfig#getRequireHoe() requireHoe})
-   * and the interaction involves a fully grown {@link #isCrop crop}.
+   * and the interaction involves a fully grown crop.
    * Will also dispatch some events related to right-click harvesting.
-   * 
+   *
    * @param event
    */
   @SubscribeEvent(priority = EventPriority.HIGH)
@@ -109,7 +109,7 @@ public final class RightClickBlockHandler {
 
   /**
    * Harvests the crop, handles all related actions (exp granting, hoe damaging, dropping resources, etc.) and dispatches all related events.
-   * 
+   *
    * @param level - {@link ServerLevel level}.
    * @param age - {@link IntegerProperty age} of the crop.
    * @param blockState - {@link BlockState} of the crop.
@@ -121,9 +121,9 @@ public final class RightClickBlockHandler {
    */
   private static void harvest(ServerLevel level, IntegerProperty age, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
     MinecraftForge.EVENT_BUS.post(new BeforeHarvest(level, blockState, blockPos, face, hitResult, player, hand));
-    grantExp(player);
-    damageHoe(player, hand);
     BlockPos basePos = getBasePos(level, blockState.getBlock(), blockPos);
+    grantExp(level, blockState.getBlock(), basePos);
+    damageHoe(player, hand);
     updateCrop(level, age, blockState.getBlock(), basePos, player, dropResources(level, level.getBlockState(basePos), basePos, face, hitResult, player, hand));
     playSound(level, player, blockState, blockPos);
     MinecraftForge.EVENT_BUS.post(new AfterHarvest(level, blockState, blockPos, face, hitResult, player, hand));
@@ -131,7 +131,7 @@ public final class RightClickBlockHandler {
 
   /**
    * Updates the crop in the world, reverting it to age 0 (simulate replanting) and, if it's a multi-block crop, breaks the crop blocks above.
-   * 
+   *
    * @param level - {@link ServerLevel level}.
    * @param age - {@link IntegerProperty age} of the crop.
    * @param block - {@link Block} of the crop clicked.
@@ -148,7 +148,7 @@ public final class RightClickBlockHandler {
 
   /**
    * Returns the base pos of the clicked crop.
-   * 
+   *
    * @param world - {@link ServerLevel level}.
    * @param block - {@link Block} of the clicked crop.
    * @param blockPos - {@link BlockPos} of the crop block clicked.
@@ -156,13 +156,13 @@ public final class RightClickBlockHandler {
    */
   private static BlockPos getBasePos(ServerLevel world, Block block, BlockPos blockPos) {
     BlockPos basePos;
-    for (basePos = blockPos; world.getBlockState(blockPos).is(BlockTags.CROPS) && !isTallButSeparate(block) && world.getBlockState(basePos.below()).is(block); basePos = basePos.below());
+    for (basePos = blockPos; world.getBlockState(blockPos).is(BlockTags.CROPS) && !isTallButSeparate(block) && world.getBlockState(basePos.below()).is(block); basePos = basePos.below()) ;
     return basePos;
   }
 
   /**
    * Checks whether the {@link Player} can interact with the {@link RightClickBlock event}.
-   * 
+   *
    * @param player
    * @param event
    * @return whether the {@link Player} can interact with the {@link RightClickBlock event}.
@@ -173,18 +173,20 @@ public final class RightClickBlockHandler {
 
   /**
    * Grants the given player the configured amount of experience, if any.
-   * 
-   * @param player - {@link ServerPlayer player} to grant the experience to.
+   *
+   * @param world
+   * @param crop
+   * @param pos
    */
-  private static void grantExp(ServerPlayer player) {
+  private static void grantExp(ServerLevel world, Block crop, BlockPos pos) {
     if (ModConfig.getGrantedExp() > 0) {
-      player.giveExperiencePoints(ModConfig.getGrantedExp());
+      crop.popExperience(world, pos, ModConfig.getGrantedExp());
     }
   }
 
   /**
    * If needed and possible, damages the hoe of the given {@link ModConfig#getDamageOnHarvest() damage}.
-   * 
+   *
    * @param player - {@link ServerPlayer player} holding the hoe.
    * @param hand - {@link InteractionHand hand} holding the hoe.
    */
@@ -197,7 +199,7 @@ public final class RightClickBlockHandler {
   /**
    * Drop the resources resulting from harvesting a crop in the given {@link ServerLevel level} and {@link BlockState blockState}, making them pop from the given face and using the item held in the given player hand.
    * Takes care of dispatching the {@link HarvestDrops} to retrieve the drops resulting from the harvest.
-   * 
+   *
    * @param level - {@link ServerLevel server level} the drops should come from.
    * @param blockState - {@link BlockState state} of the crop being harvested.
    * @param blockPos - crop {@link BlockPos position}.
@@ -222,7 +224,7 @@ public final class RightClickBlockHandler {
 
   /**
    * If {@link ModConfig#getPlaySound() playSound} is true, plays the block breaking sound.
-   * 
+   *
    * @param level - {@link ServerLevel} to play the sound.
    * @param player - {@link ServerPlayer player} activating the sound.
    * @param blockState - {@link BlockState state} of the block emitting the sound.
@@ -237,7 +239,7 @@ public final class RightClickBlockHandler {
 
   /**
    * Cancel the event to avoid further processing.
-   * 
+   *
    * @param event
    */
   private static void cancel(RightClickBlock event) {
@@ -248,7 +250,7 @@ public final class RightClickBlockHandler {
   /**
    * Returns the most suitable interaction hand from the player.
    * Returns null if there was no suitable interaction hand.
-   * 
+   *
    * @param player
    * @return most suitable interaction hand.
    */
@@ -269,19 +271,19 @@ public final class RightClickBlockHandler {
   }
 
   /**
-   * Checks whether or not the given itemStack can perform all the {@link ToolActions#DEFAULT_HOE_ACTIONS default hoe actions}.
-   * 
+   * Checks whether the given itemStack can perform all the {@link ToolActions#DEFAULT_HOE_ACTIONS default hoe actions}.
+   *
    * @param handItem
    * @return whether the given itemStack is a hoe tool.
    */
   private static boolean isHoe(ItemStack handItem) {
-    return ToolActions.DEFAULT_HOE_ACTIONS.stream().allMatch(toolAction -> handItem.canPerformAction(toolAction));
+    return ToolActions.DEFAULT_HOE_ACTIONS.stream().allMatch(handItem::canPerformAction);
   }
 
   /**
    * Checks whether the given {@link Player} can right-click harvest the crop.
    * Dispatches the {@link RightClickHarvestCheck} event if the right-clicked block is indeed a crop.
-   * 
+   *
    * @param level - {@link Level} of the interaction.
    * @param blockState - {@link BlockState} of the crop to harvest.
    * @param blockPos - {@link BlockPos} of the crop.
@@ -302,8 +304,8 @@ public final class RightClickBlockHandler {
   /**
    * Checks whether the given block is something that might be considered a tall crop, but should actually be treated as a normal crop.
    * <p>
-   * Currently the only known crop with this behavior is Farmer's Delight tomatoes. 
-   * 
+   * Currently, the only known crop with this behavior is Farmer's Delight tomatoes.
+   *
    * @param block
    * @return whether to treat a tall crop as a normal crop.
    */

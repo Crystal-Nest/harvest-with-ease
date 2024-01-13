@@ -16,6 +16,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
@@ -34,7 +35,9 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
 /**
@@ -112,9 +115,9 @@ public final class UseBlockHandler {
    */
   private static void harvest(ServerWorld world, IntProperty age, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayerEntity player, Hand hand) {
     HarvestWithEaseEvents.BEFORE_HARVEST.invoker().beforeHarvest(world, blockState, blockPos, face, hitResult, player, hand, hitResult != null);
-    grantExp(player);
-    damageHoe(player, hand);
     BlockPos basePos = getBasePos(world, blockState.getBlock(), blockPos);
+    grantExp(world, basePos);
+    damageHoe(player, hand);
     updateCrop(world, age, blockState.getBlock(), basePos, player, dropResources(world, world.getBlockState(basePos), basePos, face, hitResult, player, hand));
     playSound(world, blockState, blockPos);
     HarvestWithEaseEvents.AFTER_HARVEST.invoker().afterHarvest(world, blockState, blockPos, face, hitResult, player, hand, hitResult != null);
@@ -153,12 +156,13 @@ public final class UseBlockHandler {
 
   /**
    * Grants the given player the configured amount of experience, if any.
-   * 
-   * @param player - {@link ServerPlayerEntity player} to grant the experience to.
+   *
+   * @param world
+   * @param pos
    */
-  private static void grantExp(ServerPlayerEntity player) {
-    if (ModConfig.getGrantedExp() > 0) {
-      player.addExperience(ModConfig.getGrantedExp());
+  private static void grantExp(ServerWorld world, BlockPos pos) {
+    if (ModConfig.getGrantedExp() > 0 && world.getGameRules().getBoolean(GameRules.DO_TILE_DROPS)) {
+      ExperienceOrbEntity.spawn(world, Vec3d.ofCenter(pos), ModConfig.getGrantedExp());
     }
   }
 

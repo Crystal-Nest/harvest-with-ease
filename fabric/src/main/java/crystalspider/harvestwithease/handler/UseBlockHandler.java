@@ -15,6 +15,7 @@ import crystalspider.harvestwithease.config.ModConfig;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
@@ -33,6 +34,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
 /**
@@ -52,7 +55,7 @@ public final class UseBlockHandler {
    * is not in spectator mode,
    * is not crouching,
    * is holding the correct item (depends on {@link ModConfig#getRequireHoe() requireHoe})
-   * and the interaction involves a fully grown {@link #isCrop crop}.
+   * and the interaction involves a fully grown crop.
    * 
    * @param player - {@link PlayerEntity player} executing the action.
    * @param world - {@link World world} where the event is happening.
@@ -104,15 +107,15 @@ public final class UseBlockHandler {
    * @param blockState - {@link BlockState} of the crop.
    * @param blockPos - {@link BlockPos} of the crop.
    * @param face - clicked {@link Direction face} of the crop block.
-   * @param hitResult - {@link BlockHitResult} of the {@link RightClickBlock} event.
+   * @param hitResult - {@link BlockHitResult} of the event.
    * @param player - {@link ServerPlayerEntity player} harvesting the crop.
-   * @param hand - {@link InteractionHand hand} used to harvest.
+   * @param hand - {@link Hand hand} used to harvest.
    */
   private static void harvest(ServerWorld world, IntProperty age, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayerEntity player, Hand hand) {
     HarvestWithEaseEvents.BEFORE_HARVEST.invoker().beforeHarvest(world, blockState, blockPos, face, hitResult, player, hand, hitResult != null);
-    grantExp(player);
-    damageHoe(player, hand);
     BlockPos basePos = getBasePos(world, blockState.getBlock(), blockPos);
+    grantExp(world, basePos);
+    damageHoe(player, hand);
     updateCrop(world, age, blockState.getBlock(), basePos, player, dropResources(world, world.getBlockState(basePos), basePos, face, hitResult, player, hand));
     playSound(world, blockState, blockPos);
     HarvestWithEaseEvents.AFTER_HARVEST.invoker().afterHarvest(world, blockState, blockPos, face, hitResult, player, hand, hitResult != null);
@@ -151,12 +154,13 @@ public final class UseBlockHandler {
 
   /**
    * Grants the given player the configured amount of experience, if any.
-   * 
-   * @param player - {@link ServerPlayerEntity player} to grant the experience to.
+   *
+   * @param world
+   * @param pos
    */
-  private static void grantExp(ServerPlayerEntity player) {
-    if (ModConfig.getGrantedExp() > 0) {
-      player.addExperience(ModConfig.getGrantedExp());
+  private static void grantExp(ServerWorld world, BlockPos pos) {
+    if (ModConfig.getGrantedExp() > 0 && world.getGameRules().getBoolean(GameRules.DO_TILE_DROPS)) {
+      ExperienceOrbEntity.spawn(world, Vec3d.ofCenter(pos), ModConfig.getGrantedExp());
     }
   }
 
@@ -180,9 +184,9 @@ public final class UseBlockHandler {
    * @param blockState - {@link BlockState state} of the crop being harvested.
    * @param blockPos - crop {@link BlockPos position}.
    * @param face - {@link Direction face} clicked of the crop.
-   * @param hitResult - {@link BlockHitResult} of the {@link RightClickBlock} event.
-   * @param player - {@link ServerPlayer player} harvesting the crop.
-   * @param hand - {@link InteractionHand hand} used to harvest the crop.
+   * @param hitResult - {@link BlockHitResult} of the event.
+   * @param player - {@link ServerPlayerEntity player} harvesting the crop.
+   * @param hand - {@link Hand hand} used to harvest the crop.
    * @return whether {@link HarvestDrops} listeners have changed the drops to drop.
    */
   private static boolean dropResources(ServerWorld world, BlockState blockState, BlockPos blockPos, Direction face, BlockHitResult hitResult, ServerPlayerEntity player, Hand hand) {
@@ -269,11 +273,7 @@ public final class UseBlockHandler {
    * @return whether to treat a tall crop as a normal crop.
    */
   private static boolean isTallButSeparate(Block block) {
-    Optional<RegistryKey<Block>> key = Registry.BLOCK.getKey(block);
-    if (key.isPresent()) {
-      return key.get().getValue().toString().equals("farmersdelight:tomatoes");
-    }
-    return false;
+    return Registry.BLOCK.getKey(block).map(blockRegistryKey -> blockRegistryKey.getValue().toString().equals("farmersdelight:tomatoes")).orElse(false);
   }
 
   /**

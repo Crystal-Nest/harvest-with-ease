@@ -9,129 +9,129 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 - Nothing new.
 
 ## [1.20.4-8.0.1.0] - 2024/01/13
-- Fixed [#37](https://github.com/Nyphet/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
+- Fixed [#37](https://github.com/crystal-nest/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
 
 ## [1.20.2-8.0.1.0] - 2024/01/13
-- Fixed [#37](https://github.com/Nyphet/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
+- Fixed [#37](https://github.com/crystal-nest/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
 
 ## [1.20.1-8.0.1.0] - 2024/01/13
-- Fixed [#37](https://github.com/Nyphet/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
+- Fixed [#37](https://github.com/crystal-nest/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
 
 ## [1.19.4-8.0.1.0] - 2024/01/13
-- Fixed [#37](https://github.com/Nyphet/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
+- Fixed [#37](https://github.com/crystal-nest/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
 
 ## [1.19.2-8.0.1.0] - 2024/01/13
-- Fixed [#37](https://github.com/Nyphet/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
+- Fixed [#37](https://github.com/crystal-nest/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
 
 ## [1.18.2-8.0.1.0] - 2024/01/13
-- Fixed [#37](https://github.com/Nyphet/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
+- Fixed [#37](https://github.com/crystal-nest/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
 
 ## [1.20.4-8.0.0.2] - 2023/12/22
 - Ported to 1.20.4.
 
 ## [1.20.2-8.0.0.2] - 2023/12/04
-- Fixed [#33](https://github.com/Nyphet/harvest-with-ease/issues/33), config option being reset.
+- Fixed [#33](https://github.com/crystal-nest/harvest-with-ease/issues/33), config option being reset.
 
 ## [1.20.1-8.0.0.2] - 2023/12/04
-- Fixed [#33](https://github.com/Nyphet/harvest-with-ease/issues/33), config option being reset.
+- Fixed [#33](https://github.com/crystal-nest/harvest-with-ease/issues/33), config option being reset.
 
 ## [1.19.4-8.0.0.2] - 2023/12/04
-- Fixed [#33](https://github.com/Nyphet/harvest-with-ease/issues/33), config option being reset.
+- Fixed [#33](https://github.com/crystal-nest/harvest-with-ease/issues/33), config option being reset.
 
 ## [1.19.2-8.0.0.2] - 2023/12/04
-- Fixed [#33](https://github.com/Nyphet/harvest-with-ease/issues/33), config option being reset.
+- Fixed [#33](https://github.com/crystal-nest/harvest-with-ease/issues/33), config option being reset.
 
 ## [1.18.2-8.0.0.2] - 2023/12/04
-- Fixed [#33](https://github.com/Nyphet/harvest-with-ease/issues/33), config option being reset.
+- Fixed [#33](https://github.com/crystal-nest/harvest-with-ease/issues/33), config option being reset.
 
 ## [1.20.2-8.0.0.1] - 2023/12/01
-- Fixed [#32](https://github.com/Nyphet/harvest-with-ease/issues/32).
+- Fixed [#32](https://github.com/crystal-nest/harvest-with-ease/issues/32).
 - Fixed server-side compatibility issue.
 
 ## [1.20.1-8.0.0.1] - 2023/12/01
-- Fixed [#32](https://github.com/Nyphet/harvest-with-ease/issues/32).
+- Fixed [#32](https://github.com/crystal-nest/harvest-with-ease/issues/32).
 - Fixed server-side compatibility issue.
 
 ## [1.19.4-8.0.0.1] - 2023/12/01
-- Fixed [#32](https://github.com/Nyphet/harvest-with-ease/issues/32).
+- Fixed [#32](https://github.com/crystal-nest/harvest-with-ease/issues/32).
 - Fixed server-side compatibility issue.
 
 ## [1.19.2-8.0.0.1] - 2023/12/01
-- Fixed [#32](https://github.com/Nyphet/harvest-with-ease/issues/32).
+- Fixed [#32](https://github.com/crystal-nest/harvest-with-ease/issues/32).
 - Fixed server-side compatibility issue.
 
 ## [1.18.2-8.0.0.1] - 2023/12/01
-- Fixed [#32](https://github.com/Nyphet/harvest-with-ease/issues/32).
+- Fixed [#32](https://github.com/crystal-nest/harvest-with-ease/issues/32).
 - Fixed server-side compatibility issue.
 
 ## [1.20.2-8.0.0.0] - 2023/11/24
-- Fixed [#28](https://github.com/Nyphet/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.
-- Implemented [#30](https://github.com/Nyphet/harvest-with-ease/issues/30), multi-harvest.
+- Fixed [#28](https://github.com/crystal-nest/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.
+- Implemented [#30](https://github.com/crystal-nest/harvest-with-ease/issues/30), multi-harvest.
 - Fixed interaction with Pitcher Crop.
 
 ## [1.20.1-8.0.0.0] - 2023/11/24
-- Fixed [#28](https://github.com/Nyphet/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.
-- Implemented [#30](https://github.com/Nyphet/harvest-with-ease/issues/30), multi-harvest.
+- Fixed [#28](https://github.com/crystal-nest/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.
+- Implemented [#30](https://github.com/crystal-nest/harvest-with-ease/issues/30), multi-harvest.
 - Fixed interaction with Pitcher Crop.
 
 ## [1.19.4-8.0.0.0] - 2023/11/24
-- Fixed [#28](https://github.com/Nyphet/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.
-- Implemented [#30](https://github.com/Nyphet/harvest-with-ease/issues/30), multi-harvest.
+- Fixed [#28](https://github.com/crystal-nest/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.
+- Implemented [#30](https://github.com/crystal-nest/harvest-with-ease/issues/30), multi-harvest.
 
 ## [1.19.2-8.0.0.0] - 2023/11/24
-- Fixed [#28](https://github.com/Nyphet/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.
-- Implemented [#30](https://github.com/Nyphet/harvest-with-ease/issues/30), multi-harvest.
+- Fixed [#28](https://github.com/crystal-nest/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.
+- Implemented [#30](https://github.com/crystal-nest/harvest-with-ease/issues/30), multi-harvest.
 
 ## [1.18.2-8.0.0.0] - 2023/11/24
-- Fixed [#28](https://github.com/Nyphet/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.
-- Implemented [#30](https://github.com/Nyphet/harvest-with-ease/issues/30), multi-harvest.
+- Fixed [#28](https://github.com/crystal-nest/harvest-with-ease/issues/28), Farmer's Delight tomatoes not giving xp when harvested.
+- Implemented [#30](https://github.com/crystal-nest/harvest-with-ease/issues/30), multi-harvest.
 
 ## [1.20.2-7.1.0.0] - 2023/10/31
-- Implemented [#27](https://github.com/Nyphet/harvest-with-ease/issues/27).
+- Implemented [#27](https://github.com/crystal-nest/harvest-with-ease/issues/27).
 
 ## [1.20.1-7.1.0.0] - 2023/10/31
-- Implemented [#27](https://github.com/Nyphet/harvest-with-ease/issues/27).
+- Implemented [#27](https://github.com/crystal-nest/harvest-with-ease/issues/27).
 
 ## [1.19.4-6.1.0.0] - 2023/10/31
-- Implemented [#27](https://github.com/Nyphet/harvest-with-ease/issues/27).
+- Implemented [#27](https://github.com/crystal-nest/harvest-with-ease/issues/27).
 
 ## [1.19.2-6.1.0.0] - 2023/10/31
-- Implemented [#27](https://github.com/Nyphet/harvest-with-ease/issues/27).
+- Implemented [#27](https://github.com/crystal-nest/harvest-with-ease/issues/27).
 
 ## [1.18.2-6.1.0.0] - 2023/10/31
-- Implemented [#27](https://github.com/Nyphet/harvest-with-ease/issues/27).
+- Implemented [#27](https://github.com/crystal-nest/harvest-with-ease/issues/27).
 
 ## [1.20.2-7.0.0.2] - 2023/10/19
 - Ported to 1.20.2.
 
 ## [1.20.1-7.0.0.2] - 2023/07/05
-- Fix [#24](https://github.com/Nyphet/harvest-with-ease/issues/24)
+- Fix [#24](https://github.com/crystal-nest/harvest-with-ease/issues/24)
 
 ## [1.20-7.0.0.2] - 2023/07/05
-- Fix [#24](https://github.com/Nyphet/harvest-with-ease/issues/24)
+- Fix [#24](https://github.com/crystal-nest/harvest-with-ease/issues/24)
 
 ## [1.19.4-6.0.1.4] - 2023/07/05
-- Fix [#24](https://github.com/Nyphet/harvest-with-ease/issues/24)
+- Fix [#24](https://github.com/crystal-nest/harvest-with-ease/issues/24)
 
 ## [1.19.2-6.0.1.4-final] - 2023/07/05
-- Fix [#24](https://github.com/Nyphet/harvest-with-ease/issues/24)
+- Fix [#24](https://github.com/crystal-nest/harvest-with-ease/issues/24)
 - I don't know why I kept the "final", but whatever.
 
 ## [1.20.1-7.0.0.1] - 2023/06/17
-- Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
+- Fix [#23](https://github.com/crystal-nest/harvest-with-ease/issues/23).
 
 ## [1.20-7.0.0.1] - 2023/06/17
-- Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
+- Fix [#23](https://github.com/crystal-nest/harvest-with-ease/issues/23).
 
 ## [1.19.4-6.0.1.3] - 2023/06/17
-- Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
+- Fix [#23](https://github.com/crystal-nest/harvest-with-ease/issues/23).
 
 ## [1.19.2-6.0.1.3-final] - 2023/06/17
-- Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
+- Fix [#23](https://github.com/crystal-nest/harvest-with-ease/issues/23).
 - Sigh... I should just stop using "final" at this point...
 
 ## [1.18.2-6.0.1.3] - 2023/06/17
-- Fix [#23](https://github.com/Nyphet/harvest-with-ease/issues/23).
+- Fix [#23](https://github.com/crystal-nest/harvest-with-ease/issues/23).
 
 ## [1.20.1-7.0.0.0] - 2023/06/13
 - Ported to 1.20.1.
@@ -153,32 +153,32 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 - Fix `require hoe` configuration option always preventing harvest when set to true.
 
 ## [1.19.4-6.0.1.1] - 2023/04/02
-- Fix [#21](https://github.com/Nyphet/harvest-with-ease/issues/21).
+- Fix [#21](https://github.com/crystal-nest/harvest-with-ease/issues/21).
 
 ## [1.19.3-6.0.1.1] - 2023/04/02
-- Fix [#21](https://github.com/Nyphet/harvest-with-ease/issues/21).
+- Fix [#21](https://github.com/crystal-nest/harvest-with-ease/issues/21).
 
 ## [1.19.2-6.0.1.1-final] - 2023/04/02
-- Fix [#21](https://github.com/Nyphet/harvest-with-ease/issues/21).
+- Fix [#21](https://github.com/crystal-nest/harvest-with-ease/issues/21).
 - I know it's the third "final" version for this Minecraft version, but I **had** to fix a couple more bugs!
 
 ## [1.18.2-6.0.1.1] - 2023/04/02
-- Fix [#21](https://github.com/Nyphet/harvest-with-ease/issues/21).
+- Fix [#21](https://github.com/crystal-nest/harvest-with-ease/issues/21).
 
 ## [1.19.4-6.0.1.0] - 2023/03/30
-- Fix [#20](https://github.com/Nyphet/harvest-with-ease/issues/20).
+- Fix [#20](https://github.com/crystal-nest/harvest-with-ease/issues/20).
 - Improved API.
 
 ## [1.19.3-6.0.1.0] - 2023/03/30
-- Fix [#20](https://github.com/Nyphet/harvest-with-ease/issues/20).
+- Fix [#20](https://github.com/crystal-nest/harvest-with-ease/issues/20).
 - Improved API.
 
 ## [1.19.2-6.0.1.0-final] - 2023/03/30
-- Fix [#20](https://github.com/Nyphet/harvest-with-ease/issues/20).
+- Fix [#20](https://github.com/crystal-nest/harvest-with-ease/issues/20).
 - Improved API.
 
 ## [1.18.2-6.0.1.0] - 2023/03/30
-- Fix [#20](https://github.com/Nyphet/harvest-with-ease/issues/20).
+- Fix [#20](https://github.com/crystal-nest/harvest-with-ease/issues/20).
 - Improved API.
 
 ## [1.19.4-6.0.0.0] - 2023/03/17
@@ -216,7 +216,7 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 - Fixed Forge Config API version compatibility.
 
 ## [1.19.2-4.0.0.2] - 2022/09/06
-- Fixed Fabric crash ([#9](https://github.com/Nyphet/harvest-with-ease/issues/9)).
+- Fixed Fabric crash ([#9](https://github.com/crystal-nest/harvest-with-ease/issues/9)).
 
 ## [1.19.2-4.0.0.1] - 2022/09/05
 - Fixed configuration being ignored sometimes.
@@ -335,101 +335,101 @@ It must be an integer value and will be effective only if greater than 0 and req
 - Right clicking on a crop allows to harvest it without eradicating it.
 - A config file is provided to add eventual modded crops that don't work out of the box with this mod.
 
-[Unreleased]: https://github.com/Nyphet/harvest-with-ease
-[README]: https://github.com/Nyphet/harvest-with-ease#readme
+[Unreleased]: https://github.com/crystal-nest/harvest-with-ease
+[README]: https://github.com/crystal-nest/harvest-with-ease#readme
 
-[1.20.4-8.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.4-8.0.0.2
+[1.20.4-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-8.0.0.2
 
-[1.20.2-8.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.2-8.0.0.2
-[1.20.2-8.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.2-8.0.0.1
-[1.20.2-8.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.2-8.0.0.0
-[1.20.2-7.1.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.2-7.1.0.0
-[1.20.2-7.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.2-7.0.0.2
+[1.20.2-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.2-8.0.0.2
+[1.20.2-8.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.2-8.0.0.1
+[1.20.2-8.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.2-8.0.0.0
+[1.20.2-7.1.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.2-7.1.0.0
+[1.20.2-7.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.2-7.0.0.2
 
-[1.20.1-8.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.1-8.0.0.2
-[1.20.1-8.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.1-8.0.0.1
-[1.20.1-8.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.1-8.0.0.0
-[1.20.1-7.1.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.1-7.1.0.0
-[1.20.1-7.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.1-7.0.0.2
-[1.20.1-7.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.1-7.0.0.1
-[1.20.1-7.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20.1-7.0.0.0
+[1.20.1-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.1-8.0.0.2
+[1.20.1-8.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.1-8.0.0.1
+[1.20.1-8.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.1-8.0.0.0
+[1.20.1-7.1.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.1-7.1.0.0
+[1.20.1-7.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.1-7.0.0.2
+[1.20.1-7.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.1-7.0.0.1
+[1.20.1-7.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.1-7.0.0.0
 
-[1.20-7.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20-7.0.0.2
-[1.20-7.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20-7.0.0.1
-[1.20-7.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.20-7.0.0.0
+[1.20-7.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20-7.0.0.2
+[1.20-7.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20-7.0.0.1
+[1.20-7.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20-7.0.0.0
 
-[1.19.4-8.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-8.0.0.2
-[1.19.4-8.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-8.0.0.1
-[1.19.4-8.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-8.0.0.0
-[1.19.4-6.1.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.1.0.0
-[1.19.4-6.0.1.4]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.4
-[1.19.4-6.0.1.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.3
-[1.19.4-6.0.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.2
-[1.19.4-6.0.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.1
-[1.19.4-6.0.1.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.1.0
-[1.19.4-6.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.4-6.0.0.0
+[1.19.4-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-8.0.0.2
+[1.19.4-8.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-8.0.0.1
+[1.19.4-8.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-8.0.0.0
+[1.19.4-6.1.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-6.1.0.0
+[1.19.4-6.0.1.4]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-6.0.1.4
+[1.19.4-6.0.1.3]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-6.0.1.3
+[1.19.4-6.0.1.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-6.0.1.2
+[1.19.4-6.0.1.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-6.0.1.1
+[1.19.4-6.0.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-6.0.1.0
+[1.19.4-6.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-6.0.0.0
 
-[1.19.3-6.0.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-6.0.1.2
-[1.19.3-6.0.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-6.0.1.1
-[1.19.3-6.0.1.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-6.0.1.0
-[1.19.3-6.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-6.0.0.0
-[1.19.3-5.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-5.0.0.1
-[1.19.3-5.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.3-5.0.0.0
+[1.19.3-6.0.1.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.3-6.0.1.2
+[1.19.3-6.0.1.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.3-6.0.1.1
+[1.19.3-6.0.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.3-6.0.1.0
+[1.19.3-6.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.3-6.0.0.0
+[1.19.3-5.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.3-5.0.0.1
+[1.19.3-5.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.3-5.0.0.0
 
-[1.19.2-8.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-8.0.0.2
-[1.19.2-8.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-8.0.0.1
-[1.19.2-8.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-8.0.0.0
-[1.19.2-6.1.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.1.0.0
-[1.19.2-6.0.1.4-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.1.4-final
-[1.19.2-6.0.1.3-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.1.3-final
-[1.19.2-6.0.1.2-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.1.2-final
-[1.19.2-6.0.1.1-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.1.1-final
-[1.19.2-6.0.1.0-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.1.0-final
-[1.19.2-6.0.0.0-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-6.0.0.0-final
-[1.19.2-4.0.0.4]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.4
-[1.19.2-4.0.0.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.3
-[1.19.2-4.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.2
-[1.19.2-4.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.1
-[1.19.2-4.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.2-4.0.0.0
+[1.19.2-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-8.0.0.2
+[1.19.2-8.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-8.0.0.1
+[1.19.2-8.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-8.0.0.0
+[1.19.2-6.1.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-6.1.0.0
+[1.19.2-6.0.1.4-final]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-6.0.1.4-final
+[1.19.2-6.0.1.3-final]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-6.0.1.3-final
+[1.19.2-6.0.1.2-final]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-6.0.1.2-final
+[1.19.2-6.0.1.1-final]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-6.0.1.1-final
+[1.19.2-6.0.1.0-final]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-6.0.1.0-final
+[1.19.2-6.0.0.0-final]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-6.0.0.0-final
+[1.19.2-4.0.0.4]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-4.0.0.4
+[1.19.2-4.0.0.3]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-4.0.0.3
+[1.19.2-4.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-4.0.0.2
+[1.19.2-4.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-4.0.0.1
+[1.19.2-4.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-4.0.0.0
 
-[1.19.1-4.0.0.1-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.1-4.0.0.1-final
-[1.19.1-4.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.1-4.0.0.0
-[1.19.1-3.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19.1-3.0.0.0
+[1.19.1-4.0.0.1-final]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.1-4.0.0.1-final
+[1.19.1-4.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.1-4.0.0.0
+[1.19.1-3.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.1-3.0.0.0
 
-[1.19-2.0.0.1-final]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.1-final
-[1.19-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.0
-[1.19-3.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-3.0.0.0
-[1.19-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.1
-[1.19-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.19-2.0.0.0
+[1.19-2.0.0.1-final]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19-2.0.0.1-final
+[1.19-2.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19-2.0.0.0
+[1.19-3.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19-3.0.0.0
+[1.19-2.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19-2.0.0.1
+[1.19-2.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19-2.0.0.0
 
-[1.18.2-8.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-8.0.0.2
-[1.18.2-8.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-8.0.0.1
-[1.18.2-8.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-8.0.0.0
-[1.18.2-6.1.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.1.0.0
-[1.18.2-6.0.1.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.3
-[1.18.2-6.0.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.2
-[1.18.2-6.0.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.1
-[1.18.2-6.0.1.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.1.0
-[1.18.2-6.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-6.0.0.0
-[1.18.2-4.0.0.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.3
-[1.18.2-4.0.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.2
-[1.18.2-4.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.1
-[1.18.2-4.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-4.0.0.0
-[1.18.2-3.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-3.0.0.0
-[1.18.2-2.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-2.0.0.1
-[1.18.2-2.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-2.0.0.0
-[1.18.2-1.0.0.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-1.0.0.1
-[1.18.2-1.0.0.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.18.2-1.0.0.0
+[1.18.2-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-8.0.0.2
+[1.18.2-8.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-8.0.0.1
+[1.18.2-8.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-8.0.0.0
+[1.18.2-6.1.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-6.1.0.0
+[1.18.2-6.0.1.3]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-6.0.1.3
+[1.18.2-6.0.1.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-6.0.1.2
+[1.18.2-6.0.1.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-6.0.1.1
+[1.18.2-6.0.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-6.0.1.0
+[1.18.2-6.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-6.0.0.0
+[1.18.2-4.0.0.3]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-4.0.0.3
+[1.18.2-4.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-4.0.0.2
+[1.18.2-4.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-4.0.0.1
+[1.18.2-4.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-4.0.0.0
+[1.18.2-3.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-3.0.0.0
+[1.18.2-2.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-2.0.0.1
+[1.18.2-2.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-2.0.0.0
+[1.18.2-1.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-1.0.0.1
+[1.18.2-1.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-1.0.0.0
 
-[1.4.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.4.0
-[1.3.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.3.1
-[1.3.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.3.0
-[1.2.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.2.0
-[1.1.4]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.4
-[1.1.3]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.3
-[1.1.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.2
-[1.1.1]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.1
-[1.1.0]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.1.0
-[1.0.2]: https://github.com/Nyphet/harvest-with-ease/releases/tag/v1.0.2
+[1.4.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.4.0
+[1.3.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.3.1
+[1.3.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.3.0
+[1.2.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.2.0
+[1.1.4]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.1.4
+[1.1.3]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.1.3
+[1.1.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.1.2
+[1.1.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.1.1
+[1.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.1.0
+[1.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.0.2
 [1.0.1]: https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3725580
 [1.0.0]: https://www.curseforge.com/minecraft/mc-mods/harvest-with-ease/files/3725566

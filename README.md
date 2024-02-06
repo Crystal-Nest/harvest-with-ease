@@ -63,11 +63,11 @@ If, for whatever reason, you can't extend that class the **`crops`** config opti
 
 Since version 6.0.0.0, an API is available to better integrate your mod with this one. Note however that this should rarely be necessary. To learn how to use the provided API follow the [Wiki](https://github.com/crystal-nest/harvest-with-ease/wiki) on [GitHub](https://github.com/crystal-nest/harvest-with-ease).
 
-## **Support me**
+## **Support us**
 [![Twitch](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/twitch/twitch64.png "Twitch")](https://www.twitch.tv/crystal_spider_)
 [![Patreon](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/patreon/patreon64.png "Patreon")](https://www.patreon.com/crystalspider)
 [![Ko-fi](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/kofi/kofi64.png "Ko-fi")](https://ko-fi.com/crystalspider)
-[![GitHub](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/github/github64.png "My other projects")](https://github.com/crystal-nest)
+[![GitHub](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/github/github64.png "Our other projects")](https://github.com/crystal-nest)
 [![Modrinth](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/modrinth/modrinth64.png "Modrinth")](https://modrinth.com/user/CrystalSpider)
 [![Curseforge](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/curseforge/curseforge64.png "Curseforge")](https://www.curseforge.com/members/crystal_spider_/projects)
 

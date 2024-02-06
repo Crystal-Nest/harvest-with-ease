@@ -338,14 +338,17 @@ It must be an integer value and will be effective only if greater than 0 and req
 [Unreleased]: https://github.com/crystal-nest/harvest-with-ease
 [README]: https://github.com/crystal-nest/harvest-with-ease#readme
 
+[1.20.4-8.0.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-8.0.1.0
 [1.20.4-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-8.0.0.2
 
+[1.20.2-8.0.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.2-8.0.1.0
 [1.20.2-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.2-8.0.0.2
 [1.20.2-8.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.2-8.0.0.1
 [1.20.2-8.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.2-8.0.0.0
 [1.20.2-7.1.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.2-7.1.0.0
 [1.20.2-7.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.2-7.0.0.2
 
+[1.20.1-8.0.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.1-8.0.1.0
 [1.20.1-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.1-8.0.0.2
 [1.20.1-8.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.1-8.0.0.1
 [1.20.1-8.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.1-8.0.0.0
@@ -358,6 +361,7 @@ It must be an integer value and will be effective only if greater than 0 and req
 [1.20-7.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20-7.0.0.1
 [1.20-7.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20-7.0.0.0
 
+[1.19.4-8.0.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-8.0.1.0
 [1.19.4-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-8.0.0.2
 [1.19.4-8.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-8.0.0.1
 [1.19.4-8.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.4-8.0.0.0
@@ -376,6 +380,7 @@ It must be an integer value and will be effective only if greater than 0 and req
 [1.19.3-5.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.3-5.0.0.1
 [1.19.3-5.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.3-5.0.0.0
 
+[1.19.2-8.0.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-8.0.1.0
 [1.19.2-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-8.0.0.2
 [1.19.2-8.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-8.0.0.1
 [1.19.2-8.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19.2-8.0.0.0
@@ -402,6 +407,7 @@ It must be an integer value and will be effective only if greater than 0 and req
 [1.19-2.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19-2.0.0.1
 [1.19-2.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.19-2.0.0.0
 
+[1.18.2-8.0.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-8.0.1.0
 [1.18.2-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-8.0.0.2
 [1.18.2-8.0.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-8.0.0.1
 [1.18.2-8.0.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.18.2-8.0.0.0

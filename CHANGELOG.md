@@ -8,6 +8,10 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new.
 
+## [1.20.4-8.0.1.1] \(NeoForge only\) - 2024/01/13
+- Fixed [#39](https://github.com/Crystal-Nest/harvest-with-ease/issues/39), uncompatibility with NeoForge latest versions.
+  This version is also compatible with NeoForge 20.4.70-beta and below.
+
 ## [1.20.4-8.0.1.0] - 2024/01/13
 - Fixed [#37](https://github.com/crystal-nest/harvest-with-ease/issues/37), make exp orbs drop when right-click harvest.
 
@@ -338,6 +342,7 @@ It must be an integer value and will be effective only if greater than 0 and req
 [Unreleased]: https://github.com/crystal-nest/harvest-with-ease
 [README]: https://github.com/crystal-nest/harvest-with-ease#readme
 
+[1.20.4-8.0.1.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-8.0.1.1
 [1.20.4-8.0.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-8.0.1.0
 [1.20.4-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-8.0.0.2
 

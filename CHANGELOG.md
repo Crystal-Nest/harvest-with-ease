@@ -8,7 +8,8 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 ## [Unreleased]
 - Nothing new.
 
-## [1.20.4-8.0.1.1] \(NeoForge only\) - 2024/01/13
+## [1.20.4-8.0.1.1] - 2024/02/09
+**(NeoForge only)**
 - Fixed [#39](https://github.com/Crystal-Nest/harvest-with-ease/issues/39), uncompatibility with NeoForge latest versions.
   This version is also compatible with NeoForge 20.4.70-beta and below.
 

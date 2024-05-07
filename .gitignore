@@ -11,27 +11,14 @@ out
 *.ipr
 *.iws
 *.iml
-.idea
-
-# vscode
-bin/
-.classpath
-.project
-.vscode
+.idea/*
+!.idea/scopes
 
 # gradle
 build
-out
-classes
 .gradle
 
 # other
 eclipse
 run
 runs
-
-# macos
-*.DS_Store
-
-# api keys
-api-keys.properties

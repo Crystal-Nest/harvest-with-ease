@@ -10,16 +10,19 @@
 ![Issues](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/github/issues.svg)[![GitHub](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/github/github.svg)](https://github.com/crystal-nest/harvest-with-ease/issues)
 
 ---
+
 ## **Description**
+
 Harvesting crops is such a pain, breaking them all to get the drops and then having to replant each one.  
-Well, not anymore! With this mod you can just right click on your crops to harvest them and leaving a new plant to grow!  
+Well, not anymore! With this mod you can just right-click on your crops to harvest them and leaving a new plant to grow!  
 It's also compatible with **any** modded crops, to ease your mind of one more thing!
 
 ***Note:***  
-*Altough it's stated that the mod is required on both sides, it can be safely installed server-side only and still work.*  
-*However when a client that does not have the mod connects to a server that does, and the player tries to harvest a crop while holding a block, it cause block flashing. The only way to prevent this glitch is to set `require hoe` to `true`.*
+*Although it's stated that the mod is required on both sides, it can be safely installed server-side only and still work.*  
+*However when a client that does not have the mod connects to a server that does, and the player tries to harvest a crop while holding a block, it causes block flashing. The only way to prevent this glitch is to set `require hoe` to `true`.*
 
 ## **Features**
+
 - Right-click to harvest any crop, works with both Vanilla and modded out of the box!  
   ![Harvesting wheat](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/harvest-with-ease/wheat.gif)
 - Works on nether warts and cocoa beans too!  
@@ -29,6 +32,7 @@ It's also compatible with **any** modded crops, to ease your mind of one more th
 - **Highly configurable!** See next section for more details.
 
 ## **Configuration**
+
 - **`require hoe`**: whether holding a hoe (either hands) is required to right-click harvest, defaults to `false`.
 - **`damage on harvest`**: how much damage the hoe should receive upon use, effective only if `> 0` and **`require hoe`** is enabled.
 - **`exp on harvest`**: how many experience points should be granted when right-click harvesting or break-harvesting, effective only if `> 0` (note it's exp _points_ and not exp _levels_).
@@ -49,19 +53,24 @@ It's also compatible with **any** modded crops, to ease your mind of one more th
   This last config option is just a safety measure, so far no crop needs it.
 
 ## **Dependencies**
-| Mod | Loader | Requirement |
-| :-: | :----: | :---------: |
-| [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) | Fabric | Required |
+
+|                                   Mod                                   | Loader | Requirement |
+|:-----------------------------------------------------------------------:|:------:|:-----------:|
+| [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) | Fabric |  Required   |
 
 ## **License and right of use**
+
 Feel free to use this mod for any modpack or video, just be sure to give credit and possibly link [here](https://github.com/crystal-nest/harvest-with-ease#readme).  
 This project is published under the [GNU General Public License v3.0](https://github.com/crystal-nest/harvest-with-ease/blob/master/LICENSE).
 
 ## **For developers**
-Your modded crops will work with this mod out of the box only if they extend the CropBlock class, which is how it should be.  
-If, for whatever reason, you can't extend that class the **`crops`** config option is there exactly for you. Just add the in-game ID of your crop(s) to make it work, however note that this will work only if your crops have an Integer Property whose name is set to be `"age"` and represents the age values your crops can have, from `0` to a `max` value.
 
-Since version 6.0.0.0, an API is available to better integrate your mod with this one. Note however that this should rarely be necessary. To learn how to use the provided API follow the [Wiki](https://github.com/crystal-nest/harvest-with-ease/wiki) on [GitHub](https://github.com/crystal-nest/harvest-with-ease).
+Your modded crops will work with this mod out of the box only if they extend the CropBlock class, which is how it should be.  
+If, for whatever reason, you can't extend that class the **`crops`** config option is there exactly for you. Just add the in-game ID of your crop(s) to make it work, however note that this will work only if your crops have an Integer Property whose name
+is set to be `"age"` and represents the age values your crops can have, from `0` to a `max` value.
+
+Since version 6.0.0.0, an API is available to better integrate your mod with this one. Note however that this should rarely be necessary. To learn how to use the provided API follow the [Wiki](https://github.com/crystal-nest/harvest-with-ease/wiki)
+on [GitHub](https://github.com/crystal-nest/harvest-with-ease).
 
 ## **Support us**
 

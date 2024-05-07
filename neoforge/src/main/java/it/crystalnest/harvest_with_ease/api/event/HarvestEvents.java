@@ -179,14 +179,14 @@ public final class HarvestEvents {
     }
 
     @Override
-    public void cancel() {
-      setCanceled(true);
-    }
-
-    @Override
     @ApiStatus.Internal
     public void setDrops(List<ItemStack> drops) {
       this.drops = drops;
+    }
+
+    @Override
+    public void cancel() {
+      setCanceled(true);
     }
   }
 

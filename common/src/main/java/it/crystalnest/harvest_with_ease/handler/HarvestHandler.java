@@ -32,7 +32,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 /**

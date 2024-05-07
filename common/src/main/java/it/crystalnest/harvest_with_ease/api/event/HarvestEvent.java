@@ -129,6 +129,14 @@ public interface HarvestEvent<P extends Player, L extends Level> {
     List<ItemStack> getDrops();
 
     /**
+     * Sets the current list of drops.<br>
+     *
+     * @param drops list of drops.
+     */
+    @ApiStatus.Internal
+    void setDrops(List<ItemStack> drops);
+
+    /**
      * Cancel this event to prevent further computations.
      */
     void cancel();
@@ -172,14 +180,6 @@ public interface HarvestEvent<P extends Player, L extends Level> {
       }
       return drops;
     }
-
-    /**
-     * Sets the current list of drops.<br>
-     *
-     * @param drops list of drops.
-     */
-    @ApiStatus.Internal
-    void setDrops(List<ItemStack> drops);
   }
 
   /**

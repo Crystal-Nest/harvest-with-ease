@@ -214,6 +214,11 @@ public final class HarvestEvents {
     }
 
     @Override
+    public P getEntity() {
+      return entity;
+    }
+
+    @Override
     public L getLevel() {
       return level;
     }
@@ -237,11 +242,6 @@ public final class HarvestEvents {
     @Nullable
     public BlockHitResult getHitResult() {
       return hitResult;
-    }
-
-    @Override
-    public P getEntity() {
-      return entity;
     }
 
     @Override
@@ -309,14 +309,14 @@ public final class HarvestEvents {
    */
   public static class HarvestDropsEvent extends FabricHarvestEvent<ServerPlayer, ServerLevel> implements HarvestEvent.HarvestDropsEvent {
     /**
-     * List of drops.
-     */
-    private List<ItemStack> drops;
-
-    /**
      * Reference to the default drops.
      */
     private final List<ItemStack> defaultDrops;
+
+    /**
+     * List of drops.
+     */
+    private List<ItemStack> drops;
 
     private boolean canceled;
 
@@ -346,14 +346,14 @@ public final class HarvestEvents {
     }
 
     @Override
-    public void cancel() {
-      canceled = false;
-    }
-
-    @Override
     @ApiStatus.Internal
     public void setDrops(List<ItemStack> drops) {
       this.drops = drops;
+    }
+
+    @Override
+    public void cancel() {
+      canceled = false;
     }
   }
 

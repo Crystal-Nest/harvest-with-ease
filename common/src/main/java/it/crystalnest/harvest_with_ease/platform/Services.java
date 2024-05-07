@@ -35,8 +35,8 @@ public final class Services {
    * Inside the file you should write the fully qualified class name of the implementation to load for the platform.
    *
    * @param clazz Class to load.
-   * @return The loaded service.
    * @param <T> class type.
+   * @return The loaded service.
    */
   private static <T> T load(Class<T> clazz) {
     final T loadedService = ServiceLoader.load(clazz).findFirst().orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));

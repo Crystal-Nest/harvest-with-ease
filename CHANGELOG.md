@@ -9,9 +9,14 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 
 - Nothing new.
 
-## [1.20.4-9.0.0.0] - 2024/05/dd
+## [1.20.4-9.0.0.0-beta] - 2024/05/15
 
-- 
+- Changed mod id from `harvestwithease` to `harvest_with_ease`.
+- Changed file configuration name.
+- Removed `play sound` configuration option.
+- Rewrite to comply with Cobweb Mod Template.
+- Added Cobweb API as a required dependency.
+- Removed API for handling tiers as it has been moved to Cobweb API.
 
 ## [1.20.4-8.0.1.1] - 2024/02/09
 
@@ -438,6 +443,7 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 [Unreleased]: https://github.com/crystal-nest/harvest-with-ease
 [README]: https://github.com/crystal-nest/harvest-with-ease#readme
 
+[1.20.4-9.0.0.0-beta]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-9.0.0.0-beta
 [1.20.4-8.0.1.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-8.0.1.1
 [1.20.4-8.0.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-8.0.1.0
 [1.20.4-8.0.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-8.0.0.2

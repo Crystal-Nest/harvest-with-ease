@@ -21,6 +21,11 @@ It's also compatible with **any** modded crops, to ease your mind of one more th
 *Although it's stated that the mod is required on both sides, it can be safely installed server-side only and still work.*  
 *However when a client that does not have the mod connects to a server that does, and the player tries to harvest a crop while holding a block, it causes block flashing. The only way to prevent this glitch is to set `require hoe` to `true`.*
 
+***If you're using the 9.0.0.0-beta version, be aware that the mod ID changed from `harvestwithease` to `harvest_with_ease`.***  
+***Backup your configuration file and update the new one at the first run with the beta version.***  
+***Furthermore, Harvest with ease now requires Cobweb API to work, so install that too!***  
+***For any problem that might arise, do not hesitate to open an issue on GitHub!***
+
 ## **Features**
 
 - Right-click to harvest any crop, works with both Vanilla and modded out of the box!  

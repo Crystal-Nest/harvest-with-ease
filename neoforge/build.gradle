@@ -31,7 +31,7 @@ sourceSets.main.resources { srcDir "src/generated/resources" }
 dependencies {
   implementation "net.neoforged:neoforge:${neoforge_version}"
   compileOnly project(":common")
-  compileOnly "it.crystalnest:cobweb-neoforge:${minecraft_version}-${cobweb_version}"
+  implementation "it.crystalnest:cobweb-neoforge:${minecraft_version}-${cobweb_version}"
 }
 
 // NeoGradle compiles the game, but we don't want to add our common code to the game's code

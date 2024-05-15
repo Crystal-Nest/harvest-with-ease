@@ -131,30 +131,12 @@ public final class ModConfig extends CommonConfig {
     return CONFIG.areaIncrementStep.get();
   }
 
-  @Override
-  protected void define(ModConfigSpec.Builder builder) {
-    crops = builder.comment(" List of in-game IDs of additional crops").defineListAllowEmpty(List.of("crops"), Collections::emptyList, this::stringListValidator);
-    requireHoe = builder.comment(" Require holding a hoe (either hands) to right-click harvest").define("require hoe", false);
-    damageOnHarvest = builder.comment(" If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer)").defineInRange("damage on harvest", 0, 0, Integer.MAX_VALUE);
-    grantedExp = builder.comment(" Amount of experience to grant on harvest (0 to disable, must be an integer).").defineInRange("exp on harvest", 0, 0, Integer.MAX_VALUE);
-    multiHarvestStartingTier = builder.comment(
-      " Tool tier starting from which it is possible to harvest multiple crops at once.",
-      " All tiers that cannot multi-harvest will have a 1x1 square area of effect (a single crop).",
-      " If [starting harvest area size] is set to \"" + AreaSize.SINGLE + "\" and [area increment step] to \"" + AreaStep.NONE + "\" multi-harvest will be effectively disabled, regardless of this config option value.",
-      " From lesser to greater, Vanilla tiers are: " + String.join(", ", Stream.of(Tiers.values()).sorted(TierUtils::compare).map(tier -> "\"" + tier.toString().toLowerCase() + "\"").toArray(String[]::new)) + ".",
-      " When set to \"none\", multi-harvest will be enabled without a tool too. Note that [require hoe] takes precedence.",
-      " The tier can be specified with either the name of the tier, e.g. \"iron\", or the id of the tier, e.g. \"minecraft:iron\"."
-    ).define("multi-harvest starting tier", Tiers.WOOD.toString().toLowerCase(), value -> value instanceof String string && (string.equalsIgnoreCase("none") || TierUtils.isIn(TierUtils.getAllTiers(), string)));
-    areaStartingSize = builder.comment(getAreaSizeComments()).defineEnum("starting harvest area size", AreaSize.SINGLE, AreaSize.values());
-    areaIncrementStep = builder.comment(getAreaStepComments()).defineEnum("area increment step", AreaStep.NONE, AreaStep.values());
-  }
-
   /**
    * Gets the comments for {@link #areaStartingSize}.
    *
    * @return the comments for {@link #areaStartingSize}.
    */
-  private String[] getAreaSizeComments() {
+  private static String[] getAreaSizeComments() {
     AreaSize[] sizes = AreaSize.values();
     String[] comments = new String[3 + sizes.length];
     comments[0] = " Starting multi-harvest area size (square side length).";
@@ -171,15 +153,34 @@ public final class ModConfig extends CommonConfig {
    *
    * @return the comments for {@link #areaIncrementStep}.
    */
-  private String[] getAreaStepComments() {
+  private static String[] getAreaStepComments() {
     AreaStep[] steps = AreaStep.values();
     String[] comments = new String[2 + steps.length];
     comments[0] = " Increment step for the harvest area size with higher tool tiers.";
     comments[1] = " Setting this to \"" + AreaStep.NONE + "\" and [starting harvest area size] to \"" + AreaSize.SINGLE + "\" will effectively disable multi-harvest.";
     comments[2] = " \"" + steps[0] + "\" - no increment, the area stays the same (as defined by [starting harvest area size]) regardless of the tool used, if any.";
     for (int i = 1; i < steps.length; i++) {
-      comments[i + 2] = " \"" + steps[i] + "\" - " + steps[i] + " increment, the size of the area, starting from [starting harvest area size], increases by " + steps[i].step + " with each higher tier. E.g. 1x1 -> " + (1 + steps[i].step) + "x" + (1 + steps[i].step) + " -> " + (1 + steps[i].step * 2) + "x" + (1 + steps[i].step * 2) + " -> ...";
+      comments[i + 2] = " \"" + steps[i] + "\" - " + steps[i] + " increment, the size of the area, starting from [starting harvest area size], increases by " + steps[i].step + " with each higher tier." +
+                        "E.g. 1x1 -> " + (1 + steps[i].step) + "x" + (1 + steps[i].step) + " -> " + (1 + steps[i].step * 2) + "x" + (1 + steps[i].step * 2) + " -> ...";
     }
     return comments;
+  }
+
+  @Override
+  protected void define(ModConfigSpec.Builder builder) {
+    crops = builder.comment(" List of in-game IDs of additional crops").defineListAllowEmpty(List.of("crops"), Collections::emptyList, this::stringListValidator);
+    requireHoe = builder.comment(" Require holding a hoe (either hands) to right-click harvest").define("require hoe", false);
+    damageOnHarvest = builder.comment(" If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer)").defineInRange("damage on harvest", 0, 0, Integer.MAX_VALUE);
+    grantedExp = builder.comment(" Amount of experience to grant on harvest (0 to disable, must be an integer).").defineInRange("exp on harvest", 0, 0, Integer.MAX_VALUE);
+    multiHarvestStartingTier = builder.comment(
+      " Tool tier starting from which it is possible to harvest multiple crops at once.",
+      " All tiers that cannot multi-harvest will have a 1x1 square area of effect (a single crop).",
+      " If [starting harvest area size] is set to \"" + AreaSize.SINGLE + "\" and [area increment step] to \"" + AreaStep.NONE + "\" multi-harvest will be effectively disabled, regardless of this config option value.",
+      " From lesser to greater, Vanilla tiers are: " + String.join(", ", Stream.of(Tiers.values()).sorted(TierUtils::compare).map(tier -> "\"" + tier.toString().toLowerCase() + "\"").toArray(String[]::new)) + ".",
+      " When set to \"none\", multi-harvest will be enabled without a tool too. Note that [require hoe] takes precedence.",
+      " The tier can be specified with either the name of the tier, e.g. \"iron\", or the id of the tier, e.g. \"minecraft:iron\"."
+    ).define("multi-harvest starting tier", Tiers.WOOD.toString().toLowerCase(), value -> value instanceof String string && ("none".equalsIgnoreCase(string) || TierUtils.isIn(TierUtils.getAllTiers(), string)));
+    areaStartingSize = builder.comment(getAreaSizeComments()).defineEnum("starting harvest area size", AreaSize.SINGLE, AreaSize.values());
+    areaIncrementStep = builder.comment(getAreaStepComments()).defineEnum("area increment step", AreaStep.NONE, AreaStep.values());
   }
 }

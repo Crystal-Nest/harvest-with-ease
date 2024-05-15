@@ -70,8 +70,8 @@ dependencies {
   minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
   compileOnly project(":common")
   annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
-  compileOnly "it.crystalnest:cobweb-forge:${minecraft_version}-${cobweb_version}"
-  compileOnly(fg.deobf("fuzs.forgeconfigapiport:forgeconfigapiport-forge:${fcap_version}"))
+  implementation "it.crystalnest:cobweb-forge:${minecraft_version}-${cobweb_version}"
+  implementation(fg.deobf("fuzs.forgeconfigapiport:forgeconfigapiport-forge:${fcap_version}"))
 }
 
 tasks.withType(JavaCompile).configureEach {

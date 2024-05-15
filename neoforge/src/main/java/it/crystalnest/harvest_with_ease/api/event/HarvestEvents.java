@@ -28,7 +28,7 @@ public final class HarvestEvents {
   /**
    * Generic Forge harvest event.
    */
-  public static class ForgeHarvestEvent<P extends Player, L extends Level> extends PlayerInteractEvent implements HarvestEvent<P, L> {
+  public static class NeoForgeHarvestEvent<P extends Player, L extends Level> extends PlayerInteractEvent implements HarvestEvent<P, L> {
     /**
      * Level in which the interaction takes place.
      */
@@ -54,7 +54,7 @@ public final class HarvestEvents {
      * @param player {@link #player}.
      * @param hand {@link #hand}.
      */
-    protected ForgeHarvestEvent(L level, BlockState crop, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, P player, InteractionHand hand) {
+    protected NeoForgeHarvestEvent(L level, BlockState crop, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, P player, InteractionHand hand) {
       super(player, hand, pos, face);
       this.level = level;
       this.crop = crop;
@@ -89,7 +89,7 @@ public final class HarvestEvents {
    * Event triggered when checking whether a crop can be harvested.<br>
    * Fired on both sides.
    */
-  public static class HarvestCheckEvent extends ForgeHarvestEvent<Player, Level> implements HarvestEvent.HarvestCheckEvent {
+  public static class HarvestCheckEvent extends NeoForgeHarvestEvent<Player, Level> implements HarvestEvent.HarvestCheckEvent {
     /**
      * Whether the crop can be harvested.
      */
@@ -123,7 +123,7 @@ public final class HarvestEvents {
    * Event triggered before harvesting.<br>
    * Fired on server side only.
    */
-  public static class BeforeHarvestEvent extends ForgeHarvestEvent<ServerPlayer, ServerLevel> implements HarvestEvent.BeforeHarvestEvent {
+  public static class BeforeHarvestEvent extends NeoForgeHarvestEvent<ServerPlayer, ServerLevel> implements HarvestEvent.BeforeHarvestEvent {
     /**
      * @param level {@link #level}.
      * @param crop {@link #crop}.
@@ -142,7 +142,7 @@ public final class HarvestEvents {
    * Event triggered when calculating the drops for a harvest.<br>
    * Fired on server side only.
    */
-  public static class HarvestDropsEvent extends ForgeHarvestEvent<ServerPlayer, ServerLevel> implements ICancellableEvent, HarvestEvent.HarvestDropsEvent {
+  public static class HarvestDropsEvent extends NeoForgeHarvestEvent<ServerPlayer, ServerLevel> implements ICancellableEvent, HarvestEvent.HarvestDropsEvent {
     /**
      * Reference to the default drops.
      */
@@ -194,7 +194,7 @@ public final class HarvestEvents {
    * Event triggered after harvesting.<br>
    * Fired on server side only.
    */
-  public static class AfterHarvestEvent extends ForgeHarvestEvent<ServerPlayer, ServerLevel> implements HarvestEvent.AfterHarvestEvent {
+  public static class AfterHarvestEvent extends NeoForgeHarvestEvent<ServerPlayer, ServerLevel> implements HarvestEvent.AfterHarvestEvent {
     /**
      * @param level {@link #level}.
      * @param crop {@link #crop}.

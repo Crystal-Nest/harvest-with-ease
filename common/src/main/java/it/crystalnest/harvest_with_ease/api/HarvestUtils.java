@@ -6,7 +6,7 @@ import it.crystalnest.harvest_with_ease.config.ModConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.TieredItem;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CocoaBlock;
 import net.minecraft.world.level.block.CropBlock;
@@ -44,7 +44,7 @@ public final class HarvestUtils {
    * @throws ClassCastException if the age property is not an {@link IntegerProperty}.
    */
   public static IntegerProperty getAge(BlockState blockState) throws NullPointerException, NoSuchElementException, ClassCastException {
-    return (IntegerProperty) blockState.getProperties().stream().filter(property -> property.getName().equals("age")).findFirst().orElseThrow();
+    return (IntegerProperty) blockState.getProperties().stream().filter(property -> "age".equals(property.getName())).findFirst().orElseThrow();
   }
 
   /**
@@ -74,12 +74,12 @@ public final class HarvestUtils {
   /**
    * Checks whether the given crop is a multi-block crop (a crop made of multiple vertically connected blocks).
    *
-   * @param level {@link Level world} in which the crop is placed.
+   * @param level {@link BlockGetter world} in which the crop is placed.
    * @param blockState {@link BlockState} of the crop.
    * @param blockPos {@link BlockPos} of the crop.
    * @return whether the given crop is a multi-block crop.
    */
-  public static boolean isTallCrop(Level level, BlockState blockState, BlockPos blockPos) {
+  public static boolean isTallCrop(BlockGetter level, BlockState blockState, BlockPos blockPos) {
     return blockState.is(BlockTags.CROPS) && level.getBlockState(blockPos.below()).is(blockState.getBlock()) || level.getBlockState(blockPos.above()).is(blockState.getBlock());
   }
 

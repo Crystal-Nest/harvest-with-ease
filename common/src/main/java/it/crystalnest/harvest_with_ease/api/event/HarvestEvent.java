@@ -147,7 +147,8 @@ public interface HarvestEvent<P extends Player, L extends Level> {
      * @return whether the list of drops changed from its default value.
      */
     default boolean didDropsChange() {
-      List<ItemStack> defaultDrops = getDefaultDrops(), drops = getDrops();
+      List<ItemStack> defaultDrops = getDefaultDrops();
+      List<ItemStack> drops = getDrops();
       if (defaultDrops.size() == drops.size()) {
         for (int c = 0; c < defaultDrops.size(); c++) {
           if (!ItemStack.matches(defaultDrops.get(c), drops.get(c))) {

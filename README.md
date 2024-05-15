@@ -24,7 +24,7 @@ It's also compatible with **any** modded crops, to ease your mind of one more th
 ***If you're using the 9.0.0.0-beta version, be aware that the mod ID changed from `harvestwithease` to `harvest_with_ease`.***  
 ***Backup your configuration file and update the new one at the first run with the beta version.***  
 ***Furthermore, Harvest with ease now requires Cobweb API to work, so install that too!***  
-***For any problem that might arise, do not hesitate to open an issue on GitHub!***
+***For any problem that might arise, do not hesitate to open an issue on GitHub or contact us directly on our Discord!***
 
 ## **Features**
 

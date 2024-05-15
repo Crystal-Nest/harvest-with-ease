@@ -157,7 +157,7 @@ public final class HarvestEvents {
   /**
    * Generic Fabric harvest event.
    */
-  public static abstract class FabricHarvestEvent<P extends Player, L extends Level> implements HarvestEvent<P, L> {
+  public abstract static class FabricHarvestEvent<P extends Player, L extends Level> implements HarvestEvent<P, L> {
     /**
      * Level in which the interaction takes place.
      */
@@ -353,7 +353,7 @@ public final class HarvestEvents {
 
     @Override
     public void cancel() {
-      canceled = false;
+      canceled = true;
     }
   }
 

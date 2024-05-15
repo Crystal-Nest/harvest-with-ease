@@ -35,7 +35,10 @@ public final class NeoForgeHarvestHandler extends HarvestHandler {
    */
   @SubscribeEvent(priority = EventPriority.HIGH)
   private static void handle(PlayerInteractEvent.RightClickBlock event) {
-    if (canInteract(event.getEntity(), event) && handle(event.getLevel(), event.getLevel().getBlockState(event.getHitVec().getBlockPos()), event.getHitVec().getDirection(), event.getHitVec().getBlockPos(), event.getHitVec(), event.getEntity(), event.getHand())) {
+    if (
+      canInteract(event.getEntity(), event) &&
+      handle(event.getLevel(), event.getLevel().getBlockState(event.getHitVec().getBlockPos()), event.getHitVec().getDirection(), event.getHitVec().getBlockPos(), event.getHitVec(), event.getEntity(), event.getHand())
+    ) {
       event.setCancellationResult(InteractionResult.SUCCESS);
       event.setCanceled(true);
     }

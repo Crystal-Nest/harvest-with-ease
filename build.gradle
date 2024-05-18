@@ -1,9 +1,7 @@
 plugins {
   id "org.sonarqube" version "4.4.1.3373"
   id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
-  id "com.modrinth.minotaur" version "2.+" apply false
-  id "me.hypherionmc.cursegradle" version "2.0.1" apply false
-  id "com.github.breadmoirai.github-release" version "2.5.+" apply false
+  id "com.hypherionmc.modutils.modpublisher" version "2.1.4" apply false
   id "fabric-loom" version "1.5-SNAPSHOT" apply false
 }
 
@@ -23,9 +21,7 @@ subprojects { subproject ->
   apply plugin: "java"
   apply plugin: "idea"
   apply plugin: "java-library"
-  apply plugin: "com.modrinth.minotaur"
-  apply plugin: "me.hypherionmc.cursegradle"
-  apply plugin: "com.github.breadmoirai.github-release"
+  apply plugin: "com.hypherionmc.modutils.modpublisher"
   apply plugin: "maven-publish"
   if (isFabric) {
     apply plugin: "fabric-loom"
@@ -180,88 +176,67 @@ subprojects { subproject ->
     }
   }
 
-  githubRelease {
-    token = System.getenv("GITHUB_TOKEN") ?: ""
-    owner = github_user
-    repo = mod_id_kebab
-    tagName = "v${project.version}"
-    targetCommitish = minecraft_version
-    releaseName = "v${project.version}"
-    generateReleaseNotes = false
-    body = changelog_body
-    draft = false
-    prerelease = version_type != "release"
-    releaseAssets = isFabric ? remapJar : jar
-    allowUploadToExisting = true
-    overwrite = false
-    dryRun = noPublish
-  }
-
-  modrinth {
-    token = System.getenv("MODRINTH_TOKEN") ?: ""
-    projectId = mod_id_kebab
-    versionNumber = mod_version
-    versionName = "[${loader} - ${minecraft_version}] ${mod_title} v${mod_version}"
-    changelog = changelog_body
-    uploadFile = isFabric ? remapJar : jar
-    versionType = version_type
-    gameVersions = [minecraft_version]
-    loaders = [loader.toLowerCase()]
-    dependencies {
+  publisher {
+    apiKeys {
+      github System.getenv("GITHUB_TOKEN") ?: ""
+      modrinth System.getenv("MODRINTH_TOKEN") ?: ""
+      curseforge System.getenv("CURSEFORGE_TOKEN") ?: ""
+    }
+    setDebug(noPublish)
+    setVersion(project.version)
+    setChangelog(changelog_body)
+    setVersionType(version_type)
+    setArtifact(isFabric ? remapJar : jar)
+    setDisableMalwareScanner(true) // Disable the built in Fractureizer scanner.
+    setDisableEmptyJarCheck(true) // Disable check for valid mod metadata entry in artifact, which could possibly mean that the jar is empty.
+    setModrinthID(mod_id_kebab)
+    setCurseID(curseforge_id)
+    setLoaders(noPublish ? "fabric" : loader) // Avoid using "common" as a loader: when configuring for common, set it to any other loader.
+    setGameVersions(minecraft_version)
+    setDisplayName("[${loader} - ${minecraft_version}] ${mod_title} v${mod_version}")
+    setJavaVersions([JavaVersion.VERSION_17])
+    setCurseEnvironment("both") // "server", "client" or "both".
+    github {
+      repo = "${github_user}/${mod_id_kebab}"
+      tag = "v${project.version}"
+      displayName("v${project.version}")
+      target = minecraft_version
+      createTag = true
+      createRelease = true
+      updateRelease = true
+      draft = false
+    }
+    modrinthDepends {
       switch (loader) {
         case "Fabric":
-          required.project "fabric-api"
-          required.project "cobweb"
-          required.project "forge-config-api-port"
+          required "fabric-api"
+          required "cobweb"
+          optional "forge-config-api-port"
           break
         case "Forge":
-          required.project "cobweb"
-          required.project "forge-config-api-port"
+          required "cobweb"
+          optional "forge-config-api-port"
           break
         case "NeoForge":
-          required.project "cobweb"
+          required "fabric-api"
           break
       }
     }
-    debugMode = noPublish
-  }
-
-  curseforge {
-    apiKey = System.getenv("CURSEFORGE_TOKEN") ?: ""
-    project {
-      id = curseforge_id
-      changelogType = "markdown"
-      changelog = changelog_body
-      releaseType = version_type
-      if (!noPublish) {
-        addGameVersion loader
+    curseDepends {
+      switch (loader) {
+        case "Fabric":
+          required "fabric-api"
+          required "cobweb"
+          optional "forge-config-api-port-fabric"
+          break
+        case "Forge":
+          required "cobweb"
+          optional "forge-config-api-port-fabric"
+          break
+        case "NeoForge":
+          required "cobweb"
+          break
       }
-      addGameVersion minecraft_version
-      mainArtifact(isFabric ? remapJar : jar) {
-        displayName = "[${loader} - ${minecraft_version}] ${mod_title} v${mod_version}"
-      }
-      relations {
-        switch (loader) {
-          case "Fabric":
-            requiredDependency "cobweb"
-            requiredDependency "forge-config-api-port-fabric"
-            break
-          case "Forge":
-            requiredDependency "cobweb"
-            requiredDependency "forge-config-api-port-fabric"
-            break
-          case "NeoForge":
-            requiredDependency "cobweb"
-            break
-        }
-      }
-    }
-    options {
-      detectNewerJava = true
-      forgeGradleIntegration = false
-      fabricIntegration = isFabric
-      detectFabricApi = isFabric
-      debug = noPublish
     }
   }
 
@@ -269,9 +244,7 @@ subprojects { subproject ->
     group = "publishing"
     description = "Publish ${loader} specific versions to all platforms"
     dependsOn "publish"
-    dependsOn "githubRelease"
-    dependsOn "curseforge"
-    dependsOn "modrinth"
+    dependsOn "publishMod"
   }
 }
 

@@ -449,6 +449,7 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 [Unreleased]: https://github.com/crystal-nest/harvest-with-ease
 [README]: https://github.com/crystal-nest/harvest-with-ease#readme
 
+[1.20.4-9.0.0.1-beta]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-9.0.0.1-beta
 [1.20.4-9.0.0.0-beta]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-9.0.0.0-beta
 [1.20.4-8.0.1.1]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-8.0.1.1
 [1.20.4-8.0.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-8.0.1.0

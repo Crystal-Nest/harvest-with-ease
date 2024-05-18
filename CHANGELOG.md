@@ -9,6 +9,12 @@ and this project adheres to [Forge Semantic Versioning](https://mcforge.readthed
 
 - Nothing new.
 
+## [1.20.4-9.0.0.1-beta] - 2024/05/18
+
+- Changed publisher plugin.
+- Fixed declared related dependencies.
+- Updated Cobweb API requirement to v0.0.3.0-beta.
+
 ## [1.20.4-9.0.0.0-beta] - 2024/05/15
 
 - Changed mod id from `harvestwithease` to `harvest_with_ease`.

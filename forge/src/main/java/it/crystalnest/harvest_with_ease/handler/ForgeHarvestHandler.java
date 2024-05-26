@@ -24,7 +24,7 @@ public final class ForgeHarvestHandler extends HarvestHandler {
    * @param event {@link BlockEvent.BreakEvent}.
    */
   @SubscribeEvent
-  private static void handle(BlockEvent.BreakEvent event) {
+  public static void handle(BlockEvent.BreakEvent event) {
     handle(event.getLevel(), event.getState(), event.getPos());
   }
 
@@ -34,7 +34,7 @@ public final class ForgeHarvestHandler extends HarvestHandler {
    * @param event {@link PlayerInteractEvent.RightClickBlock}.
    */
   @SubscribeEvent(priority = EventPriority.HIGH)
-  private static void handle(PlayerInteractEvent.RightClickBlock event) {
+  public static void handle(PlayerInteractEvent.RightClickBlock event) {
     if (
       canInteract(event.getEntity(), event) &&
       handle(event.getLevel(), event.getLevel().getBlockState(event.getHitVec().getBlockPos()), event.getHitVec().getDirection(), event.getHitVec().getBlockPos(), event.getHitVec(), event.getEntity(), event.getHand())

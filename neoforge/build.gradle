@@ -30,7 +30,7 @@ sourceSets.main.resources { srcDir "src/generated/resources" }
 
 dependencies {
   implementation "net.neoforged:neoforge:${neoforge_version}"
-  implementation project(":common")
+  compileOnly project(":common")
   implementation "it.crystalnest:cobweb-neoforge:${minecraft_version}-${cobweb_version}"
 }
 

@@ -7,15 +7,15 @@ import org.slf4j.LoggerFactory;
  * Common shared constants across all loaders.
  */
 public final class Constants {
-	private Constants() {}
+  /**
+   * Mod id.
+   */
+  public static final String MOD_ID = "harvest_with_ease";
 
-	/**
-	 * Mod id.
-	 */
-	public static final String MOD_ID = "harvest_with_ease";
+  /**
+   * Mod logger.
+   */
+  public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	/**
-	 * Mod logger.
-	 */
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+  private Constants() {}
 }

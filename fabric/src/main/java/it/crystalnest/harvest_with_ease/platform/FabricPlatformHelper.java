@@ -7,7 +7,7 @@ import net.fabricmc.loader.api.FabricLoader;
 /**
  * Fabric platform helper.
  */
-public final class FabricPlatformHelper implements PlatformHelper {
+public class FabricPlatformHelper implements PlatformHelper {
   @Override
   public Platform getPlatformName() {
     return Platform.FABRIC;

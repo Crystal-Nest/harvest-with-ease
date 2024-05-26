@@ -1,6 +1,8 @@
 package it.crystalnest.harvest_with_ease.platform;
 
 import it.crystalnest.harvest_with_ease.Constants;
+import it.crystalnest.harvest_with_ease.platform.services.EventHelper;
+import it.crystalnest.harvest_with_ease.platform.services.HarvestHelper;
 import it.crystalnest.harvest_with_ease.platform.services.PlatformHelper;
 
 import java.util.ServiceLoader;
@@ -13,7 +15,17 @@ public final class Services {
   /**
    * Provides information about what platform the mod is running on.
    */
-  public static final PlatformHelper PLATFORM = load(PlatformHelper.class);
+  public static final PlatformHelper PLATFORM = Services.load(PlatformHelper.class);
+
+  /**
+   * Provides firing of events.
+   */
+  public static final EventHelper EVENT = Services.load(EventHelper.class);
+
+  /**
+   * Provides harvest utility methods.
+   */
+  public static final HarvestHelper HARVEST = Services.load(HarvestHelper.class);
 
   private Services() {}
 
@@ -23,8 +35,8 @@ public final class Services {
    * Inside the file you should write the fully qualified class name of the implementation to load for the platform.
    *
    * @param clazz Class to load.
-   * @return The loaded service.
    * @param <T> class type.
+   * @return The loaded service.
    */
   private static <T> T load(Class<T> clazz) {
     final T loadedService = ServiceLoader.load(clazz).findFirst().orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));

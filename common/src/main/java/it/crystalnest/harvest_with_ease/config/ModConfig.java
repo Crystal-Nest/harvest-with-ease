@@ -30,6 +30,11 @@ public final class ModConfig extends CommonConfig {
   private ConfigValue<List<? extends String>> crops;
 
   /**
+   * List in-game IDs for crops that under no condition can be right-click harvested.
+   */
+  private ConfigValue<List<? extends String>> blacklist;
+
+  /**
    * Whether holding a hoe (either hands) is required.
    */
   private BooleanValue requireHoe;
@@ -75,6 +80,15 @@ public final class ModConfig extends CommonConfig {
    */
   public static List<? extends String> getCrops() {
     return CONFIG.crops.get();
+  }
+
+  /**
+   * Returns the value of {@link #blacklist} as read from the configuration file.
+   *
+   * @return the value of {@link #blacklist} as read from the configuration file.
+   */
+  public static List<? extends String> getBlacklist() {
+    return CONFIG.blacklist.get();
   }
 
   /**
@@ -168,9 +182,10 @@ public final class ModConfig extends CommonConfig {
 
   @Override
   protected void define(ModConfigSpec.Builder builder) {
-    crops = builder.comment(" List of in-game IDs of additional crops").defineListAllowEmpty(List.of("crops"), Collections::emptyList, this::stringListValidator);
-    requireHoe = builder.comment(" Require holding a hoe (either hands) to right-click harvest").define("require hoe", false);
-    damageOnHarvest = builder.comment(" If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer)").defineInRange("damage on harvest", 0, 0, Integer.MAX_VALUE);
+    crops = builder.comment(" List of in-game IDs of additional crops.").defineListAllowEmpty(List.of("crops"), Collections::emptyList, this::stringListValidator);
+    blacklist = builder.comment(" List of in-game IDs for crops that under no condition can be right-click harvested.").defineListAllowEmpty(List.of("blacklist"), Collections::emptyList, this::stringListValidator);
+    requireHoe = builder.comment(" Require holding a hoe (either hands) to right-click harvest.").define("require hoe", false);
+    damageOnHarvest = builder.comment(" If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer).").defineInRange("damage on harvest", 0, 0, Integer.MAX_VALUE);
     grantedExp = builder.comment(" Amount of experience to grant on harvest (0 to disable, must be an integer).").defineInRange("exp on harvest", 0, 0, Integer.MAX_VALUE);
     multiHarvestStartingTier = builder.comment(
       " Tool tier starting from which it is possible to harvest multiple crops at once.",

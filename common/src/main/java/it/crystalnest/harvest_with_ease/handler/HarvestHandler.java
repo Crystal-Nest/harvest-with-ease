@@ -83,7 +83,7 @@ public abstract class HarvestHandler {
             harvest((ServerLevel) level, age, crop, pos, face, hitResult, (ServerPlayer) player, hand);
             if (player.getItemInHand(hand).getItem() instanceof TieredItem tool && Services.HARVEST.isHoe(tool.getDefaultInstance()) && HarvestUtils.isTierForMultiHarvest(tool)) {
               int fromCenterToEdge = ((TierUtils.getLevel(tool.getTier()) - TierUtils.getLevel(ModConfig.getMultiHarvestStartingTier())) * ModConfig.getAreaIncrementStep().step + ModConfig.getAreaStartingSize().size - 1) / 2;
-              BlockPos.betweenClosedStream(AABB.encapsulatingFullBlocks(pos, pos).inflate(fromCenterToEdge, 0, fromCenterToEdge)).filter(cropPos -> !pos.equals(cropPos)).forEach(cropPos -> {
+              BlockPos.betweenClosedStream(new AABB(pos, pos).inflate(fromCenterToEdge, 0, fromCenterToEdge)).filter(cropPos -> !pos.equals(cropPos)).forEach(cropPos -> {
                 BlockState cropState = level.getBlockState(cropPos);
                 if (canHarvest(level, cropState, cropPos, face, null, player, hand)) {
                   IntegerProperty cropAge = HarvestUtils.getAge(cropState);

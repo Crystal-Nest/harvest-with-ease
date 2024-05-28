@@ -8,7 +8,7 @@ import net.neoforged.fml.loading.FMLLoader;
 /**
  * NeoForge platform helper.
  */
-public class NeoForgePlatformHelper implements PlatformHelper {
+public final class NeoForgePlatformHelper implements PlatformHelper {
   @Override
   public Platform getPlatformName() {
     return Platform.NEOFORGE;

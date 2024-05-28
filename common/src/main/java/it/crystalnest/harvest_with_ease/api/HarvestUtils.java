@@ -2,9 +2,13 @@ package it.crystalnest.harvest_with_ease.api;
 
 import it.crystalnest.cobweb.api.block.BlockUtils;
 import it.crystalnest.cobweb.api.item.TierUtils;
+import it.crystalnest.harvest_with_ease.Constants;
 import it.crystalnest.harvest_with_ease.config.ModConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -22,6 +26,11 @@ import java.util.NoSuchElementException;
  * Utility methods for harvest and crop related stuff.
  */
 public final class HarvestUtils {
+  /**
+   * Block tag for blacklisted crops.
+   */
+  public static final TagKey<Block> BLACKLIST = TagKey.create(Registries.BLOCK, new ResourceLocation(Constants.MOD_ID, "blacklist"));
+
   private HarvestUtils() {}
 
   /**
@@ -32,6 +41,16 @@ public final class HarvestUtils {
    */
   public static boolean isCrop(Block block) {
     return block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || block instanceof PitcherCropBlock || ModConfig.getCrops().contains(BlockUtils.getStringKey(block));
+  }
+
+  /**
+   * Checks whether the given block is blacklisted from being harvested.
+   *
+   * @param block block.
+   * @return whether the given block is blacklisted.
+   */
+  public static boolean isBlacklisted(BlockState block) {
+    return ModConfig.getBlacklist().stream().anyMatch(id -> id.equalsIgnoreCase(BlockUtils.getStringKey(block.getBlock()))) || block.is(BLACKLIST);
   }
 
   /**

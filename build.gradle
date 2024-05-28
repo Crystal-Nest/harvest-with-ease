@@ -191,7 +191,9 @@ subprojects { subproject ->
     setDisableEmptyJarCheck(true) // Disable check for valid mod metadata entry in artifact, which could possibly mean that the jar is empty.
     setModrinthID(mod_id_kebab)
     setCurseID(curseforge_id)
-    setLoaders(noPublish ? "fabric" : loader) // Avoid using "common" as a loader: when configuring for common, set it to any other loader.
+    if (!noPublish) {
+      setLoaders(loader)
+    }
     setGameVersions(minecraft_version)
     setDisplayName("[${loader} - ${minecraft_version}] ${mod_title} v${mod_version}")
     setJavaVersions([JavaVersion.VERSION_17])
@@ -207,34 +209,30 @@ subprojects { subproject ->
       draft = false
     }
     modrinthDepends {
+      required "cobweb"
       switch (loader) {
         case "Fabric":
           required "fabric-api"
-          required "cobweb"
           optional "forge-config-api-port"
           break
         case "Forge":
-          required "cobweb"
           optional "forge-config-api-port"
           break
         case "NeoForge":
-          required "fabric-api"
           break
       }
     }
     curseDepends {
+      required "cobweb"
       switch (loader) {
         case "Fabric":
           required "fabric-api"
-          required "cobweb"
           optional "forge-config-api-port-fabric"
           break
         case "Forge":
-          required "cobweb"
           optional "forge-config-api-port-fabric"
           break
         case "NeoForge":
-          required "cobweb"
           break
       }
     }

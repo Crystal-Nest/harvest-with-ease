@@ -70,8 +70,8 @@ dependencies {
   minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
   compileOnly project(":common")
   annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
-  implementation "it.crystalnest:cobweb-forge:${minecraft_version}-${cobweb_version}"
-  implementation(fg.deobf("fuzs.forgeconfigapiport:forgeconfigapiport-forge:${fcap_version}"))
+  implementation fg.deobf("it.crystalnest:cobweb-forge:${minecraft_version}-${cobweb_version}")
+  implementation fg.deobf("fuzs.forgeconfigapiport:forgeconfigapiport-forge:${fcap_version}")
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -88,13 +88,22 @@ processResources {
   from project(":common").sourceSets.main.resources
 }
 
+jar.finalizedBy("configureReobfTaskForReobfJar")
 jar.finalizedBy("reobfJar")
 
 // Task seems bugged, breaks build because of mod dependencies in the Common project, with no apparent workaround.
-tasks.named('compileTestJava').get().setEnabled(false)
+tasks.named("compileTestJava").get().setEnabled(false)
 
 sourceSets.each {
   def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
   it.output.resourcesDir = dir
   it.java.destinationDirectory = dir
+}
+
+publishing {
+  publications {
+    gpr(MavenPublication) {
+      fg.component(it)
+    }
+  }
 }

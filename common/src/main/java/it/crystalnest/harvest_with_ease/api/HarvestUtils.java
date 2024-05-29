@@ -5,7 +5,7 @@ import it.crystalnest.cobweb.api.item.TierUtils;
 import it.crystalnest.harvest_with_ease.Constants;
 import it.crystalnest.harvest_with_ease.config.ModConfig;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -28,7 +28,7 @@ public final class HarvestUtils {
   /**
    * Block tag for blacklisted crops.
    */
-  public static final TagKey<Block> BLACKLIST = TagKey.create(Registries.BLOCK, new ResourceLocation(Constants.MOD_ID, "blacklist"));
+  public static final TagKey<Block> BLACKLIST = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Constants.MOD_ID, "blacklist"));
 
   private HarvestUtils() {}
 

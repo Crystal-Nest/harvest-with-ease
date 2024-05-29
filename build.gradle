@@ -101,8 +101,6 @@ subprojects { subproject ->
       "fabric_loader_version"        : fabric_loader_version,
       "forge_version"                : forge_version,
       "forge_loader_version_range"   : forge_loader_version_range,
-      "neoforge_version"             : neoforge_version,
-      "neoforge_loader_version_range": neoforge_loader_version_range,
       "cobweb_version"               : cobweb_version,
       "fcap_version"                 : fcap_version,
     ]
@@ -118,7 +116,7 @@ subprojects { subproject ->
   }
 
   def changelog_body = "See [Changelog](https://github.com/${github_user}/${mod_id_kebab}/blob/master/CHANGELOG.md#${minecraft_version.replaceAll('\\.', '')}-${mod_version.replaceAll('\\.', '')}---${new Date().format("yyyyMMdd")})."
-  def version_type = mod_version.replaceFirst("([0-9]+\\.?){4}-?", "") ?: "release"
+  def version_type = mod_version.replaceFirst("([0-9]+\\.?)+-?", "") ?: "release"
   def loader = "Common"
   switch (subproject.name) {
     case "fabric":
@@ -126,9 +124,6 @@ subprojects { subproject ->
       break
     case "forge":
       loader = "Forge"
-      break
-    case "neoforge":
-      loader = "NeoForge"
       break
   }
 
@@ -216,9 +211,6 @@ subprojects { subproject ->
           optional "forge-config-api-port"
           break
         case "Forge":
-          optional "forge-config-api-port"
-          break
-        case "NeoForge":
           break
       }
     }
@@ -230,9 +222,6 @@ subprojects { subproject ->
           optional "forge-config-api-port-fabric"
           break
         case "Forge":
-          optional "forge-config-api-port-fabric"
-          break
-        case "NeoForge":
           break
       }
     }

@@ -5,11 +5,11 @@ import it.crystalnest.cobweb.api.item.TierUtils;
 import it.crystalnest.harvest_with_ease.Constants;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.CropBlock;
-import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
-import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
-import net.neoforged.neoforge.common.ModConfigSpec.EnumValue;
-import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 
 import java.util.Collections;
 import java.util.List;
@@ -69,7 +69,7 @@ public final class ModConfig extends CommonConfig {
   /**
    * @param builder configuration builder.
    */
-  private ModConfig(ModConfigSpec.Builder builder) {
+  private ModConfig(ForgeConfigSpec.Builder builder) {
     super(builder);
   }
 
@@ -181,7 +181,7 @@ public final class ModConfig extends CommonConfig {
   }
 
   @Override
-  protected void define(ModConfigSpec.Builder builder) {
+  protected void define(ForgeConfigSpec.Builder builder) {
     crops = builder.comment(" List of in-game IDs of additional crops.").defineListAllowEmpty(List.of("crops"), Collections::emptyList, this::stringListValidator);
     blacklist = builder.comment(" List of in-game IDs for crops that under no condition can be right-click harvested.").defineListAllowEmpty(List.of("blacklist"), Collections::emptyList, this::stringListValidator);
     requireHoe = builder.comment(" Require holding a hoe (either hands) to right-click harvest.").define("require hoe", false);

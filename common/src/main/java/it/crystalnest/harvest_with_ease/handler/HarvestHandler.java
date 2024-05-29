@@ -22,7 +22,6 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -135,7 +134,7 @@ public abstract class HarvestHandler {
    * @param customDrops whether custom drops were added.
    */
   protected static void updateCrop(ServerLevel level, IntegerProperty age, Block crop, BlockPos basePos, ServerPlayer player, boolean customDrops) {
-    level.setBlockAndUpdate(basePos, crop == Blocks.PITCHER_CROP ? Blocks.AIR.defaultBlockState() : level.getBlockState(basePos).setValue(age, 0));
+    level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
     if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(crop) && isNotTallButSeparate(crop)) {
       level.destroyBlock(basePos.above(), !customDrops, player);
     }

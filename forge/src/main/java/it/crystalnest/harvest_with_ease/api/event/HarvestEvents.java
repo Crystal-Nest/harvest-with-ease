@@ -50,7 +50,7 @@ public final class HarvestEvents {
      * @param pos {@link #pos}.
      * @param face {@link #face}.
      * @param hitResult {@link #hitResult}.
-     * @param player {@link #player}.
+     * @param player {@link #entityPlayer}.
      * @param hand {@link #hand}.
      */
     protected ForgeHarvestEvent(L level, BlockState crop, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, P player, InteractionHand hand) {

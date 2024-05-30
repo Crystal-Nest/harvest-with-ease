@@ -4,7 +4,7 @@ import it.crystalnest.harvest_with_ease.Constants;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,7 +25,7 @@ public final class ForgeHarvestHandler extends HarvestHandler {
    */
   @SubscribeEvent
   public static void handle(BlockEvent.BreakEvent event) {
-    handle(event.getLevel(), event.getState(), event.getPos());
+    handle(event.getWorld(), event.getState(), event.getPos());
   }
 
   /**
@@ -36,8 +36,8 @@ public final class ForgeHarvestHandler extends HarvestHandler {
   @SubscribeEvent(priority = EventPriority.HIGH)
   public static void handle(PlayerInteractEvent.RightClickBlock event) {
     if (
-      canInteract(event.getEntity(), event) &&
-      handle(event.getLevel(), event.getLevel().getBlockState(event.getHitVec().getBlockPos()), event.getHitVec().getDirection(), event.getHitVec().getBlockPos(), event.getHitVec(), event.getEntity(), event.getHand())
+      canInteract(event.getPlayer(), event) &&
+      handle(event.getWorld(), event.getWorld().getBlockState(event.getHitVec().getBlockPos()), event.getHitVec().getDirection(), event.getHitVec().getBlockPos(), event.getHitVec(), event.getPlayer(), event.getHand())
     ) {
       event.setCancellationResult(InteractionResult.SUCCESS);
       event.setCanceled(true);

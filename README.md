@@ -57,10 +57,10 @@ It's also compatible with **almost any** modded crops, to ease your mind of one 
 
 ## **Dependencies**
 
-|                                   Mod                                   |          Loader          | Requirement |
-|:-----------------------------------------------------------------------:|:------------------------:|:-----------:|
-|        [Cobweb](https://modrinth.com/mod/forge-config-api-port)         |           All            |  Required   |
-| [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) | Fabric; Forge since 1.20 |  Required   |
+|                                   Mod                                   |         Loader         | Requirement |
+|:-----------------------------------------------------------------------:|:----------------------:|:-----------:|
+|        [Cobweb](https://modrinth.com/mod/forge-config-api-port)         |          All           |  Required   |
+| [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) | Fabric; Forge ≥ 1.20.2 |  Required   |
 
 ## **License and right of use**
 

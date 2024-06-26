@@ -9,6 +9,7 @@ sonar {
   properties {
     property "sonar.projectKey", "Crystal-Nest_${mod_id_kebab}"
     property "sonar.organization", "crystal-nest"
+    property "sonar.projectVersion", mod_version
     property "sonar.host.url", "https://sonarcloud.io"
     property "sonar.qualitygate.wait", "true"
   }
@@ -208,7 +209,7 @@ subprojects { subproject ->
       switch (loader) {
         case "Fabric":
           required "fabric-api"
-          optional "forge-config-api-port"
+          required "forge-config-api-port"
           break
         case "Forge":
           break
@@ -219,7 +220,7 @@ subprojects { subproject ->
       switch (loader) {
         case "Fabric":
           required "fabric-api"
-          optional "forge-config-api-port-fabric"
+          required "forge-config-api-port-fabric"
           break
         case "Forge":
           break

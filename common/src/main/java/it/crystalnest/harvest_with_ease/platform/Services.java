@@ -4,6 +4,7 @@ import it.crystalnest.harvest_with_ease.Constants;
 import it.crystalnest.harvest_with_ease.platform.services.EventHelper;
 import it.crystalnest.harvest_with_ease.platform.services.HarvestHelper;
 import it.crystalnest.harvest_with_ease.platform.services.PlatformHelper;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ServiceLoader;
 
@@ -11,6 +12,7 @@ import java.util.ServiceLoader;
  * Service loaders are a built-in Java feature that allow us to locate implementations of an interface that vary from one environment to another.
  * In the context of MultiLoader we use this feature to access a mock API in the common code that is swapped out for the platform specific implementation at runtime.
  */
+@ApiStatus.Internal
 public final class Services {
   /**
    * Provides information about what platform the mod is running on.

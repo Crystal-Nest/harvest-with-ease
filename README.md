@@ -17,12 +17,8 @@ Harvesting crops is such a pain, breaking them all to get the drops and then hav
 With this mod you can just right-click on your crops to harvest and replant them in one go!  
 It's also compatible with **almost any** modded crops, to ease your mind of one more thing!
 
-***Notes:***
-
-- *Although it's stated that the mod is required server-side only, when a client that does not have the mod connects to a server that does and tries to harvest a crop while holding a block, it causes block flashing.*  
-  *The only way to prevent this glitch is to set `require hoe` to `true`.*
-- *Since v9.0.0.0, the mod ID changed from `harvestwithease` to `harvest_with_ease` and depends on [Cobweb](https://modrinth.com/mod/cobweb).*  
-  *When updating, backup your configuration file and install the new dependency!*
+*Although it's stated that the mod is required server-side only, when a client that does not have the mod connects to a server that does and tries to harvest a crop while holding a block, it causes block flashing.*  
+*The only way to prevent this glitch is to set `require hoe` to `true`.*
 
 ## **Features**
 
@@ -57,9 +53,9 @@ It's also compatible with **almost any** modded crops, to ease your mind of one 
 
 ## **Dependencies**
 
-|                                   Mod                                   |         Loader         | Requirement |
+| Mod                                                                     |         Loader         | Requirement |
 |:------------------------------------------------------------------------|:----------------------:|:-----------:|
-|        [Cobweb](https://modrinth.com/mod/forge-config-api-port)         |          All           |  Required   |
+| [Cobweb](https://modrinth.com/mod/forge-config-api-port)                |          All           |  Required   |
 | [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) | Fabric; Forge ≥ 1.20.2 |  Required   |
 
 ## **License and right of use**
@@ -74,7 +70,7 @@ If you can't extend that class, the **`crops`** config option is there for you. 
 is set to be `"age"` and represents the age values your crops can have, from `0` to a `max` value.
 
 Since v6.0.0.0, an API is available to better integrate your mod with this one, if needed.  
-Since v9.0.0.0, it's possible to blacklist crops via datapack.  
+Since v9.0.0, it's possible to blacklist crops via datapack.  
 To learn how to use the provided API and the datapack feature, follow the [Wiki](https://github.com/crystal-nest/harvest-with-ease/wiki).
 
 ## **Support us**

@@ -38,9 +38,6 @@ import java.util.NoSuchElementException;
  * Handler for harvest related events.
  */
 public abstract class HarvestHandler {
-  /**
-   *
-   */
   protected HarvestHandler() {}
 
   /**

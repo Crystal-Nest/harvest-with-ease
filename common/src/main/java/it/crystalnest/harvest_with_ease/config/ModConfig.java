@@ -10,6 +10,7 @@ import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
 import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 import net.neoforged.neoforge.common.ModConfigSpec.EnumValue;
 import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.stream.Stream;
 /**
  * Mod common configuration.
  */
+@ApiStatus.Internal
 public final class ModConfig extends CommonConfig {
   /**
    * Mod common configuration.

@@ -213,10 +213,10 @@ subprojects { subproject ->
       switch (loader) {
         case "Fabric":
           required "fabric-api"
-          optional "forge-config-api-port"
+          required "forge-config-api-port"
           break
         case "Forge":
-          optional "forge-config-api-port"
+          required "forge-config-api-port"
           break
         case "NeoForge":
           break
@@ -227,10 +227,10 @@ subprojects { subproject ->
       switch (loader) {
         case "Fabric":
           required "fabric-api"
-          optional "forge-config-api-port-fabric"
+          required "forge-config-api-port-fabric"
           break
         case "Forge":
-          optional "forge-config-api-port-fabric"
+          required "forge-config-api-port-fabric"
           break
         case "NeoForge":
           break

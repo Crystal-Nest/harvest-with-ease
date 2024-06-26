@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.CocoaBlock;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.NetherWartBlock;
 import net.minecraft.world.level.block.PitcherCropBlock;
+import net.minecraft.world.level.block.TorchflowerCropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
@@ -40,7 +41,7 @@ public final class HarvestUtils {
    * @return whether the given block is a valid breakable crop.
    */
   public static boolean isCrop(Block block) {
-    return block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || block instanceof PitcherCropBlock || ModConfig.getCrops().contains(BlockUtils.getStringKey(block));
+    return !(block instanceof TorchflowerCropBlock) && (block instanceof CropBlock || block instanceof NetherWartBlock || block instanceof CocoaBlock || block instanceof PitcherCropBlock || ModConfig.getCrops().contains(BlockUtils.getStringKey(block)));
   }
 
   /**

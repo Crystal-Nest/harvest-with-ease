@@ -212,7 +212,6 @@ subprojects { subproject ->
           required "forge-config-api-port"
           break
         case "Forge":
-          required "forge-config-api-port"
           break
       }
     }
@@ -224,7 +223,6 @@ subprojects { subproject ->
           required "forge-config-api-port-fabric"
           break
         case "Forge":
-          required "forge-config-api-port-fabric"
           break
       }
     }

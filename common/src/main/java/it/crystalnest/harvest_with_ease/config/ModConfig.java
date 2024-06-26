@@ -6,10 +6,7 @@ import it.crystalnest.harvest_with_ease.Constants;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,6 +15,7 @@ import java.util.stream.Stream;
 /**
  * Mod common configuration.
  */
+@ApiStatus.Internal
 public final class ModConfig extends CommonConfig {
   /**
    * Mod common configuration.
@@ -27,44 +25,44 @@ public final class ModConfig extends CommonConfig {
   /**
    * List of additional in-game IDs for crops that need to be supported but do not extend {@link CropBlock}.
    */
-  private ConfigValue<List<? extends String>> crops;
+  private ForgeConfigSpec.ConfigValue<List<? extends String>> crops;
 
   /**
    * List in-game IDs for crops that under no condition can be right-click harvested.
    */
-  private ConfigValue<List<? extends String>> blacklist;
+  private ForgeConfigSpec.ConfigValue<List<? extends String>> blacklist;
 
   /**
    * Whether holding a hoe (either hands) is required.
    */
-  private BooleanValue requireHoe;
+  private ForgeConfigSpec.BooleanValue requireHoe;
 
   /**
    * Amount of damage to deal on a hoe when it is used to right-click harvest.
    * Effective only if greater than 0 and {@link #requireHoe} is true.
    */
-  private IntValue damageOnHarvest;
+  private ForgeConfigSpec.IntValue damageOnHarvest;
 
   /**
    * Amount of experience to grant on harvest.
    * Effective only if greater than 0.
    */
-  private IntValue grantedExp;
+  private ForgeConfigSpec.IntValue grantedExp;
 
   /**
    * Tool tier starting from which it is possible to harvest multiple crops at once.
    */
-  private ConfigValue<String> multiHarvestStartingTier;
+  private ForgeConfigSpec.ConfigValue<String> multiHarvestStartingTier;
 
   /**
    * Starting harvest area size (square side length).
    */
-  private EnumValue<AreaSize> areaStartingSize;
+  private ForgeConfigSpec.EnumValue<AreaSize> areaStartingSize;
 
   /**
    * Increment step for the harvest area size with higher tool tiers.
    */
-  private EnumValue<AreaStep> areaIncrementStep;
+  private ForgeConfigSpec.EnumValue<AreaStep> areaIncrementStep;
 
   /**
    * @param builder configuration builder.

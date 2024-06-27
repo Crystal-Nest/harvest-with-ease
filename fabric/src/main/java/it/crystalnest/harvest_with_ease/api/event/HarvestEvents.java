@@ -279,8 +279,9 @@ public final class HarvestEvents {
     }
 
     @Override
-    public void setCanHarvest(boolean canHarvest) {
-      this.canHarvest = canHarvest;
+    @ApiStatus.Internal
+    public void preventHarvest() {
+      this.canHarvest = false;
     }
   }
 

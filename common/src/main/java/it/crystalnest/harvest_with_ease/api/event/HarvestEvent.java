@@ -93,14 +93,13 @@ public interface HarvestEvent<P extends Player, L extends Level> {
      *
      * @return whether the crop can be harvested.
      */
+    @ApiStatus.Internal
     boolean canHarvest();
 
     /**
-     * Sets whether the crop can be harvested.
-     *
-     * @param canHarvest whether the crop can be harvested.
+     * Prevents harvesting.
      */
-    void setCanHarvest(boolean canHarvest);
+    void preventHarvest();
   }
 
   /**

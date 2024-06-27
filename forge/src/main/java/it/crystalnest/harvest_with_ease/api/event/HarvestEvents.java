@@ -86,6 +86,7 @@ public final class HarvestEvents {
    * Event triggered when checking whether a crop can be harvested.<br>
    * Fired on both sides.
    */
+  @Cancelable
   public static class HarvestCheckEvent extends ForgeHarvestEvent<Player, Level> implements HarvestEvent.HarvestCheckEvent {
     /**
      * Whether the crop can be harvested.
@@ -106,13 +107,15 @@ public final class HarvestEvents {
     }
 
     @Override
+    @ApiStatus.Internal
     public boolean canHarvest() {
       return canHarvest;
     }
 
     @Override
-    public void setCanHarvest(boolean canHarvest) {
-      this.canHarvest = canHarvest;
+    public void preventHarvest() {
+      this.canHarvest = false;
+      this.setCanceled(true);
     }
   }
 

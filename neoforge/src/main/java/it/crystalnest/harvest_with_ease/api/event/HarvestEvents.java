@@ -28,7 +28,7 @@ public final class HarvestEvents {
   /**
    * Generic Forge harvest event.
    */
-  public static class NeoForgeHarvestEvent<P extends Player, L extends Level> extends PlayerInteractEvent implements HarvestEvent<P, L> {
+  public static abstract class NeoForgeHarvestEvent<P extends Player, L extends Level> extends PlayerInteractEvent implements HarvestEvent<P, L> {
     /**
      * Level in which the interaction takes place.
      */

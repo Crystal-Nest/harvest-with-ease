@@ -9,7 +9,7 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 
 - Nothing new.
 
-## [9.0.1] - 2024/06/27
+## [v9.0.1] - 2024/06/27
 
 - Fix [#44](https://github.com/Crystal-Nest/harvest-with-ease/issues/44), config value resets itself each start.
 - Fix `HarvestCheckEvent` by actually stopping further computations when harvesting is prevented.
@@ -499,6 +499,7 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 [Unreleased]: https://github.com/crystal-nest/harvest-with-ease
 [README]: https://github.com/crystal-nest/harvest-with-ease#readme
 
+[v9.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.0.1
 [v9.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.0.0
 
 [1.20.4-9.0.0.3-beta]: https://github.com/crystal-nest/harvest-with-ease/releases/tag/v1.20.4-9.0.0.3-beta

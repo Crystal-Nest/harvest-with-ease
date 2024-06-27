@@ -9,6 +9,12 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 
 - Nothing new.
 
+## [9.0.1] - 2024/06/27
+
+- Fix [#44](https://github.com/Crystal-Nest/harvest-with-ease/issues/44), config value resets itself each start.
+- Fix `HarvestCheckEvent` by actually stopping further computations when harvesting is prevented.
+- Minor changes about API annotations and abstractions.
+
 ## [v9.0.0] - 2024/06/26
 
 - Stable version release.

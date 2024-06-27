@@ -196,7 +196,12 @@ public final class ModConfig extends CommonConfig {
       " From lesser to greater, Vanilla tiers are: " + String.join(", ", Stream.of(Tiers.values()).sorted(TierUtils::compare).map(tier -> "\"" + tier.toString().toLowerCase() + "\"").toArray(String[]::new)) + ".",
       " When set to \"none\", multi-harvest will be enabled without a tool too. Note that [require hoe] takes precedence.",
       " The tier can be specified with either the name of the tier, e.g. \"iron\", or the id of the tier, e.g. \"minecraft:iron\"."
-    ).define("multi-harvest starting tier", Tiers.WOOD.toString().toLowerCase(), value -> value instanceof String string && ("none".equalsIgnoreCase(string) || TierUtils.isIn(TierUtils.getAllTiers(), string)));
+    ).define(
+      "multi-harvest starting tier",
+      Tiers.WOOD.toString().toLowerCase(),
+      // With Forge/NeoForge tier registry, the list of all tiers is empty when the game starts and configurations are first checked.
+      value -> value instanceof String string && ("none".equalsIgnoreCase(string) || TierUtils.getAllTiers().isEmpty() || TierUtils.isIn(TierUtils.getAllTiers(), string))
+    );
     areaStartingSize = builder.comment(getAreaSizeComments()).defineEnum("starting harvest area size", AreaSize.SINGLE, AreaSize.values());
     areaIncrementStep = builder.comment(getAreaStepComments()).defineEnum("area increment step", AreaStep.NONE, AreaStep.values());
   }

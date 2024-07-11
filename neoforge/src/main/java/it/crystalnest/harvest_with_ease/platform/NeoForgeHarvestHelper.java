@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 
 /**
  * NeoForge harvest helper.
@@ -20,6 +20,6 @@ public class NeoForgeHarvestHelper implements HarvestHelper {
 
   @Override
   public boolean isHoe(ItemStack item) {
-    return ToolActions.DEFAULT_HOE_ACTIONS.stream().allMatch(item::canPerformAction);
+    return item.getItem().canPerformAction(item, ItemAbilities.HOE_TILL);
   }
 }

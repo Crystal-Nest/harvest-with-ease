@@ -3,18 +3,17 @@ package it.crystalnest.harvest_with_ease.handler;
 import it.crystalnest.harvest_with_ease.Constants;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
 /**
  * NeoForge harvest handler.
  */
-@Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Bus.FORGE)
+@EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public final class NeoForgeHarvestHandler extends HarvestHandler {
   private NeoForgeHarvestHandler() {}
 
@@ -52,6 +51,6 @@ public final class NeoForgeHarvestHandler extends HarvestHandler {
    * @return whether the player can interact.
    */
   private static boolean canInteract(Player player, PlayerInteractEvent.RightClickBlock event) {
-    return !player.isSpectator() && event.getUseBlock() != Event.Result.DENY && event.getUseItem() != Event.Result.DENY && event.getResult() != Event.Result.DENY;
+    return !player.isSpectator() && event.getUseBlock() != TriState.FALSE && event.getUseItem() != TriState.FALSE;
   }
 }

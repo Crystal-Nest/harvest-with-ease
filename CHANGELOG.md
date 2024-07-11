@@ -9,6 +9,13 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 
 - Nothing new.
 
+## [v9.0.1] - 2024/07/11
+
+- Ported to 1.21
+- Officially dropped support for Forge.
+- Added new configuration option `tiers` to specify the tier order (and thus levels) since Minecraft stripped tiers from their levels.
+- Added new API method to retrieve a `TieredItem` tier level.
+
 ## [v9.0.1] - 2024/06/27
 
 - Fix [#44](https://github.com/Crystal-Nest/harvest-with-ease/issues/44), config value resets itself each start.

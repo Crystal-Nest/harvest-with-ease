@@ -1,7 +1,6 @@
 package it.crystalnest.harvest_with_ease.config;
 
 import it.crystalnest.cobweb.api.config.CommonConfig;
-import it.crystalnest.cobweb.api.item.TierUtils;
 import it.crystalnest.harvest_with_ease.Constants;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.CropBlock;
@@ -14,13 +13,27 @@ import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 /**
  * Mod common configuration.
  */
 @ApiStatus.Internal
 public final class ModConfig extends CommonConfig {
+  /**
+   * Default value for the tier list.<br />
+   * Needs to be initialized before {@link #CONFIG} to avoid NPE when used inside {@link #define(ModConfigSpec.Builder)}.
+   */
+  private static final List<String> DEFAULT_TIER_LIST = List.of(
+    "none",
+    getTierName(Tiers.WOOD),
+    getTierName(Tiers.STONE),
+    getTierName(Tiers.IRON),
+    getTierName(Tiers.GOLD),
+    getTierName(Tiers.DIAMOND),
+    getTierName(Tiers.NETHERITE)
+  );
+
   /**
    * Mod common configuration.
    */
@@ -52,6 +65,11 @@ public final class ModConfig extends CommonConfig {
    * Effective only if greater than 0.
    */
   private IntValue grantedExp;
+
+  /**
+   * Ordered list of tiers.
+   */
+  private ConfigValue<List<? extends String>> tiers;
 
   /**
    * Tool tier starting from which it is possible to harvest multiple crops at once.
@@ -121,6 +139,15 @@ public final class ModConfig extends CommonConfig {
   }
 
   /**
+   * Returns the value of {@link #tiers} as read from the configuration file.
+   *
+   * @return the value of {@link #tiers} as read from the configuration file.
+   */
+  public static List<? extends String> getTiers() {
+    return CONFIG.tiers.get();
+  }
+
+  /**
    * Returns the value of {@link #multiHarvestStartingTier} as read from the configuration file.
    *
    * @return the value of {@link #multiHarvestStartingTier} as read from the configuration file.
@@ -182,6 +209,16 @@ public final class ModConfig extends CommonConfig {
     return comments;
   }
 
+  /**
+   * Returns the tier name.
+   *
+   * @param tier tier.
+   * @return tier name.
+   */
+  private static String getTierName(Tiers tier) {
+    return tier.name().toLowerCase();
+  }
+
   @Override
   protected void define(ModConfigSpec.Builder builder) {
     crops = builder.comment(" List of in-game IDs of additional crops.").defineListAllowEmpty(List.of("crops"), Collections::emptyList, this::stringListValidator);
@@ -189,18 +226,31 @@ public final class ModConfig extends CommonConfig {
     requireHoe = builder.comment(" Require holding a hoe (either hands) to right-click harvest.").define("require hoe", false);
     damageOnHarvest = builder.comment(" If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer).").defineInRange("damage on harvest", 0, 0, Integer.MAX_VALUE);
     grantedExp = builder.comment(" Amount of experience to grant on harvest (0 to disable, must be an integer).").defineInRange("exp on harvest", 0, 0, Integer.MAX_VALUE);
+    tiers = builder.comment(
+      " Ordered list of tiers.",
+      " Used to determine the tier level for the other configuration options below.",
+      " \"none\" is a special value that represents not using a tool.",
+      " The tier name is made of two parts: a namespace and a name.",
+      " The namespace is an optional mod ID and defaults to \"minecraft\" if not specified. The name can be either the tier name, e.g. \"iron\" (this is not granted to work aside from Vanilla tiers) or the tier tag, e.g. \"incorrect_for_iron_tool\".",
+      " Examples: \"iron\", \"incorrect_for_iron_tool\", \"minecraft:iron\", \"minecraft:incorrect_for_iron_tool\"."
+    ).defineListAllowEmpty(
+      List.of("tiers"),
+      DEFAULT_TIER_LIST,
+      this::stringListValidator
+    );
     multiHarvestStartingTier = builder.comment(
       " Tool tier starting from which it is possible to harvest multiple crops at once.",
       " All tiers that cannot multi-harvest will have a 1x1 square area of effect (a single crop).",
       " If [starting harvest area size] is set to \"" + AreaSize.SINGLE + "\" and [area increment step] to \"" + AreaStep.NONE + "\" multi-harvest will be effectively disabled, regardless of this config option value.",
-      " From lesser to greater, Vanilla tiers are: " + String.join(", ", Stream.of(Tiers.values()).sorted(TierUtils::compare).map(tier -> "\"" + tier.toString().toLowerCase() + "\"").toArray(String[]::new)) + ".",
+      " From lesser to greater, default Vanilla tiers are: " + DEFAULT_TIER_LIST.stream().map(tier -> "\"" + tier + "\"").collect(Collectors.joining(", ")) + ".",
       " When set to \"none\", multi-harvest will be enabled without a tool too. Note that [require hoe] takes precedence.",
-      " The tier can be specified with either the name of the tier, e.g. \"iron\", or the id of the tier, e.g. \"minecraft:iron\"."
+      " The tier name is made of two parts: a namespace and a name.",
+      " The namespace is an optional mod ID and defaults to \"minecraft\" if not specified. The name can be either the tier name, e.g. \"iron\" (this is not granted to work aside from Vanilla tiers) or the tier tag, e.g. \"incorrect_for_iron_tool\".",
+      " Examples: \"iron\", \"incorrect_for_iron_tool\", \"minecraft:iron\", \"minecraft:incorrect_for_iron_tool\"."
     ).define(
       "multi-harvest starting tier",
-      Tiers.WOOD.toString().toLowerCase(),
-      // With Forge/NeoForge tier registry, the list of all tiers is empty when the game starts and configurations are first checked.
-      value -> value instanceof String string && ("none".equalsIgnoreCase(string) || TierUtils.getAllTiers().isEmpty() || TierUtils.isIn(TierUtils.getAllTiers(), string))
+      getTierName(Tiers.WOOD),
+      this::stringListValidator
     );
     areaStartingSize = builder.comment(getAreaSizeComments()).defineEnum("starting harvest area size", AreaSize.SINGLE, AreaSize.values());
     areaIncrementStep = builder.comment(getAreaStepComments()).defineEnum("area increment step", AreaStep.NONE, AreaStep.values());

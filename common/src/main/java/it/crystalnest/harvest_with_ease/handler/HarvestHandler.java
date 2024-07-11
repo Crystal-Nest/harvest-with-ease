@@ -1,7 +1,6 @@
 package it.crystalnest.harvest_with_ease.handler;
 
 import it.crystalnest.cobweb.api.block.BlockUtils;
-import it.crystalnest.cobweb.api.item.TierUtils;
 import it.crystalnest.harvest_with_ease.Constants;
 import it.crystalnest.harvest_with_ease.api.HarvestUtils;
 import it.crystalnest.harvest_with_ease.api.event.HarvestEvent;
@@ -9,11 +8,13 @@ import it.crystalnest.harvest_with_ease.config.ModConfig;
 import it.crystalnest.harvest_with_ease.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -79,16 +80,18 @@ public abstract class HarvestHandler {
           if (!level.isClientSide) {
             harvest((ServerLevel) level, age, crop, pos, face, hitResult, (ServerPlayer) player, hand);
             if (player.getItemInHand(hand).getItem() instanceof TieredItem tool && Services.HARVEST.isHoe(tool.getDefaultInstance()) && HarvestUtils.isTierForMultiHarvest(tool)) {
-              int fromCenterToEdge = ((TierUtils.getLevel(tool.getTier()) - TierUtils.getLevel(ModConfig.getMultiHarvestStartingTier())) * ModConfig.getAreaIncrementStep().step + ModConfig.getAreaStartingSize().size - 1) / 2;
-              BlockPos.betweenClosedStream(AABB.encapsulatingFullBlocks(pos, pos).inflate(fromCenterToEdge, 0, fromCenterToEdge)).filter(cropPos -> !pos.equals(cropPos)).forEach(cropPos -> {
-                BlockState cropState = level.getBlockState(cropPos);
-                if (canHarvest(level, cropState, cropPos, face, null, player, hand)) {
-                  IntegerProperty cropAge = HarvestUtils.getAge(cropState);
-                  if (HarvestUtils.isMature(cropState)) {
-                    harvest((ServerLevel) level, cropAge, cropState, cropPos, face, null, (ServerPlayer) player, hand);
+              int fromCenterToEdge = ((HarvestUtils.getTierLevel(tool) - HarvestUtils.getTierLevel(ResourceLocation.parse(ModConfig.getMultiHarvestStartingTier()))) * ModConfig.getAreaIncrementStep().step + ModConfig.getAreaStartingSize().size - 1) / 2;
+              if (fromCenterToEdge > 0) {
+                BlockPos.betweenClosedStream(new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ()).inflate(fromCenterToEdge, 0, fromCenterToEdge)).filter(cropPos -> !pos.equals(cropPos)).forEach(cropPos -> {
+                  BlockState cropState = level.getBlockState(cropPos);
+                  if (canHarvest(level, cropState, cropPos, face, null, player, hand)) {
+                    IntegerProperty cropAge = HarvestUtils.getAge(cropState);
+                    if (HarvestUtils.isMature(cropState)) {
+                      harvest((ServerLevel) level, cropAge, cropState, cropPos, face, null, (ServerPlayer) player, hand);
+                    }
                   }
-                }
-              });
+                });
+              }
             }
           }
         }
@@ -174,7 +177,7 @@ public abstract class HarvestHandler {
    */
   protected static void damageHoe(ServerPlayer player, InteractionHand hand) {
     if (ModConfig.getRequireHoe() && ModConfig.getDamageOnHarvest() > 0 && !player.isCreative()) {
-      player.getItemInHand(hand).hurtAndBreak(ModConfig.getDamageOnHarvest(), player, playerEntity -> playerEntity.broadcastBreakEvent(hand));
+      player.getItemInHand(hand).hurtAndBreak(ModConfig.getDamageOnHarvest(), player, EquipmentSlot.byName(hand.name()));
     }
   }
 

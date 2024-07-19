@@ -177,7 +177,7 @@ public abstract class HarvestHandler {
    */
   protected static void damageHoe(ServerPlayer player, InteractionHand hand) {
     if (ModConfig.getRequireHoe() && ModConfig.getDamageOnHarvest() > 0 && !player.isCreative()) {
-      player.getItemInHand(hand).hurtAndBreak(ModConfig.getDamageOnHarvest(), player, EquipmentSlot.byName(hand.name()));
+      player.getItemInHand(hand).hurtAndBreak(ModConfig.getDamageOnHarvest(), player, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
     }
   }
 

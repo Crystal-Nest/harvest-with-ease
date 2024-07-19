@@ -9,6 +9,10 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 
 - Nothing new.
 
+## [v9.0.2] - 2024/07/19
+
+- Fixed [#46](https://github.com/Crystal-Nest/harvest-with-ease/issues/46), crop not harvested when using tools.
+
 ## [v9.0.1] - 2024/07/11
 
 - Ported to 1.21

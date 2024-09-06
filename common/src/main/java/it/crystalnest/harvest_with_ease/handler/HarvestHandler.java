@@ -212,7 +212,6 @@ public abstract class HarvestHandler {
       for (ItemStack stack : event.getDrops()) {
         if (stack.is(crop.getBlock().getCloneItemStack(level, pos, crop).getItem())) {
           seedIncluded = true;
-          break;
         }
         if (crop.getCollisionShape(level, pos) != Shapes.empty()) {
           Block.popResourceFromFace(level, pos, face, stack);

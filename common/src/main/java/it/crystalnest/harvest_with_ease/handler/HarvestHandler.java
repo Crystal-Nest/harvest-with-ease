@@ -22,6 +22,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -29,6 +30,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.NoSuchElementException;
@@ -128,12 +130,23 @@ public abstract class HarvestHandler {
    * @param crop crop.
    * @param basePos position of the crop base.
    * @param player player.
-   * @param customDrops whether custom drops were added.
+   * @param dropsFlags a Pair, with left equal to whether the crop seed was in the drops, and right equal to whether custom drops were added.
    */
-  protected static void updateCrop(ServerLevel level, IntegerProperty age, Block crop, BlockPos basePos, ServerPlayer player, boolean customDrops) {
-    level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
+  protected static void updateCrop(ServerLevel level, IntegerProperty age, Block crop, BlockPos basePos, ServerPlayer player, Pair<Boolean, Boolean> dropsFlags) {
+    BlockState cropState = level.getBlockState(basePos);
+    int i = player.getInventory().findSlotMatchingItem(crop.getCloneItemStack(level, basePos, cropState));
+    if (dropsFlags.getLeft()) {
+      level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
+    } else if (ModConfig.getUseSeedsFromInventory() && i >= 0) {
+      level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
+      if (!player.isCreative()) {
+        player.getInventory().getItem(i).shrink(1);
+      }
+    } else {
+      level.setBlockAndUpdate(basePos, Blocks.AIR.defaultBlockState());
+    }
     if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(crop) && isNotTallButSeparate(crop)) {
-      level.destroyBlock(basePos.above(), !customDrops, player);
+      level.destroyBlock(basePos.above(), !dropsFlags.getRight(), player);
     }
   }
 
@@ -187,21 +200,25 @@ public abstract class HarvestHandler {
    * @param hitResult {@link BlockHitResult}.
    * @param player player.
    * @param hand player's hand.
-   * @return whether custom drops were added.
+   * @return a Pair, with left equal to whether the crop seed was in the drops, and right equal to whether custom drops were added.
    */
-  protected static boolean dropResources(ServerLevel level, BlockState crop, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
+  protected static Pair<Boolean, Boolean> dropResources(ServerLevel level, BlockState crop, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
     if (level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
       HarvestEvent.HarvestDropsEvent event = Services.EVENT.fireHarvestDropsEvent(level, crop, pos, face, hitResult, player, hand);
+      boolean seedIncluded = player.isCreative();
       for (ItemStack stack : event.getDrops()) {
+        if (stack.is(crop.getBlock().getCloneItemStack(level, pos, crop).getItem())) {
+          seedIncluded = true;
+        }
         if (crop.getCollisionShape(level, pos) != Shapes.empty()) {
           Block.popResourceFromFace(level, pos, face, stack);
         } else {
           Block.popResource(level, pos, stack);
         }
       }
-      return event.didDropsChange();
+      return Pair.of(seedIncluded, event.didDropsChange());
     }
-    return false;
+    return Pair.of(false, false);
   }
 
   /**

@@ -32,24 +32,26 @@ It's also compatible with **almost any** modded crops, to ease your mind of one 
 
 ## **Configuration**
 
-- **`require hoe`**: whether holding a hoe (either hands) is required to right-click harvest, defaults to `false`.
-- **`damage on harvest`**: how much damage the hoe should receive upon use, effective only if `> 0` and **`require hoe`** is enabled.
-- **`exp on harvest`**: how many experience points should be granted when right-click harvesting or break-harvesting, effective only if `> 0` (note it's exp _points_ and not exp _levels_).
-- **`multi-harvest starting tier`**:  
+- `require hoe`: whether holding a hoe (either hands) is required to right-click harvest, defaults to `false`.
+- `damage on harvest`: how much damage the hoe should receive upon use, effective only if `> 0` and **`require hoe`** is enabled.
+- `exp on harvest`: how many experience points should be granted when right-click harvesting or break-harvesting, effective only if `> 0` (note it's exp _points_ and not exp _levels_).
+- `multi-harvest starting tier`:  
   Tool tier starting from which it is possible to harvest multiple crops at once.  
   All tiers that cannot multi-harvest will have a 1x1 square area of effect (a single crop).  
   If **`starting harvest area size`** is set to `single` and **`area increment step`** to `none` multi-harvest will be effectively disabled, regardless of this config option value.  
   When set to `none` multi-harvest will be enabled without a tool too. Note that **`require hoe`** takes precedence.
-- **`starting harvest area size`**:  
+- `starting harvest area size`:  
   Starting multi-harvest area size (square side length).  
   The area is always a square centered on the right-clicked crop.  
   Setting this to `single` and **`area increment step`** to `none` will effectively disable multi-harvest.
-- **`area increment step`**:  
+- `area increment step`:  
   Increment step for the harvest area size with higher tool tiers.  
   Setting this to `none` and **`starting harvest area size`** to `single` will effectively disable multi-harvest.
-- **`crops`**: list of additional in-game IDs for crops that are not supported out of the box, defaults to an empty list.  
+- `use seeds from inventory`: whether to use seeds from the player's inventory to replant crops if seeds are not dropped, for example with the pitcher crop.
+- `crops`: list of additional in-game IDs for crops that are not supported out of the box, defaults to an empty list.  
   This last config option is just a safety measure, so far no crop needs it.
-- **`blacklist`**: list in-game IDs for crops that under no condition can be right-click harvested.
+- `blacklist`: list in-game IDs for crops that under no condition can be right-click harvested.
+- `tiers`: since 1.21, Minecraft removed the concept of tier levels, so you need to specify yourself the tier order. A default one is provided.
 
 ## **Dependencies**
 

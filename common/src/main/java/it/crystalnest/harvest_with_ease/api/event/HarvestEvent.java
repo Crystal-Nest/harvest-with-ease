@@ -171,11 +171,10 @@ public interface HarvestEvent<P extends Player, L extends Level> {
     @ApiStatus.Internal
     default List<ItemStack> initDefaultDrops(ServerLevel level, BlockState crop, BlockPos pos, InteractionHand hand) {
       List<ItemStack> drops = Block.getDrops(crop, level, pos, crop.hasBlockEntity() ? level.getBlockEntity(pos) : null, getEntity(), getEntity().getItemInHand(hand));
-      boolean seedRemoved = false;
       for (ItemStack stack : drops) {
-        if (!seedRemoved && stack.is(crop.getBlock().getCloneItemStack(level, pos, crop).getItem())) {
+        if (stack.is(crop.getBlock().getCloneItemStack(level, pos, crop).getItem())) {
           stack.shrink(1);
-          seedRemoved = true;
+          break;
         }
       }
       return drops;

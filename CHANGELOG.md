@@ -9,6 +9,10 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 
 - Nothing new.
 
+## [v9.1.0] - 2024/09/07
+
+- Implemented [#47](https://github.com/Crystal-Nest/harvest-with-ease/issues/47), use seeds from the inventory to replant.
+
 ## [v9.0.2] - 2024/07/19
 
 - Fixed [#46](https://github.com/Crystal-Nest/harvest-with-ease/issues/46), crop not harvested when using tools.
@@ -510,6 +514,8 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 [Unreleased]: https://github.com/crystal-nest/harvest-with-ease
 [README]: https://github.com/crystal-nest/harvest-with-ease#readme
 
+[v9.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.1.0
+[v9.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.0.2
 [v9.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.0.1
 [v9.0.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.0.0
 

@@ -52,7 +52,7 @@ public final class ModConfig extends CommonConfig {
   /**
    * Whether to use seeds from the player's inventory to replant crops if seeds are not dropped.
    */
-  private BooleanValue useSeedsFromInventory;
+  private ForgeConfigSpec.BooleanValue useSeedsFromInventory;
 
   /**
    * Tool tier starting from which it is possible to harvest multiple crops at once.

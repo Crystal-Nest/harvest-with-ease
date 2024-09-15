@@ -22,7 +22,6 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -136,16 +135,25 @@ public abstract class HarvestHandler {
     BlockState cropState = level.getBlockState(basePos);
     int i = player.getInventory().findSlotMatchingItem(crop.getCloneItemStack(level, basePos, cropState));
     if (dropsFlags.getLeft()) {
+      // If seeds are dropped, simply revert the crop's age.
       level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
     } else if (ModConfig.getUseSeedsFromInventory() && i >= 0) {
+      // If the seeds were not dropped, but are in the inventory and the mod is allowed to use them, then revert the crop's age and consume the seeds from the inventory.
       level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
       if (!player.isCreative()) {
         player.getInventory().getItem(i).shrink(1);
       }
     } else {
-      level.setBlockAndUpdate(basePos, Blocks.AIR.defaultBlockState());
+      if (isTallButSeparate(crop)) {
+        // If the crop is tall but separate, revert its age without destroying it.
+        level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
+      } else {
+        // If the crop is not tall but separate (it's single or tall and not separate), destroy it and prevent drops since they will be accounted for in the condition below.
+        level.destroyBlock(basePos, false, player);
+      }
     }
-    if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(crop) && isNotTallButSeparate(crop)) {
+    if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(crop) && !isTallButSeparate(crop)) {
+      // If the crop is tall and not separate, destroy it and drop only if custom drops were not set.
       level.destroyBlock(basePos.above(), !dropsFlags.getRight(), player);
     }
   }
@@ -160,7 +168,7 @@ public abstract class HarvestHandler {
    */
   protected static BlockPos getBasePos(ServerLevel level, Block crop, BlockPos pos) {
     BlockPos basePos = pos;
-    while (level.getBlockState(pos).is(BlockTags.CROPS) && isNotTallButSeparate(crop) && level.getBlockState(basePos.below()).is(crop)) {
+    while (level.getBlockState(pos).is(BlockTags.CROPS) && !isTallButSeparate(crop) && level.getBlockState(basePos.below()).is(crop)) {
       basePos = basePos.below();
     }
     return basePos;
@@ -279,8 +287,8 @@ public abstract class HarvestHandler {
    * @param crop crop.
    * @return whether the crop is tall, but should be considered as a single one.
    */
-  protected static boolean isNotTallButSeparate(Block crop) {
-    return !"farmersdelight:tomatoes".equalsIgnoreCase(BlockUtils.getStringKey(crop));
+  protected static boolean isTallButSeparate(Block crop) {
+    return "farmersdelight:tomatoes".equalsIgnoreCase(BlockUtils.getStringKey(crop));
   }
 
   /**

@@ -9,6 +9,12 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 
 - Nothing new.
 
+## [v9.1.0] - 2024/09/15
+
+- Fixed [#48](https://github.com/Crystal-Nest/harvest-with-ease/issues/48), Farmer's Delight Tomatos are broken fully when harvested.
+- Fixed a minor bug introduced with [v9.1.0], Pitcher crop yielding double drops.
+- Fixed a minor bug introduced with [v9.1.0], tall crops yielding wrong amount of drops.
+
 ## [v9.1.0] - 2024/09/07
 
 - Implemented [#47](https://github.com/Crystal-Nest/harvest-with-ease/issues/47), use seeds from the inventory to replant.
@@ -514,6 +520,7 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 [Unreleased]: https://github.com/crystal-nest/harvest-with-ease
 [README]: https://github.com/crystal-nest/harvest-with-ease#readme
 
+[v9.1.1]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.1.1
 [v9.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.1.0
 [v9.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.0.2
 [v9.0.1]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.0.1

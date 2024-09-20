@@ -32,6 +32,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -77,7 +78,7 @@ public abstract class HarvestHandler {
         if (HarvestUtils.isMature(crop, age)) {
           consume = true;
           if (!level.isClientSide) {
-            harvest((ServerLevel) level, age, crop, pos, face, hitResult, (ServerPlayer) player, hand);
+            harvest((ServerLevel) level, age, crop, pos, pos, face, hitResult, (ServerPlayer) player, hand);
             if (player.getItemInHand(hand).getItem() instanceof TieredItem tool && Services.HARVEST.isHoe(tool.getDefaultInstance()) && HarvestUtils.isTierForMultiHarvest(tool)) {
               int fromCenterToEdge = ((TierUtils.getLevel(tool.getTier()) - TierUtils.getLevel(ModConfig.getMultiHarvestStartingTier())) * ModConfig.getAreaIncrementStep().step + ModConfig.getAreaStartingSize().size - 1) / 2;
               BlockPos.betweenClosedStream(new AABB(pos, pos).inflate(fromCenterToEdge, 0, fromCenterToEdge)).filter(cropPos -> !pos.equals(cropPos)).forEach(cropPos -> {
@@ -85,7 +86,7 @@ public abstract class HarvestHandler {
                 if (canHarvest(level, cropState, cropPos, face, null, player, hand)) {
                   IntegerProperty cropAge = HarvestUtils.getAge(cropState);
                   if (HarvestUtils.isMature(cropState)) {
-                    harvest((ServerLevel) level, cropAge, cropState, cropPos, face, null, (ServerPlayer) player, hand);
+                    harvest((ServerLevel) level, cropAge, cropState, cropPos, pos, face, null, (ServerPlayer) player, hand);
                   }
                 }
               });
@@ -111,12 +112,12 @@ public abstract class HarvestHandler {
    * @param player player.
    * @param hand player's hand.
    */
-  protected static void harvest(ServerLevel level, IntegerProperty age, BlockState crop, BlockPos pos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
+  private static void harvest(ServerLevel level, IntegerProperty age, BlockState crop, BlockPos pos, BlockPos originalPos, Direction face, BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
     Services.EVENT.fireBeforeHarvestEvent(level, crop, pos, face, hitResult, player, hand);
     BlockPos basePos = getBasePos(level, crop.getBlock(), pos);
     grantExp(level, basePos);
     damageHoe(player, hand);
-    updateCrop(level, age, crop.getBlock(), basePos, player, dropResources(level, level.getBlockState(basePos), basePos, face, hitResult, player, hand));
+    updateCrop(level, age, crop.getBlock(), basePos, player, dropResources(level, level.getBlockState(basePos), basePos, originalPos, face, hitResult, player, hand));
     playSound(level, player, crop, pos);
     Services.EVENT.fireAfterHarvestEvent(level, crop, pos, face, hitResult, player, hand);
   }
@@ -131,7 +132,7 @@ public abstract class HarvestHandler {
    * @param player player.
    * @param dropsFlags a Pair, with left equal to whether the crop seed was in the drops, and right equal to whether custom drops were added.
    */
-  protected static void updateCrop(ServerLevel level, IntegerProperty age, Block crop, BlockPos basePos, ServerPlayer player, Pair<Boolean, Boolean> dropsFlags) {
+  private static void updateCrop(ServerLevel level, IntegerProperty age, Block crop, BlockPos basePos, ServerPlayer player, Pair<Boolean, Boolean> dropsFlags) {
     BlockState cropState = level.getBlockState(basePos);
     int i = player.getInventory().findSlotMatchingItem(crop.getCloneItemStack(level, basePos, cropState));
     if (dropsFlags.getLeft()) {
@@ -143,17 +144,15 @@ public abstract class HarvestHandler {
       if (!player.isCreative()) {
         player.getInventory().getItem(i).shrink(1);
       }
+    } else if (isTallButSeparate(crop)) {
+      // If the crop is tall but separate, revert its age without destroying it.
+      level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
     } else {
-      if (isTallButSeparate(crop)) {
-        // If the crop is tall but separate, revert its age without destroying it.
-        level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
-      } else {
-        // If the crop is not tall but separate (it's single or tall and not separate), destroy it and prevent drops since they will be accounted for in the condition below.
-        level.destroyBlock(basePos, false, player);
-      }
+      // If the crop is not tall but separate (it's single or tall and not separate), destroy it and prevent drops since they will be accounted for in the condition below.
+      level.destroyBlock(basePos, false, player);
     }
     if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(crop) && !isTallButSeparate(crop)) {
-      // If the crop is tall and not separate, destroy it and drop only if custom drops were not set.
+      // If the crop is tall and not separate, destroy the block above to break all the crop-blocks, and drop only if custom drops were not set.
       level.destroyBlock(basePos.above(), !dropsFlags.getRight(), player);
     }
   }
@@ -166,7 +165,7 @@ public abstract class HarvestHandler {
    * @param pos crop position.
    * @return crop base position.
    */
-  protected static BlockPos getBasePos(ServerLevel level, Block crop, BlockPos pos) {
+  private static BlockPos getBasePos(ServerLevel level, Block crop, BlockPos pos) {
     BlockPos basePos = pos;
     while (level.getBlockState(pos).is(BlockTags.CROPS) && !isTallButSeparate(crop) && level.getBlockState(basePos.below()).is(crop)) {
       basePos = basePos.below();
@@ -180,7 +179,7 @@ public abstract class HarvestHandler {
    * @param level level.
    * @param pos crop position.
    */
-  protected static void grantExp(ServerLevel level, BlockPos pos) {
+  private static void grantExp(ServerLevel level, BlockPos pos) {
     if (ModConfig.getGrantedExp() > 0 && level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
       ExperienceOrb.award(level, Vec3.atCenterOf(pos), ModConfig.getGrantedExp());
     }
@@ -192,7 +191,7 @@ public abstract class HarvestHandler {
    * @param player player.
    * @param hand player's hand.
    */
-  protected static void damageHoe(ServerPlayer player, InteractionHand hand) {
+  private static void damageHoe(ServerPlayer player, InteractionHand hand) {
     if (ModConfig.getRequireHoe() && ModConfig.getDamageOnHarvest() > 0 && !player.isCreative()) {
       player.getItemInHand(hand).hurtAndBreak(ModConfig.getDamageOnHarvest(), player, playerEntity -> playerEntity.broadcastBreakEvent(hand));
     }
@@ -210,16 +209,10 @@ public abstract class HarvestHandler {
    * @param hand player's hand.
    * @return a Pair, with left equal to whether the crop seed was in the drops, and right equal to whether custom drops were added.
    */
-  protected static Pair<Boolean, Boolean> dropResources(ServerLevel level, BlockState crop, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
+  private static Pair<Boolean, Boolean> dropResources(ServerLevel level, BlockState crop, BlockPos pos, BlockPos originalPos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
     if (level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
       HarvestEvent.HarvestDropsEvent event = Services.EVENT.fireHarvestDropsEvent(level, crop, pos, face, hitResult, player, hand);
-      for (ItemStack stack : event.getDrops()) {
-        if (crop.getCollisionShape(level, pos) != Shapes.empty()) {
-          Block.popResourceFromFace(level, pos, face, stack);
-        } else {
-          Block.popResource(level, pos, stack);
-        }
-      }
+      dropStacks(level, ModConfig.getGatherDrops() ? originalPos : pos, face, event.getDrops());
       return Pair.of(event.areSeedsIncluded() || player.isCreative(), event.didDropsChange());
     }
     return Pair.of(false, false);
@@ -233,7 +226,7 @@ public abstract class HarvestHandler {
    * @param crop crop.
    * @param pos crop position.
    */
-  protected static void playSound(ServerLevel level, ServerPlayer player, BlockState crop, BlockPos pos) {
+  private static void playSound(ServerLevel level, ServerPlayer player, BlockState crop, BlockPos pos) {
     SoundType soundType = Services.HARVEST.getSoundType(level, player, crop, pos);
     level.playSound(null, pos, soundType.getBreakSound(), SoundSource.BLOCKS, soundType.getVolume(), soundType.getPitch());
   }
@@ -246,7 +239,7 @@ public abstract class HarvestHandler {
    * @return the most suitable hand for harvesting or {@code null} if none.
    */
   @Nullable
-  protected static InteractionHand getValidHand(Player player) {
+  private static InteractionHand getValidHand(Player player) {
     if (!player.isCrouching()) {
       if (Services.HARVEST.isHoe(player.getMainHandItem())) {
         return InteractionHand.MAIN_HAND;
@@ -273,8 +266,26 @@ public abstract class HarvestHandler {
    * @param hand player's hand.
    * @return whether the player can harvest the crop.
    */
-  protected static boolean canHarvest(Level level, BlockState crop, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, Player player, InteractionHand hand) {
+  private static boolean canHarvest(Level level, BlockState crop, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, Player player, InteractionHand hand) {
     return HarvestUtils.isCrop(crop.getBlock()) && player.hasCorrectToolForDrops(crop) && !HarvestUtils.isBlacklisted(crop) && Services.EVENT.fireHarvestCheckEvent(level, crop, pos, face, hitResult, player, hand);
+  }
+
+  /**
+   * Drops the stacks of items from the correct position and direction.
+   *
+   * @param level level.
+   * @param pos drop position.
+   * @param face drop direction.
+   * @param stacks drops.
+   */
+  private static void dropStacks(ServerLevel level, BlockPos pos, Direction face, List<ItemStack> stacks) {
+    for (ItemStack stack : stacks) {
+      if (level.getBlockState(pos).getCollisionShape(level, pos) != Shapes.empty()) {
+        Block.popResourceFromFace(level, pos, face, stack);
+      } else {
+        Block.popResource(level, pos, stack);
+      }
+    }
   }
 
   /**
@@ -283,7 +294,7 @@ public abstract class HarvestHandler {
    * @param crop crop.
    * @return whether the crop is tall, but should be considered as a single one.
    */
-  protected static boolean isTallButSeparate(Block crop) {
+  private static boolean isTallButSeparate(Block crop) {
     return "farmersdelight:tomatoes".equalsIgnoreCase(BlockUtils.getStringKey(crop));
   }
 

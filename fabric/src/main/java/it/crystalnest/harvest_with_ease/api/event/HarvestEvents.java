@@ -319,6 +319,14 @@ public final class HarvestEvents {
      */
     private List<ItemStack> drops;
 
+    /**
+     * Whether the seeds are included in the drops.
+     */
+    private boolean seedsIncluded = false;
+
+    /**
+     * Whether the event is canceled.
+     */
     private boolean canceled;
 
     /**
@@ -350,6 +358,18 @@ public final class HarvestEvents {
     @ApiStatus.Internal
     public void setDrops(List<ItemStack> drops) {
       this.drops = drops;
+    }
+
+    @Override
+    @ApiStatus.Internal
+    public void seedsIncluded() {
+      seedsIncluded = true;
+    }
+
+    @Override
+    @ApiStatus.Internal
+    public boolean areSeedsIncluded() {
+      return seedsIncluded;
     }
 
     @Override

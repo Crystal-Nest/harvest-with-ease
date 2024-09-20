@@ -213,18 +213,14 @@ public abstract class HarvestHandler {
   protected static Pair<Boolean, Boolean> dropResources(ServerLevel level, BlockState crop, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
     if (level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
       HarvestEvent.HarvestDropsEvent event = Services.EVENT.fireHarvestDropsEvent(level, crop, pos, face, hitResult, player, hand);
-      boolean seedIncluded = player.isCreative();
       for (ItemStack stack : event.getDrops()) {
-        if (stack.is(crop.getBlock().getCloneItemStack(level, pos, crop).getItem())) {
-          seedIncluded = true;
-        }
         if (crop.getCollisionShape(level, pos) != Shapes.empty()) {
           Block.popResourceFromFace(level, pos, face, stack);
         } else {
           Block.popResource(level, pos, stack);
         }
       }
-      return Pair.of(seedIncluded, event.didDropsChange());
+      return Pair.of(event.areSeedsIncluded() || player.isCreative(), event.didDropsChange());
     }
     return Pair.of(false, false);
   }

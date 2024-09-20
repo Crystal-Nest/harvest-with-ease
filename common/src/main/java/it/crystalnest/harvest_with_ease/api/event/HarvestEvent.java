@@ -136,6 +136,20 @@ public interface HarvestEvent<P extends Player, L extends Level> {
     void setDrops(List<ItemStack> drops);
 
     /**
+     * Marks that the seeds are included in the drops.
+     */
+    @ApiStatus.Internal
+    void seedsIncluded();
+
+    /**
+     * Returns whether the seeds are included in the drops.
+     *
+     * @return whether the seeds are included in the drops.
+     */
+    @ApiStatus.Internal
+    boolean areSeedsIncluded();
+
+    /**
      * Cancel this event to prevent further computations.
      */
     void cancel();
@@ -173,6 +187,7 @@ public interface HarvestEvent<P extends Player, L extends Level> {
       List<ItemStack> drops = Block.getDrops(crop, level, pos, crop.hasBlockEntity() ? level.getBlockEntity(pos) : null, getEntity(), getEntity().getItemInHand(hand));
       for (ItemStack stack : drops) {
         if (stack.is(crop.getBlock().getCloneItemStack(level, pos, crop).getItem())) {
+          seedsIncluded();
           stack.shrink(1);
           break;
         }

@@ -72,6 +72,11 @@ public final class ModConfig extends CommonConfig {
   private BooleanValue useSeedsFromInventory;
 
   /**
+   * Whether to gather drops near the player when harvesting.
+   */
+  private BooleanValue gatherDrops;
+
+  /**
    * Ordered list of tiers.
    */
   private ConfigValue<List<? extends String>> tiers;
@@ -150,6 +155,15 @@ public final class ModConfig extends CommonConfig {
    */
   public static Boolean getUseSeedsFromInventory() {
     return CONFIG.useSeedsFromInventory.get();
+  }
+
+  /**
+   * Returns the value of {@link #gatherDrops} as read from the configuration file.
+   *
+   * @return the value of {@link #gatherDrops} as read from the configuration file.
+   */
+  public static Boolean getGatherDrops() {
+    return CONFIG.gatherDrops.get();
   }
 
   /**
@@ -241,6 +255,7 @@ public final class ModConfig extends CommonConfig {
     damageOnHarvest = builder.comment(" If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer).").defineInRange("damage on harvest", 0, 0, Integer.MAX_VALUE);
     grantedExp = builder.comment(" Amount of experience to grant on harvest (0 to disable, must be an integer).").defineInRange("exp on harvest", 0, 0, Integer.MAX_VALUE);
     useSeedsFromInventory = builder.comment(" Whether to use seeds from the player's inventory to replant crops if seeds are not dropped.").define("use seeds from inventory", true);
+    gatherDrops = builder.comment(" Whether to gather drops near the player when harvesting.").define("gather drops", false);
     tiers = builder.comment(
       " Ordered list of tiers.",
       " Used to determine the tier level for the other configuration options below.",

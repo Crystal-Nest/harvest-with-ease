@@ -107,6 +107,7 @@ public abstract class HarvestHandler {
    * @param age crop age.
    * @param crop crop.
    * @param pos crop position.
+   * @param originalPos clicked position.
    * @param face clicked face.
    * @param hitResult {@link BlockHitResult}.
    * @param player player.
@@ -203,6 +204,7 @@ public abstract class HarvestHandler {
    * @param level level.
    * @param crop crop.
    * @param pos crop position.
+   * @param originalPos clicked position.
    * @param face clicked face.
    * @param hitResult {@link BlockHitResult}.
    * @param player player.

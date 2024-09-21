@@ -9,9 +9,14 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 
 - Nothing new.
 
-## [v9.1.0] - 2024/09/15
+## [v9.2.0] - 2024/09/21
 
-- Fixed [#48](https://github.com/Crystal-Nest/harvest-with-ease/issues/48), Farmer's Delight Tomatos are broken fully when harvested.
+- Fixed [#50](https://github.com/Crystal-Nest/harvest-with-ease/issues/50), Mystical Agriculture plants break when harvesting.
+- Implemented [#49](https://github.com/Crystal-Nest/harvest-with-ease/issues/49), Harvested crops drop together in front of the player.
+
+## [v9.1.1] - 2024/09/15
+
+- Fixed [#48](https://github.com/Crystal-Nest/harvest-with-ease/issues/48), Farmer's Delight Tomatoes are broken fully when harvested.
 - Fixed a minor bug introduced with [v9.1.0], Pitcher crop yielding double drops.
 - Fixed a minor bug introduced with [v9.1.0], tall crops yielding wrong amount of drops.
 
@@ -520,6 +525,7 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 [Unreleased]: https://github.com/crystal-nest/harvest-with-ease
 [README]: https://github.com/crystal-nest/harvest-with-ease#readme
 
+[v9.2.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.2.0
 [v9.1.1]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.1.1
 [v9.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.1.0
 [v9.0.2]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.0.2

@@ -207,7 +207,7 @@ public final class ModConfig extends CommonConfig {
   }
 
   @Override
-  private void define(ForgeConfigSpec.Builder builder) {
+  protected void define(ForgeConfigSpec.Builder builder) {
     crops = builder.comment(" List of in-game IDs of additional crops.").defineListAllowEmpty(List.of("crops"), Collections::emptyList, this::stringListValidator);
     blacklist = builder.comment(" List of in-game IDs for crops that under no condition can be right-click harvested.").defineListAllowEmpty(List.of("blacklist"), Collections::emptyList, this::stringListValidator);
     requireHoe = builder.comment(" Require holding a hoe (either hands) to right-click harvest.").define("require hoe", false);

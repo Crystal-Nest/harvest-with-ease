@@ -9,6 +9,10 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 
 - Nothing new.
 
+## [v9.2.1] - 2024/09/30
+
+- Fix support for 1.21.1.
+
 ## [v9.2.0] - 2024/09/21
 
 - Fixed [#50](https://github.com/Crystal-Nest/harvest-with-ease/issues/50), Mystical Agriculture plants break when harvesting.
@@ -525,6 +529,7 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 [Unreleased]: https://github.com/crystal-nest/harvest-with-ease
 [README]: https://github.com/crystal-nest/harvest-with-ease#readme
 
+[v9.2.1]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.2.1
 [v9.2.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.2.0
 [v9.1.1]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.1.1
 [v9.1.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.1.0

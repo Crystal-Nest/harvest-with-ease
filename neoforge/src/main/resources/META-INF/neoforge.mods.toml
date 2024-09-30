@@ -25,14 +25,14 @@ issueTrackerURL="https://github.com/${github_user}/${mod_id_kebab}/issues" #opti
 [[dependencies.${mod_id}]]
   modId = "minecraft"
   type = "required"
-  versionRange = "${minecraft_version_range}"
+  versionRange = "[${minecraft_version},)"
   ordering = "NONE"
   side = "BOTH"
 [[dependencies.${mod_id}]]
   modId = "cobweb"
   type = "required"
   versionRange = "[${cobweb_version},)"
-  ordering = "NONE"
+  ordering = "AFTER"
   side = "BOTH"
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares

@@ -1,5 +1,6 @@
 package it.crystalnest.harvest_with_ease.api.event;
 
+import it.crystalnest.cobweb.api.block.BlockUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -185,6 +186,12 @@ public interface HarvestEvent<P extends Player, L extends Level> {
     @ApiStatus.Internal
     default List<ItemStack> initDefaultDrops(ServerLevel level, BlockState crop, BlockPos pos, InteractionHand hand) {
       List<ItemStack> drops = Block.getDrops(crop, level, pos, crop.hasBlockEntity() ? level.getBlockEntity(pos) : null, getEntity(), getEntity().getItemInHand(hand));
+      // Pam's HarvestCraft mods are kinda weird with seeds, so it needs special treatment.
+      if (BlockUtils.getStringKey(crop.getBlock()).contains("pamhc2")) {
+        seedsIncluded();
+        return drops;
+      }
+      // Iterate over the drops and remove the seed if present.
       for (ItemStack stack : drops) {
         if (stack.is(crop.getBlock().getCloneItemStack(level, pos, crop).getItem())) {
           seedsIncluded();

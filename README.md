@@ -58,7 +58,6 @@ It's also compatible with **almost any** modded crops, to ease your mind of one 
 - `area increment step`:  
   Increment step for the harvest area size with higher tool tiers.  
   Setting this to `none` and **`starting harvest area size`** to `single` will effectively disable multi-harvest.
-- `use seeds from inventory`: whether to use seeds from the player's inventory to replant crops if seeds are not dropped, for example with the pitcher crop.
 - `crops`: list of additional in-game IDs for crops that are not supported out of the box, defaults to an empty list.  
   This last config option is just a safety measure, so far no crop needs it.
 - `blacklist`: list in-game IDs for crops that under no condition can be right-click harvested.

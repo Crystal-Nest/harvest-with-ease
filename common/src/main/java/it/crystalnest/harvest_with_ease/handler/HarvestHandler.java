@@ -22,7 +22,6 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -134,21 +133,8 @@ public abstract class HarvestHandler {
    * @param customDrops whether custom drops were added.
    */
   private static void updateCrop(ServerLevel level, IntegerProperty age, Block crop, BlockPos basePos, ServerPlayer player, boolean customDrops) {
-    if (crop == Blocks.PITCHER_CROP) {
-      // Pitcher crop does not drop its seed (bulb). Revert its age and consume the seed from the inventory if possible, otherwise break it.
-      int i = player.getInventory().findSlotMatchingItem(crop.getCloneItemStack(level, basePos, level.getBlockState(basePos)));
-      if (i >= 0 || player.isCreative()) {
-        level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
-        if (!player.isCreative()) {
-          player.getInventory().getItem(i).shrink(1);
-        }
-      } else {
-        level.destroyBlock(basePos, !customDrops, player);
-      }
-    } else {
-      // Revert the crop's age. It's assumed that either seeds were dropped or that the crop is not supposed to drop them.
-      level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
-    }
+    // Revert the crop's age. It's assumed that either seeds were dropped or that the crop is not supposed to drop them.
+    level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
     if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(crop) && !isTallButSeparate(crop)) {
       // If the crop is tall and not separate, destroy the block above to break all the crop-blocks, and drop only if custom drops were not set.
       level.destroyBlock(basePos.above(), !customDrops, player);

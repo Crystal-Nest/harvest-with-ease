@@ -23,6 +23,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -30,7 +31,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
-import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -134,30 +134,27 @@ public abstract class HarvestHandler {
    * @param crop crop.
    * @param basePos position of the crop base.
    * @param player player.
-   * @param dropsFlags a Pair, with left equal to whether the crop seed was in the drops, and right equal to whether custom drops were added.
+   * @param customDrops whether custom drops were added.
    */
-  private static void updateCrop(ServerLevel level, IntegerProperty age, Block crop, BlockPos basePos, ServerPlayer player, Pair<Boolean, Boolean> dropsFlags) {
-    BlockState cropState = level.getBlockState(basePos);
-    int i = player.getInventory().findSlotMatchingItem(crop.getCloneItemStack(level, basePos, cropState));
-    if (dropsFlags.getLeft()) {
-      // If seeds are dropped, simply revert the crop's age.
-      level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
-    } else if (ModConfig.getUseSeedsFromInventory() && i >= 0) {
-      // If the seeds were not dropped, but are in the inventory and the mod is allowed to use them, then revert the crop's age and consume the seeds from the inventory.
-      level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
-      if (!player.isCreative()) {
-        player.getInventory().getItem(i).shrink(1);
+  private static void updateCrop(ServerLevel level, IntegerProperty age, Block crop, BlockPos basePos, ServerPlayer player, boolean customDrops) {
+    if (crop == Blocks.PITCHER_CROP) {
+      // Pitcher crop does not drop its seed (bulb). Revert its age and consume the seed from the inventory if possible, otherwise break it.
+      int i = player.getInventory().findSlotMatchingItem(crop.getCloneItemStack(level, basePos, level.getBlockState(basePos)));
+      if (i >= 0 || player.isCreative()) {
+        level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
+        if (!player.isCreative()) {
+          player.getInventory().getItem(i).shrink(1);
+        }
+      } else {
+        level.destroyBlock(basePos, !customDrops, player);
       }
-    } else if (isTallButSeparate(crop)) {
-      // If the crop is tall but separate, revert its age without destroying it.
-      level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
     } else {
-      // If the crop is not tall but separate (it's single or tall and not separate), destroy it and prevent drops since they will be accounted for in the condition below.
-      level.destroyBlock(basePos, false, player);
+      // Revert the crop's age. It's assumed that either seeds were dropped or that the crop is not supposed to drop them.
+      level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
     }
     if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(crop) && !isTallButSeparate(crop)) {
       // If the crop is tall and not separate, destroy the block above to break all the crop-blocks, and drop only if custom drops were not set.
-      level.destroyBlock(basePos.above(), !dropsFlags.getRight(), player);
+      level.destroyBlock(basePos.above(), !customDrops, player);
     }
   }
 
@@ -212,15 +209,15 @@ public abstract class HarvestHandler {
    * @param hitResult {@link BlockHitResult}.
    * @param player player.
    * @param hand player's hand.
-   * @return a Pair, with left equal to whether the crop seed was in the drops, and right equal to whether custom drops were added.
+   * @return whether custom drops were added.
    */
-  private static Pair<Boolean, Boolean> dropResources(ServerLevel level, BlockState crop, BlockPos pos, BlockPos originalPos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
+  private static boolean dropResources(ServerLevel level, BlockState crop, BlockPos pos, BlockPos originalPos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
     if (level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
       HarvestEvent.HarvestDropsEvent event = Services.EVENT.fireHarvestDropsEvent(level, crop, pos, face, hitResult, player, hand);
       dropStacks(level, ModConfig.getGatherDrops() ? originalPos : pos, face, event.getDrops());
-      return Pair.of(event.areSeedsIncluded() || player.isCreative(), event.didDropsChange());
+      return event.didDropsChange();
     }
-    return Pair.of(false, false);
+    return false;
   }
 
   /**

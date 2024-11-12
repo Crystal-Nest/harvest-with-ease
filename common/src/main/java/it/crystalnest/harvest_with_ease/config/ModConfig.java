@@ -67,11 +67,6 @@ public final class ModConfig extends CommonConfig {
   private IntValue grantedExp;
 
   /**
-   * Whether to use seeds from the player's inventory to replant crops if seeds are not dropped.
-   */
-  private BooleanValue useSeedsFromInventory;
-
-  /**
    * Whether to gather drops near the player when harvesting.
    */
   private BooleanValue gatherDrops;
@@ -146,15 +141,6 @@ public final class ModConfig extends CommonConfig {
    */
   public static Integer getGrantedExp() {
     return CONFIG.grantedExp.get();
-  }
-
-  /**
-   * Returns the value of {@link #useSeedsFromInventory} as read from the configuration file.
-   *
-   * @return the value of {@link #useSeedsFromInventory} as read from the configuration file.
-   */
-  public static Boolean getUseSeedsFromInventory() {
-    return CONFIG.useSeedsFromInventory.get();
   }
 
   /**
@@ -254,7 +240,6 @@ public final class ModConfig extends CommonConfig {
     requireHoe = builder.comment(" Require holding a hoe (either hands) to right-click harvest.").define("require hoe", false);
     damageOnHarvest = builder.comment(" If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer).").defineInRange("damage on harvest", 0, 0, Integer.MAX_VALUE);
     grantedExp = builder.comment(" Amount of experience to grant on harvest (0 to disable, must be an integer).").defineInRange("exp on harvest", 0, 0, Integer.MAX_VALUE);
-    useSeedsFromInventory = builder.comment(" Whether to use seeds from the player's inventory to replant crops if seeds are not dropped.").define("use seeds from inventory", true);
     gatherDrops = builder.comment(" Whether to gather drops near the player when harvesting.").define("gather drops", false);
     tiers = builder.comment(
       " Ordered list of tiers.",

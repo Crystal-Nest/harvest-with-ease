@@ -9,6 +9,13 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 
 - Nothing new.
 
+## [v9.3.0] - 2024/11/12
+
+- Fix compatibility with Pam's HarvestCraft mods.
+- Fix compatibility with Croptopia.
+- Reverted generalization of logic to handle crops that do not yield their seeds (e.g. the Pitcher crop), which looked good on paper, but was akin to beg for mod incompatibility.
+- Removed `use seeds from inventory` configuration option. Now it always happens, but for the Pitcher crop only.
+
 ## [v9.2.1] - 2024/09/30
 
 - Fix support for 1.21.1.
@@ -529,6 +536,7 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 [Unreleased]: https://github.com/crystal-nest/harvest-with-ease
 [README]: https://github.com/crystal-nest/harvest-with-ease#readme
 
+[v9.3.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.3.0
 [v9.2.1]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.2.1
 [v9.2.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.2.0
 [v9.1.1]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.1.1

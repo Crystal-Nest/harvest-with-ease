@@ -9,6 +9,11 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 
 - Nothing new.
 
+## [v9.4.0] - 2024/12/dd
+
+- Ported to 1.21.3.
+- 
+
 ## [v9.3.0] - 2024/11/12
 
 - Fix compatibility with Pam's HarvestCraft mods.

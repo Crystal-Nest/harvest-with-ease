@@ -2,7 +2,6 @@ package it.crystalnest.harvest_with_ease.config;
 
 import it.crystalnest.cobweb.api.config.CommonConfig;
 import it.crystalnest.harvest_with_ease.Constants;
-import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.CropBlock;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
@@ -26,12 +25,12 @@ public final class ModConfig extends CommonConfig {
    */
   private static final List<String> DEFAULT_TIER_LIST = List.of(
     "none",
-    getTierName(Tiers.WOOD),
-    getTierName(Tiers.STONE),
-    getTierName(Tiers.IRON),
-    getTierName(Tiers.GOLD),
-    getTierName(Tiers.DIAMOND),
-    getTierName(Tiers.NETHERITE)
+    "wood",
+    "stone",
+    "iron",
+    "gold",
+    "diamond",
+    "netherite"
   );
 
   /**
@@ -223,20 +222,10 @@ public final class ModConfig extends CommonConfig {
     return comments;
   }
 
-  /**
-   * Returns the tier name.
-   *
-   * @param tier tier.
-   * @return tier name.
-   */
-  private static String getTierName(Tiers tier) {
-    return tier.name().toLowerCase();
-  }
-
   @Override
   protected void define(ModConfigSpec.Builder builder) {
-    crops = builder.comment(" List of in-game IDs of additional crops.").defineListAllowEmpty(List.of("crops"), Collections::emptyList, this::stringListValidator);
-    blacklist = builder.comment(" List of in-game IDs for crops that under no condition can be right-click harvested.").defineListAllowEmpty(List.of("blacklist"), Collections::emptyList, this::stringListValidator);
+    crops = builder.comment(" List of in-game IDs of additional crops.").defineListAllowEmpty(List.of("crops"), Collections::emptyList, () -> "mod_id:crop_name", this::stringListValidator);
+    blacklist = builder.comment(" List of in-game IDs for crops that under no condition can be right-click harvested.").defineListAllowEmpty(List.of("blacklist"), Collections::emptyList, () -> "mod_id:crop_name", this::stringListValidator);
     requireHoe = builder.comment(" Require holding a hoe (either hands) to right-click harvest.").define("require hoe", false);
     damageOnHarvest = builder.comment(" If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer).").defineInRange("damage on harvest", 0, 0, Integer.MAX_VALUE);
     grantedExp = builder.comment(" Amount of experience to grant on harvest (0 to disable, must be an integer).").defineInRange("exp on harvest", 0, 0, Integer.MAX_VALUE);
@@ -246,11 +235,12 @@ public final class ModConfig extends CommonConfig {
       " Used to determine the tier level for the other configuration options below.",
       " \"none\" is a special value that represents not using a tool.",
       " The tier name is made of two parts: a namespace and a name.",
-      " The namespace is an optional mod ID and defaults to \"minecraft\" if not specified. The name can be either the tier name, e.g. \"iron\" (this is not granted to work aside from Vanilla tiers) or the tier tag, e.g. \"incorrect_for_iron_tool\".",
-      " Examples: \"iron\", \"incorrect_for_iron_tool\", \"minecraft:iron\", \"minecraft:incorrect_for_iron_tool\"."
+      " The namespace is an optional mod ID to disambiguate materials with the same name added by different mods. The name needs to be the material name, e.g. \"iron\".",
+      " Examples: \"iron\", \"minecraft:iron\"."
     ).defineListAllowEmpty(
       List.of("tiers"),
       DEFAULT_TIER_LIST,
+      () -> "iron",
       this::stringListValidator
     );
     multiHarvestStartingTier = builder.comment(
@@ -260,11 +250,11 @@ public final class ModConfig extends CommonConfig {
       " From lesser to greater, default Vanilla tiers are: " + DEFAULT_TIER_LIST.stream().map(tier -> "\"" + tier + "\"").collect(Collectors.joining(", ")) + ".",
       " When set to \"none\", multi-harvest will be enabled without a tool too. Note that [require hoe] takes precedence.",
       " The tier name is made of two parts: a namespace and a name.",
-      " The namespace is an optional mod ID and defaults to \"minecraft\" if not specified. The name can be either the tier name, e.g. \"iron\" (this is not granted to work aside from Vanilla tiers) or the tier tag, e.g. \"incorrect_for_iron_tool\".",
-      " Examples: \"iron\", \"incorrect_for_iron_tool\", \"minecraft:iron\", \"minecraft:incorrect_for_iron_tool\"."
+      " The namespace is an optional mod ID to disambiguate materials with the same name added by different mods. The name needs to be the material name, e.g. \"iron\".",
+      " Examples: \"iron\", \"minecraft:iron\"."
     ).define(
       "multi-harvest starting tier",
-      getTierName(Tiers.WOOD),
+      "wood",
       this::stringListValidator
     );
     areaStartingSize = builder.comment(getAreaSizeComments()).defineEnum("starting harvest area size", AreaSize.SINGLE, AreaSize.values());

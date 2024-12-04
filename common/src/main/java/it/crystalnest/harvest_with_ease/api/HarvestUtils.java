@@ -1,6 +1,7 @@
 package it.crystalnest.harvest_with_ease.api;
 
 import it.crystalnest.cobweb.api.block.BlockUtils;
+import it.crystalnest.cobweb.api.item.ItemUtils;
 import it.crystalnest.harvest_with_ease.Constants;
 import it.crystalnest.harvest_with_ease.config.ModConfig;
 import net.minecraft.core.BlockPos;
@@ -8,7 +9,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.DiggerItem;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CocoaBlock;
@@ -105,13 +107,13 @@ public final class HarvestUtils {
   }
 
   /**
-   * Checks whether the given {@link TieredItem tool} has a high enough tier for multi-harvest.
+   * Checks whether the given {@link ToolMaterial tool} has a high enough tier for multi-harvest.
    *
    * @param tool tool.
-   * @return whether the given {@link TieredItem tool} is allowed to multi-harvest.
+   * @return whether the given {@link ToolMaterial tool} is allowed to multi-harvest.
    */
-  public static boolean isTierForMultiHarvest(TieredItem tool) {
-    return ModConfig.getTiers().stream().anyMatch(tier -> isSameTier(ResourceLocation.parse(tier), tool.getTier().getIncorrectBlocksForDrops().location()));
+  public static boolean isTierForMultiHarvest(DiggerItem tool) {
+    return ModConfig.getTiers().stream().anyMatch(tier -> isOf(tool, ResourceLocation.parse(tier)));
   }
 
   /**
@@ -120,22 +122,22 @@ public final class HarvestUtils {
    * @param tool tiered tool.
    * @return tier level.
    */
-  public static int getTierLevel(TieredItem tool) {
-    return getTierLevel(tool.getTier().getIncorrectBlocksForDrops().location());
+  public static int getTierLevel(DiggerItem tool) {
+    return getTierLevel(ItemUtils.getKey(tool));
   }
 
   /**
-   * Returns the tier level, based on the configuration tier list value.<br />
-   * Always use the other overload {@link #getTierLevel(TieredItem)}!
+   * Returns the tool tier level, based on the configuration tier list value.<br />
+   * Always use the other overload {@link #getTierLevel(DiggerItem)}!
    *
-   * @param tier tier reference.
-   * @return tier level.
+   * @param tool tool reference.
+   * @return tool level.
    */
   @ApiStatus.Internal
-  public static int getTierLevel(ResourceLocation tier) {
+  public static int getTierLevel(ResourceLocation tool) {
     List<? extends String> tiers = ModConfig.getTiers();
     for (int i = 0; i < tiers.size(); i++) {
-      if (isSameTier(ResourceLocation.parse(tiers.get(i)), tier)) {
+      if (isOf(tool, ResourceLocation.parse(tiers.get(i)))) {
         return i;
       }
     }
@@ -143,17 +145,24 @@ public final class HarvestUtils {
   }
 
   /**
-   * Checks whether the first tier reference is the same as the second tier reference.
+   * Checks whether the given tool is of the specified tier.
    *
-   * @param tier1 first tier reference.
-   * @param tier2 second tier reference.
-   * @return whether the two tier references are the same.
+   * @param tool tool.
+   * @param tier tier reference.
+   * @return whether the given tool is of the specified tier.
    */
-  private static boolean isSameTier(ResourceLocation tier1, ResourceLocation tier2) {
-    return tier1.getNamespace().equalsIgnoreCase(tier2.getNamespace()) && (
-      tier1.getPath().equalsIgnoreCase(tier2.getPath()) ||
-      ("incorrect_for_" + tier1.getPath() + "_tool").equalsIgnoreCase(tier2.getPath()) ||
-      ("incorrect_for_" + tier1.getPath() + "en_tool").equalsIgnoreCase(tier2.getPath())
-    );
+  public static boolean isOf(DiggerItem tool, ResourceLocation tier) {
+    return isOf(ItemUtils.getKey(tool), tier);
+  }
+
+  /**
+   * Checks whether the given tool is of the specified tier.
+   *
+   * @param tool tool reference.
+   * @param tier tier reference.
+   * @return whether the given tool is of the specified tier.
+   */
+  private static boolean isOf(ResourceLocation tool, ResourceLocation tier) {
+    return tool.getNamespace().equalsIgnoreCase(tier.getNamespace()) && tool.getPath().toLowerCase().contains(tier.getPath().toLowerCase());
   }
 }

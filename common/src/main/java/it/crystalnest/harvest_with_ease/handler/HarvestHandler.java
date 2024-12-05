@@ -236,7 +236,7 @@ public abstract class HarvestHandler {
    */
   private static void exhaustPlayer(Player player) {
     if (ModConfig.getExhaustionMultiplier().compareTo(BigDecimal.ZERO) > 0) {
-      player.causeFoodExhaustion(0.005f * ModConfig.getExhaustionMultiplier().floatValue());
+      player.causeFoodExhaustion(0.005F * ModConfig.getExhaustionMultiplier().floatValue());
     }
   }
 

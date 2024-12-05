@@ -9,16 +9,23 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 
 - Nothing new.
 
-## [v9.4.0] - 2024/12/dd
+## [v9.4.0] - 2024/12/06
 
 - Ported to 1.21.3.
-- 
+- Implemented [#52](https://github.com/Crystal-Nest/harvest-with-ease/issues/52), food exhaustion when harvesting.
+- Now, by default, 0.005 food exhaustion is caused when right-click harvesting (the same as regular block breaking).
+- A new configuration option, `exhaustion multiplier`, has been added to multiply the default food exhaustion, ranging from 0 (no food exhaustion) to 400 (1 hunger point every 2 crops harvested).
+- Configuration comments changed and options have been divided in sections. **Be careful when updating: old configurations might be overwritten!**
+- Slightly improved performance when multi-harvesting.
+- Added new API utility method `HarvestUtils#hasEnoughHunger(Player)` to check whether a player has enough hunger and saturation to right-click harvest.
+- Changed `HarvestUtils#isBlacklisted(BlockState)` to `HarvestUtils#isAllowed(BlockState)`, with the latter equal to the negation of the former.
+- Dropped support for 1.18.2.
 
 ## [v9.3.0] - 2024/11/12
 
 - Fix compatibility with Pam's HarvestCraft mods.
 - Fix compatibility with Croptopia.
-- Reverted generalization of logic to handle crops that do not yield their seeds (e.g. the Pitcher crop), which looked good on paper, but was akin to beg for mod incompatibility.
+- Reverted generalization of logic to handle crops that do not yield their seeds (e.g. the Pitcher crop), which looked good on paper, but was akin to begging for mod incompatibility.
 - Removed `use seeds from inventory` configuration option. Now it always happens, but for the Pitcher crop only.
 
 ## [v9.2.1] - 2024/09/30

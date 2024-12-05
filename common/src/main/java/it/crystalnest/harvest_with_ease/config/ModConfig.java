@@ -8,6 +8,8 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.jetbrains.annotations.ApiStatus;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
@@ -42,6 +44,11 @@ public final class ModConfig extends CommonConfig {
    * Effective only if greater than 0 and {@link #requireHoe} is true.
    */
   private ForgeConfigSpec.IntValue damageOnHarvest;
+
+  /**
+   * Multiplier for the hunger consumed when right-click harvesting.
+   */
+  private ForgeConfigSpec.DoubleValue exhaustionMultiplier;
 
   /**
    * Amount of experience to grant on harvest.
@@ -110,6 +117,15 @@ public final class ModConfig extends CommonConfig {
    */
   public static Integer getDamageOnHarvest() {
     return CONFIG.damageOnHarvest.get();
+  }
+
+  /**
+   * Returns the value of {@link #exhaustionMultiplier} as read from the configuration file.
+   *
+   * @return the value of {@link #exhaustionMultiplier} as read from the configuration file.
+   */
+  public static BigDecimal getExhaustionMultiplier() {
+    return BigDecimal.valueOf(CONFIG.exhaustionMultiplier.get()).setScale(2, RoundingMode.HALF_UP);
   }
 
   /**
@@ -194,12 +210,28 @@ public final class ModConfig extends CommonConfig {
 
   @Override
   protected void define(ForgeConfigSpec.Builder builder) {
-    crops = builder.comment(" List of in-game IDs of additional crops.").defineListAllowEmpty(List.of("crops"), Collections::emptyList, this::stringListValidator);
+    builder.comment(" Compatibility settings").push("compatibility");
+    crops = builder.comment(" List of in-game IDs of additional crops that are not supported out of the box.").defineListAllowEmpty(List.of("crops"), () -> List.of("neapolitan:adzuki_sprouts"), this::stringListValidator);
     blacklist = builder.comment(" List of in-game IDs for crops that under no condition can be right-click harvested.").defineListAllowEmpty(List.of("blacklist"), Collections::emptyList, this::stringListValidator);
     requireHoe = builder.comment(" Require holding a hoe (either hands) to right-click harvest.").define("require hoe", false);
     damageOnHarvest = builder.comment(" If [require hoe] is set to true, damage the hoe of the given amount (0 to disable, must be an integer).").defineInRange("damage on harvest", 0, 0, Integer.MAX_VALUE);
-    grantedExp = builder.comment(" Amount of experience to grant on harvest (0 to disable, must be an integer).").defineInRange("exp on harvest", 0, 0, Integer.MAX_VALUE);
+    exhaustionMultiplier = builder.comment(
+      " Multiplier for the exhaustion caused when right-click harvesting (0 to disable, 1 for the same exhaustion regular block breaking causes).",
+      " Testing is advised. Follow the table below for some approximate info (note that a player has up to 20 hunger points):",
+      " Multiplier value | Hunger points per crop harvested | Crops required to deplete 1 hunger/saturation point",
+      " 0.0                0                                  -",
+      " 1.0                0.001                              800",
+      " 5.0                0.006                              160",
+      " 10.0               0.013                              80",
+      " 50.0               0.063                              16",
+      " 100.0              0.125                              8",
+      " 200.0              0.25                               4",
+      " 400.0              0.5                                2"
+    ).defineInRange("exhaustion multiplier", 1.0, 0.0, 400.0);
+    grantedExp = builder.comment(" Amount of experience points to grant on harvest (0 to disable, must be an integer).").defineInRange("exp on harvest", 0, 0, Integer.MAX_VALUE);
     gatherDrops = builder.comment(" Whether to gather drops near the player when harvesting.").define("gather drops", false);
+    builder.pop();
+    builder.comment("Multi-harvest settings").push("multiharvest");
     multiHarvestStartingTier = builder.comment(
       " Tool tier starting from which it is possible to harvest multiple crops at once.",
       " All tiers that cannot multi-harvest will have a 1x1 square area of effect (a single crop).",
@@ -215,5 +247,6 @@ public final class ModConfig extends CommonConfig {
     );
     areaStartingSize = builder.comment(getAreaSizeComments()).defineEnum("starting harvest area size", AreaSize.SINGLE, AreaSize.values());
     areaIncrementStep = builder.comment(getAreaStepComments()).defineEnum("area increment step", AreaStep.NONE, AreaStep.values());
+    builder.pop();
   }
 }

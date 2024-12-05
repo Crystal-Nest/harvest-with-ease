@@ -9,6 +9,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -18,6 +20,7 @@ import net.minecraft.world.level.block.NetherWartBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.NoSuchElementException;
 
@@ -50,6 +53,18 @@ public final class HarvestUtils {
    */
   public static boolean isAllowed(BlockState block) {
     return ModConfig.getBlacklist().stream().noneMatch(id -> id.equalsIgnoreCase(BlockUtils.getStringKey(block.getBlock()))) && !block.is(BLACKLIST);
+  }
+
+  /**
+   * Checks whether the given player has enough hunger to harvest.
+   *
+   * @param player player.
+   * @return whether the given player has enough hunger to harvest.
+   */
+  public static boolean hasEnoughHunger(Player player) {
+    return player.level().getDifficulty() == Difficulty.PEACEFUL ||
+           ModConfig.getExhaustionMultiplier().compareTo(BigDecimal.ZERO) == 0 ||
+           ((player.getFoodData() .getFoodLevel() + player.getFoodData() .getSaturationLevel()) - Math.floor(player.getFoodData().getExhaustionLevel() / 4)) >= 0;
   }
 
   /**

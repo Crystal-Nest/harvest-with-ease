@@ -43,13 +43,13 @@ public final class HarvestUtils {
   }
 
   /**
-   * Checks whether the given block is blacklisted from being harvested.
+   * Checks whether the given block is not blacklisted from being harvested.
    *
    * @param block block.
-   * @return whether the given block is blacklisted.
+   * @return whether the given block is allowed to be harvested.
    */
-  public static boolean isBlacklisted(BlockState block) {
-    return ModConfig.getBlacklist().stream().anyMatch(id -> id.equalsIgnoreCase(BlockUtils.getStringKey(block.getBlock()))) || block.is(BLACKLIST);
+  public static boolean isAllowed(BlockState block) {
+    return ModConfig.getBlacklist().stream().noneMatch(id -> id.equalsIgnoreCase(BlockUtils.getStringKey(block.getBlock()))) && !block.is(BLACKLIST);
   }
 
   /**

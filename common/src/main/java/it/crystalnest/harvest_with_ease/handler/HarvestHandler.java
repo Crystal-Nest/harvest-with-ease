@@ -49,7 +49,7 @@ public abstract class HarvestHandler {
    */
   protected static void handle(LevelAccessor level, BlockState crop, BlockPos pos) {
     try {
-      if (!level.isClientSide() && ModConfig.getGrantedExp() > 0 && HarvestUtils.isCrop(crop.getBlock()) && !HarvestUtils.isBlacklisted(crop) && HarvestUtils.isMature(crop) && ((ServerLevel) level).getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
+      if (!level.isClientSide() && ModConfig.getGrantedExp() > 0 && HarvestUtils.isCrop(crop.getBlock()) && HarvestUtils.isAllowed(crop) && HarvestUtils.isMature(crop) && ((ServerLevel) level).getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
         ExperienceOrb.award((ServerLevel) level, Vec3.atCenterOf(pos), ModConfig.getGrantedExp());
       }
     } catch (NullPointerException | NoSuchElementException | ClassCastException e) {
@@ -252,7 +252,7 @@ public abstract class HarvestHandler {
    * @return whether the player can harvest the crop.
    */
   private static boolean canHarvest(Level level, BlockState crop, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, Player player, InteractionHand hand) {
-    return HarvestUtils.isCrop(crop.getBlock()) && player.hasCorrectToolForDrops(crop) && !HarvestUtils.isBlacklisted(crop) && Services.EVENT.fireHarvestCheckEvent(level, crop, pos, face, hitResult, player, hand);
+    return HarvestUtils.isCrop(crop.getBlock()) && player.hasCorrectToolForDrops(crop) && HarvestUtils.isAllowed(crop) && Services.EVENT.fireHarvestCheckEvent(level, crop, pos, face, hitResult, player, hand);
   }
 
   /**

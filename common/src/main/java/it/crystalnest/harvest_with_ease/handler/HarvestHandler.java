@@ -26,14 +26,15 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import org.jetbrains.annotations.Nullable;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.StreamSupport;
 
 /**
  * Handler for harvest related events.
@@ -81,15 +82,9 @@ public abstract class HarvestHandler {
             harvest((ServerLevel) level, age, crop, pos, pos, face, hitResult, (ServerPlayer) player, hand);
             if (player.getItemInHand(hand).getItem() instanceof TieredItem tool && Services.HARVEST.isHoe(tool.getDefaultInstance()) && HarvestUtils.isTierForMultiHarvest(tool)) {
               int fromCenterToEdge = ((TierUtils.getLevel(tool.getTier()) - TierUtils.getLevel(ModConfig.getMultiHarvestStartingTier())) * ModConfig.getAreaIncrementStep().step + ModConfig.getAreaStartingSize().size - 1) / 2;
-              BlockPos.betweenClosedStream(AABB.encapsulatingFullBlocks(pos, pos).inflate(fromCenterToEdge, 0, fromCenterToEdge)).filter(cropPos -> !pos.equals(cropPos)).forEach(cropPos -> {
-                BlockState cropState = level.getBlockState(cropPos);
-                if (canHarvest(level, cropState, cropPos, face, null, player, hand)) {
-                  IntegerProperty cropAge = HarvestUtils.getAge(cropState);
-                  if (HarvestUtils.isMature(cropState)) {
-                    harvest((ServerLevel) level, cropAge, cropState, cropPos, pos, face, null, (ServerPlayer) player, hand);
-                  }
-                }
-              });
+              StreamSupport.stream(BlockPos.spiralAround(pos, fromCenterToEdge, player.getDirection(), player.getDirection().getClockWise()).spliterator(), false)
+                .filter(cropPos -> !pos.equals(cropPos) && canHarvest(level, level.getBlockState(cropPos), cropPos, face, null, player, hand) && HarvestUtils.isMature(level.getBlockState(cropPos)))
+                .forEach(cropPos -> harvest((ServerLevel) level, HarvestUtils.getAge(level.getBlockState(cropPos)), level.getBlockState(cropPos), cropPos, pos, face, null, (ServerPlayer) player, hand));
             }
           }
         }
@@ -120,6 +115,7 @@ public abstract class HarvestHandler {
     damageHoe(player, hand);
     updateCrop(level, age, crop.getBlock(), basePos, player, dropResources(level, level.getBlockState(basePos), basePos, originalPos, face, hitResult, player, hand));
     playSound(level, player, crop, pos);
+    exhaustPlayer(player);
     Services.EVENT.fireAfterHarvestEvent(level, crop, pos, face, hitResult, player, hand);
   }
 
@@ -231,6 +227,17 @@ public abstract class HarvestHandler {
   }
 
   /**
+   * Add food exhaustion to the given player.
+   *
+   * @param player player.
+   */
+  private static void exhaustPlayer(Player player) {
+    if (ModConfig.getExhaustionMultiplier().compareTo(BigDecimal.ZERO) > 0) {
+      player.causeFoodExhaustion(0.005f * ModConfig.getExhaustionMultiplier().floatValue());
+    }
+  }
+
+  /**
    * Retrieves the most suitable player's hand for harvesting a crop.<br>
    * Returns {@code null} if no hand was valid.
    *
@@ -266,7 +273,7 @@ public abstract class HarvestHandler {
    * @return whether the player can harvest the crop.
    */
   private static boolean canHarvest(Level level, BlockState crop, BlockPos pos, Direction face, @Nullable BlockHitResult hitResult, Player player, InteractionHand hand) {
-    return HarvestUtils.isCrop(crop.getBlock()) && player.hasCorrectToolForDrops(crop) && HarvestUtils.isAllowed(crop) && Services.EVENT.fireHarvestCheckEvent(level, crop, pos, face, hitResult, player, hand);
+    return HarvestUtils.isCrop(crop.getBlock()) && player.hasCorrectToolForDrops(crop) && HarvestUtils.hasEnoughHunger(player) && HarvestUtils.isAllowed(crop) && Services.EVENT.fireHarvestCheckEvent(level, crop, pos, face, hitResult, player, hand);
   }
 
   /**

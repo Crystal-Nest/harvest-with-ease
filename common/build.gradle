@@ -7,7 +7,7 @@ neoForge {
   neoFormVersion = neo_form_version
   def at = file("src/main/resources/META-INF/accesstransformer.cfg")
   if (at.exists()) {
-    accessTransformers.add(at.absolutePath)
+    accessTransformers.from(at.absolutePath)
   }
   parchment {
     minecraftVersion = minecraft_version

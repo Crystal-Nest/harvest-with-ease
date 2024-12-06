@@ -62,7 +62,7 @@ public final class HarvestUtils {
    * @return whether the given player has enough hunger to harvest.
    */
   public static boolean hasEnoughHunger(Player player) {
-    return player.level().getDifficulty() == Difficulty.PEACEFUL ||
+    return player.level.getDifficulty() == Difficulty.PEACEFUL ||
            ModConfig.getExhaustionMultiplier().compareTo(BigDecimal.ZERO) == 0 ||
            ((player.getFoodData() .getFoodLevel() + player.getFoodData() .getSaturationLevel()) - Math.floor(player.getFoodData().getExhaustionLevel() / 4)) >= 0;
   }

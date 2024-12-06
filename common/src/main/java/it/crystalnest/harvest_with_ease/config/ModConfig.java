@@ -242,7 +242,7 @@ public final class ModConfig extends CommonConfig {
   @Override
   protected void define(ModConfigSpec.Builder builder) {
     builder.comment(" Compatibility settings").push("compatibility");
-    crops = builder.comment(" List of in-game IDs of additional crops.").defineListAllowEmpty("crops", Collections::emptyList, () -> "mod_id:crop_name", this::stringListValidator);
+    crops = builder.comment(" List of in-game IDs of additional crops that are not supported out of the box.").defineListAllowEmpty("crops", Collections::emptyList, () -> "mod_id:crop_name", this::stringListValidator);
     blacklist = builder.comment(" List of in-game IDs for crops that under no condition can be right-click harvested.").defineListAllowEmpty("blacklist", Collections::emptyList, () -> "mod_id:crop_name", this::stringListValidator);
     builder.pop();
     builder.comment(" Game balancing settings").push("balancing");
@@ -251,17 +251,17 @@ public final class ModConfig extends CommonConfig {
     exhaustionMultiplier = builder.comment(
       " Multiplier for the exhaustion caused when right-click harvesting (0 to disable, 1 for the same exhaustion regular block breaking causes).",
       " Testing is advised. Follow the table below for some approximate info (note that a player has up to 20 hunger points):",
-      " Value | Hunger points per crop harvested | Crops required to deplete 1 hunger/saturation point",
-      " 0       0                                  -",
-      " 1       0.001                              800",
-      " 5       0.006                              160",
-      " 10      0.013                              80",
-      " 50      0.063                              16",
-      " 100     0.125                              8",
-      " 200     0.25                               4",
-      " 400     0.5                                2"
+      " Multiplier value | Hunger points per crop harvested | Crops required to deplete 1 hunger/saturation point",
+      " 0.0                0                                  -",
+      " 1.0                0.001                              800",
+      " 5.0                0.006                              160",
+      " 10.0               0.013                              80",
+      " 50.0               0.063                              16",
+      " 100.0              0.125                              8",
+      " 200.0              0.25                               4",
+      " 400.0              0.5                                2"
     ).defineInRange("exhaustion multiplier", 1.0, 0.0, 400.0);
-    grantedExp = builder.comment(" Amount of experience to grant on harvest (0 to disable, must be an integer).").defineInRange("exp on harvest", 0, 0, Integer.MAX_VALUE);
+    grantedExp = builder.comment(" Amount of experience points to grant on harvest (0 to disable, must be an integer).").defineInRange("exp on harvest", 0, 0, Integer.MAX_VALUE);
     gatherDrops = builder.comment(" Whether to gather drops near the player when harvesting.").define("gather drops", false);
     builder.pop();
     builder.comment("Multi-harvest settings").push("multiharvest");

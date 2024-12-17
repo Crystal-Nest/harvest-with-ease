@@ -116,7 +116,7 @@ public abstract class HarvestHandler {
     BlockPos basePos = getBasePos(level, crop.getBlock(), pos);
     grantExp(level, basePos);
     damageHoe(player, hand);
-    updateCrop(level, age, crop.getBlock(), basePos, player, dropResources(level, level.getBlockState(basePos), basePos, originalPos, face, hitResult, player, hand));
+    updateCrop(level, age, crop, basePos, player, dropResources(level, level.getBlockState(basePos), basePos, originalPos, face, hitResult, player, hand));
     playSound(level, player, crop, pos);
     exhaustPlayer(player);
     Services.EVENT.fireAfterHarvestEvent(level, crop, pos, face, hitResult, player, hand);
@@ -132,23 +132,23 @@ public abstract class HarvestHandler {
    * @param player player.
    * @param customDrops whether custom drops were added.
    */
-  private static void updateCrop(ServerLevel level, IntegerProperty age, Block crop, BlockPos basePos, ServerPlayer player, boolean customDrops) {
-    if (crop == Blocks.PITCHER_CROP) {
+  private static void updateCrop(ServerLevel level, IntegerProperty age, BlockState crop, BlockPos basePos, ServerPlayer player, boolean customDrops) {
+    if (crop.getBlock() == Blocks.PITCHER_CROP) {
       // Pitcher crop does not drop its seed (bulb). Revert its age and consume the seed from the inventory if possible, otherwise break it.
-      int i = player.getInventory().findSlotMatchingItem(crop.getCloneItemStack(level, basePos, level.getBlockState(basePos)));
+      int i = player.getInventory().findSlotMatchingItem(crop.getCloneItemStack(level, basePos, false));
       if (i >= 0 || player.isCreative()) {
         level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
         if (!player.isCreative()) {
           player.getInventory().getItem(i).shrink(1);
         }
       } else {
-        level.destroyBlock(basePos, !customDrops, player);
+        level.destroyBlock(basePos, false, player);
       }
     } else {
       // Revert the crop's age. It's assumed that either seeds were dropped or that the crop is not supposed to drop them.
       level.setBlockAndUpdate(basePos, level.getBlockState(basePos).setValue(age, 0));
     }
-    if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(crop) && !isTallButSeparate(crop)) {
+    if (level.getBlockState(basePos).is(BlockTags.CROPS) && level.getBlockState(basePos.above()).is(crop.getBlock()) && !isTallButSeparate(crop.getBlock())) {
       // If the crop is tall and not separate, destroy the block above to break all the crop-blocks, and drop only if custom drops were not set.
       level.destroyBlock(basePos.above(), !customDrops, player);
     }

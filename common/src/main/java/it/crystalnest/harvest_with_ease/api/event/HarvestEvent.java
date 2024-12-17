@@ -172,7 +172,7 @@ public interface HarvestEvent<P extends Player, L extends Level> {
     default List<ItemStack> initDefaultDrops(ServerLevel level, BlockState crop, BlockPos pos, InteractionHand hand) {
       List<ItemStack> drops = Block.getDrops(crop, level, pos, crop.hasBlockEntity() ? level.getBlockEntity(pos) : null, getEntity(), getEntity().getItemInHand(hand));
       for (ItemStack stack : drops) {
-        if (stack.is(crop.getBlock().getCloneItemStack(level, pos, crop).getItem())) {
+        if (stack.is(crop.getCloneItemStack(level, pos, false).getItem())) {
           stack.shrink(1);
           break;
         }

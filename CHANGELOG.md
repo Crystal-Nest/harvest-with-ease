@@ -7,10 +7,6 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 
 ## [Unreleased]
 
-- Nothing new.
-
-## [v9.4.0] - 2025/01/dd
-
 - Ported to 1.21.4.
 
 ## [v9.4.0] - 2024/12/06
@@ -552,6 +548,7 @@ and this project adheres to [Crystal Nest Semantic Versioning](https://crystalne
 [Unreleased]: https://github.com/crystal-nest/harvest-with-ease
 [README]: https://github.com/crystal-nest/harvest-with-ease#readme
 
+[v9.4.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.4.0
 [v9.3.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.3.0
 [v9.2.1]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.2.1
 [v9.2.0]: https://github.com/crystal-nest/harvest-with-ease/releases?q=9.2.0

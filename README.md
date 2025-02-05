@@ -39,7 +39,7 @@ Check out the [dedicated Wiki page](https://github.com/Crystal-Nest/harvest-with
 
 | Mod                                                                     |         Loader         | Requirement |
 |:------------------------------------------------------------------------|:----------------------:|:-----------:|
-| [Cobweb](https://modrinth.com/mod/forge-config-api-port)                |          All           |  Required   |
+| [Cobweb](https://modrinth.com/mod/cobweb)                |          All           |  Required   |
 | [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) | Fabric; Forge ≥ 1.20.2 |  Required   |
 
 ## **License and right of use**

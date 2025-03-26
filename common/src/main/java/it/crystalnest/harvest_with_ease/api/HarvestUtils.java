@@ -12,7 +12,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import net.minecraft.world.item.DiggerItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -128,7 +128,7 @@ public final class HarvestUtils {
    * @param tool tool.
    * @return whether the given {@link ToolMaterial tool} is allowed to multi-harvest.
    */
-  public static boolean isTierForMultiHarvest(DiggerItem tool) {
+  public static boolean isTierForMultiHarvest(Item tool) {
     return ModConfig.getTiers().stream().anyMatch(tier -> isOf(tool, ResourceLocation.parse(tier)));
   }
 
@@ -138,13 +138,13 @@ public final class HarvestUtils {
    * @param tool tiered tool.
    * @return tier level.
    */
-  public static int getTierLevel(DiggerItem tool) {
+  public static int getTierLevel(Item tool) {
     return getTierLevel(ItemUtils.getKey(tool));
   }
 
   /**
    * Returns the tool tier level, based on the configuration tier list value.<br />
-   * Always use the other overload {@link #getTierLevel(DiggerItem)}!
+   * Always use the other overload {@link #getTierLevel(Item)}!
    *
    * @param tool tool reference.
    * @return tool level.
@@ -167,7 +167,7 @@ public final class HarvestUtils {
    * @param tier tier reference.
    * @return whether the given tool is of the specified tier.
    */
-  public static boolean isOf(DiggerItem tool, ResourceLocation tier) {
+  public static boolean isOf(Item tool, ResourceLocation tier) {
     return isOf(ItemUtils.getKey(tool), tier);
   }
 

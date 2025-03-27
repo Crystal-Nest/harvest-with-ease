@@ -45,7 +45,7 @@ Check out the [dedicated Wiki page](https://github.com/Crystal-Nest/harvest-with
 ## **License and right of use**
 
 Feel free to use this mod for any modpack or video, just be sure to give credit and possibly link [here](https://github.com/crystal-nest/harvest-with-ease#readme).  
-This project is published under the [GNU General Public License v3.0](https://github.com/crystal-nest/harvest-with-ease/blob/master/LICENSE).
+This project is published under the [Crystal Nest Community License v1](https://github.com/crystal-nest/harvest-with-ease/blob/master/LICENSE).
 
 ## **For developers**
 

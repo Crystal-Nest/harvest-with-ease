@@ -62,7 +62,7 @@ If your crops **don’t extend `CropBlock`**, you can still support them via the
 
 Since **v9.0.0**, it's possible to blacklist crops via block tags.
 
-📚 Full integration guides are available on the [Developer Wiki](https://github.com/Crystal-Nest/harvest-with-ease/wiki).
+📚 Full integration guides are available on the [Wiki](https://github.com/Crystal-Nest/harvest-with-ease/wiki).
 
 ## ❤️ Support us
 

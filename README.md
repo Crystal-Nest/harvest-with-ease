@@ -52,7 +52,7 @@ Customize your farming experience with settings for:
 Feel free to use this mod for any modpack or video, just be sure to give credit and possibly link [here](https://github.com/crystal-nest/harvest-with-ease#readme).  
 This project is published under the [Crystal Nest Community License v1](https://github.com/crystal-nest/harvest-with-ease/blob/master/LICENSE).
 
-## 💻 For Developers
+## 💻 For developers
 
 By default, any crop that extends `CropBlock` will automatically work with this mod — no extra steps needed!  
 If your crops **don’t extend `CropBlock`**, you can still support them via the `crops` config option. Just make sure:

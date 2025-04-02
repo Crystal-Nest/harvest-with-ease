@@ -11,53 +11,60 @@
 
 ---
 
-## **Description**
+## 📝 Description
 
-Harvesting crops is such a pain, breaking them all to get the drops and then having to replant each one.  
-With this mod you can just right-click on your crops to harvest and replant them in one go!  
-It's also compatible with **almost any** modded crops, to ease your mind of one more thing!
+Tired of breaking and replanting crops over and over again?  
+**Harvest With Ease** lets you **right-click** on fully grown crops to **harvest and replant them instantly** — no more tedious replanting!
 
-*Although it's stated that the mod is required server-side only, when a client that does not have the mod connects to a server that does and tries to harvest a crop while holding a block, it causes block flashing.*  
-*The only way to prevent this glitch is to set `require hoe` to `true`.*
+It works out of the box with **Vanilla crops** and **most modded crops**, so you can relax and enjoy farming without the grind.
 
-## **Features**
+> 💡 *Note: While the mod is technically server-side only, a client without the mod may experience a visual glitch (block flashing) when harvesting while holding a block. To avoid this, set `require hoe` to `true` in the config.*
 
-- Right-click to harvest any crop, works with both Vanilla and modded out of the box!  
+## ✨ Features
+
+- ✅ **Right-click to harvest & replant** – works with **Vanilla** and most **modded crops**!  
   ![Harvesting wheat](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/harvest-with-ease/wheat.gif)
-- Works on nether warts and cocoa beans too!  
+- 🍫 Supports **Nether Wart** and **Cocoa Beans** too!  
   ![Harvesting cocoa](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/harvest-with-ease/cocoa.gif) ![Harvesting nether wart](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/harvest-with-ease/wart.gif)
-- Correctly consumes 1 crop seed to simulate replanting!
-- Right-click while holding an item with fortune to increase drops!
-- **Highly configurable!** See next section for more details.
+- 🌱 Automatically consumes 1 crop to simulate replanting.
+- ✨ **Fortune support** – Use a Fortune-enchanted item for bonus drops!
+- ⚙️ **Highly configurable** – Tailor it to your playstyle (see below!).
+  
+## ⚙️ Configuration
 
-## **Configuration**
+Customize your farming experience with settings for:
 
-The configuration includes settings for better mod compatibility, customization and game balancing, and multi-harvest tweaking.  
-Check out the [dedicated Wiki page](https://github.com/Crystal-Nest/harvest-with-ease/wiki/End-user-configuration)!
+- Compatibility with modded crops.
+- Gameplay balance, like requiring tools or limiting multi-harvest.
+- Tweaks for multi-block harvest behavior.
 
-## **Dependencies**
+📖 Check out the [dedicated Wiki page](https://github.com/Crystal-Nest/harvest-with-ease/wiki/End-user-configuration) for full details!
+
+## 🔗 Dependencies
 
 | Mod                                                                     |         Loader         | Requirement |
 |:------------------------------------------------------------------------|:----------------------:|:-----------:|
 | [Cobweb](https://modrinth.com/mod/cobweb)                               |          All           |  Required   |
 | [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) | Fabric; Forge ≥ 1.20.2 |  Required   |
 
-## **License and right of use**
+## 📜 License and right of use
 
 Feel free to use this mod for any modpack or video, just be sure to give credit and possibly link [here](https://github.com/crystal-nest/harvest-with-ease#readme).  
 This project is published under the [Crystal Nest Community License v1](https://github.com/crystal-nest/harvest-with-ease/blob/master/LICENSE).
 
-## **For developers**
+## 💻 For Mod Developers
 
-Your modded crops will work with this mod out of the box only if they extend the CropBlock class, which is how it should be.  
-If you can't extend that class, the **`crops`** config option is there for you. Just add the in-game ID of your crop(s) to make it work, however note that this will work only if your crops have an Integer Property whose name
-is set to be `"age"` and represents the age values your crops can have, from `0` to a `max` value.
+By default, any crop that extends `CropBlock` will automatically work with this mod — no extra steps needed!  
+If your crops **don’t extend `CropBlock`**, you can still support them via the `crops` config option. Just make sure:
 
-Since v6.0.0.0, an API is available to better integrate your mod with this one, if needed.  
-Since v9.0.0, it's possible to blacklist crops via datapack.  
-To learn how to use the provided API and the datapack feature, follow the [Wiki](https://github.com/crystal-nest/harvest-with-ease/wiki).
+- The block has an Integer property named `"age"`  
+- The property represents growth stages from `0` to a max value
 
-## **Support us**
+Since **v9.0.0**, it's possible to blacklist crops via block tags.
+
+📚 Full integration guides are available on the [Developer Wiki](https://github.com/Crystal-Nest/harvest-with-ease/wiki).
+
+## ❤️ Support us
 
 <a href="https://crystalnest.it"><img alt="Crystal Nest Website" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/crystal-nest/pic512.png" width="14.286%"></a><a href="https://discord.gg/BP6EdBfAmt"><img alt="Discord" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/discord/discord512.png" width="14.286%"></a><a href="https://www.patreon.com/crystalspider"><img alt="Patreon" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/patreon/patreon512.png" width="14.286%"></a><a href="https://ko-fi.com/crystalspider"><img alt="Ko-fi" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/kofi/kofi512.png" width="14.286%"></a><a href="https://github.com/Crystal-Nest"><img alt="Our other projects" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/github/github512.png" width="14.286%"><a href="https://modrinth.com/organization/crystal-nest"><img alt="Modrinth" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/modrinth/modrinth512.png" width="14.286%"></a><a href="https://www.curseforge.com/members/crystalspider/projects"><img alt="CurseForge" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/curseforge/curseforge512.png" width="14.286%"></a>
 

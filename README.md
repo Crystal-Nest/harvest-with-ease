@@ -11,7 +11,7 @@
 
 ---
 
-## 📝 Description
+## 📝 **Description**
 
 Tired of breaking and replanting crops over and over again?  
 **Harvest With Ease** lets you **right-click** on fully grown crops to **harvest and replant them instantly** — no more tedious replanting!
@@ -20,7 +20,7 @@ It works out of the box with **Vanilla crops** and **most modded crops**, so you
 
 > 💡 *Note: While the mod is technically server-side only, a client without the mod may experience a visual glitch (block flashing) when harvesting while holding a block. To avoid this, set `require hoe` to `true` in the config.*
 
-## ✨ Features
+## ✨ **Features**
 
 - ✅ **Right-click to harvest & replant** – works with **Vanilla** and most **modded crops**!  
   ![Harvesting wheat](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/harvest-with-ease/wheat.gif)
@@ -30,7 +30,7 @@ It works out of the box with **Vanilla crops** and **most modded crops**, so you
 - ✨ **Fortune support** – Use a Fortune-enchanted item for bonus drops!
 - ⚙️ **Highly configurable** – Tailor it to your playstyle (see below!).
   
-## ⚙️ Configuration
+## ⚙️ **Configuration**
 
 Customize your farming experience with settings for:
 
@@ -40,19 +40,19 @@ Customize your farming experience with settings for:
 
 📖 Check out the [dedicated Wiki page](https://github.com/Crystal-Nest/harvest-with-ease/wiki/End-user-configuration) for full details!
 
-## 🔗 Dependencies
+## 🔗 **Dependencies**
 
 | Mod                                                                     |         Loader         | Requirement |
 |:------------------------------------------------------------------------|:----------------------:|:-----------:|
 | [Cobweb](https://modrinth.com/mod/cobweb)                               |          All           |  Required   |
 | [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) | Fabric; Forge ≥ 1.20.2 |  Required   |
 
-## 📜 License and right of use
+## 📜 **License and right of use**
 
 Feel free to use this mod for any modpack or video, just be sure to give credit and possibly link [here](https://github.com/crystal-nest/harvest-with-ease#readme).  
 This project is published under the [Crystal Nest Community License v1](https://github.com/crystal-nest/harvest-with-ease/blob/master/LICENSE).
 
-## 💻 For developers
+## 💻 **For developers**
 
 By default, any crop that extends `CropBlock` will automatically work with this mod — no extra steps needed!  
 If your crops **don’t extend `CropBlock`**, you can still support them via the `crops` config option. Just make sure:
@@ -64,7 +64,7 @@ Since **v9.0.0**, it's possible to blacklist crops via block tags.
 
 📚 Full integration guides are available on the [Wiki](https://github.com/Crystal-Nest/harvest-with-ease/wiki).
 
-## ❤️ Support us
+## ❤️ **Support us**
 
 <a href="https://crystalnest.it"><img alt="Crystal Nest Website" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/crystal-nest/pic512.png" width="14.286%"></a><a href="https://discord.gg/BP6EdBfAmt"><img alt="Discord" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/discord/discord512.png" width="14.286%"></a><a href="https://www.patreon.com/crystalspider"><img alt="Patreon" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/patreon/patreon512.png" width="14.286%"></a><a href="https://ko-fi.com/crystalspider"><img alt="Ko-fi" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/kofi/kofi512.png" width="14.286%"></a><a href="https://github.com/Crystal-Nest"><img alt="Our other projects" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/github/github512.png" width="14.286%"><a href="https://modrinth.com/organization/crystal-nest"><img alt="Modrinth" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/modrinth/modrinth512.png" width="14.286%"></a><a href="https://www.curseforge.com/members/crystalspider/projects"><img alt="CurseForge" src="https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/curseforge/curseforge512.png" width="14.286%"></a>
 

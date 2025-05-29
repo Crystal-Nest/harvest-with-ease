@@ -20,7 +20,7 @@ It works out of the box with **Vanilla crops** and **most modded crops**, so you
 
 > 💡 *Note: While the mod is technically server-side only, a client without the mod may experience a visual glitch (block flashing) when harvesting while holding a block. To avoid this, set `require hoe` to `true` in the config.*
 
-[![Bisect Hosting](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/harvest-with-ease/minecraft-storage-banner.png "Minecraft Storage")](https://minecraftstorage.com/mods/harvest-with-ease)
+[![Minecraft Storage](https://raw.githubusercontent.com/crystal-nest/mod-fancy-assets/main/harvest-with-ease/minecraft-storage-banner.png "Minecraft Storage")](https://minecraftstorage.com/mods/harvest-with-ease)
 
 ## ✨ **Features**
 

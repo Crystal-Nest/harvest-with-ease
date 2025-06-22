@@ -13,7 +13,7 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 /**
  * NeoForge harvest handler.
  */
-@EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = Constants.MOD_ID)
 public final class NeoForgeHarvestHandler extends HarvestHandler {
   private NeoForgeHarvestHandler() {}
 

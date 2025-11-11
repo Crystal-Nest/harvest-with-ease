@@ -79,7 +79,7 @@ public abstract class HarvestHandler {
         IntegerProperty age = HarvestUtils.getAge(crop);
         if (HarvestUtils.isMature(crop, age)) {
           consume = true;
-          if (!level.isClientSide) {
+          if (!level.isClientSide()) {
             harvest((ServerLevel) level, age, crop, pos, pos, face, hitResult, (ServerPlayer) player, hand);
             Item tool = player.getItemInHand(hand).getItem();
             if (Services.HARVEST.isHoe(tool.getDefaultInstance()) && HarvestUtils.isTierForMultiHarvest(tool)) {

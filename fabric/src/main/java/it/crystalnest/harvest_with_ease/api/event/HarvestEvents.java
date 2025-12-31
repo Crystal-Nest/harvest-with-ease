@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -27,12 +27,12 @@ public final class HarvestEvents {
   /**
    * Priority phase for listeners that will be called first.
    */
-  public static final ResourceLocation PRIORITY_PHASE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "priority");
+  public static final Identifier PRIORITY_PHASE = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "priority");
 
   /**
    * Deferred phase for listeners that will be called last.
    */
-  public static final ResourceLocation DEFERRED_PHASE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "deferred");
+  public static final Identifier DEFERRED_PHASE = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "deferred");
 
   /**
    * Event triggered when checking whether a crop can be harvested.

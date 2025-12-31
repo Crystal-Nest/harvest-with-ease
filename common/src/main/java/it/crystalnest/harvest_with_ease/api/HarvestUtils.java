@@ -6,7 +6,7 @@ import it.crystalnest.harvest_with_ease.Constants;
 import it.crystalnest.harvest_with_ease.config.ModConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
@@ -37,7 +37,7 @@ public final class HarvestUtils {
   /**
    * Block tag for blacklisted crops.
    */
-  public static final TagKey<Block> BLACKLIST = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "blacklist"));
+  public static final TagKey<Block> BLACKLIST = TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "blacklist"));
 
   private HarvestUtils() {}
 
@@ -129,7 +129,7 @@ public final class HarvestUtils {
    * @return whether the given {@link ToolMaterial tool} is allowed to multi-harvest.
    */
   public static boolean isTierForMultiHarvest(Item tool) {
-    return ModConfig.getTiers().stream().anyMatch(tier -> isOf(tool, ResourceLocation.parse(tier)));
+    return ModConfig.getTiers().stream().anyMatch(tier -> isOf(tool, Identifier.parse(tier)));
   }
 
   /**
@@ -150,10 +150,10 @@ public final class HarvestUtils {
    * @return tool level.
    */
   @ApiStatus.Internal
-  public static int getTierLevel(ResourceLocation tool) {
+  public static int getTierLevel(Identifier tool) {
     List<? extends String> tiers = ModConfig.getTiers();
     for (int i = 0; i < tiers.size(); i++) {
-      if (isOf(tool, ResourceLocation.parse(tiers.get(i)))) {
+      if (isOf(tool, Identifier.parse(tiers.get(i)))) {
         return i;
       }
     }
@@ -167,7 +167,7 @@ public final class HarvestUtils {
    * @param tier tier reference.
    * @return whether the given tool is of the specified tier.
    */
-  public static boolean isOf(Item tool, ResourceLocation tier) {
+  public static boolean isOf(Item tool, Identifier tier) {
     return isOf(ItemUtils.getKey(tool), tier);
   }
 
@@ -178,7 +178,7 @@ public final class HarvestUtils {
    * @param tier tier reference.
    * @return whether the given tool is of the specified tier.
    */
-  private static boolean isOf(ResourceLocation tool, ResourceLocation tier) {
+  private static boolean isOf(Identifier tool, Identifier tier) {
     return tool.getNamespace().equalsIgnoreCase(tier.getNamespace()) && tool.getPath().toLowerCase().contains(tier.getPath().toLowerCase());
   }
 }

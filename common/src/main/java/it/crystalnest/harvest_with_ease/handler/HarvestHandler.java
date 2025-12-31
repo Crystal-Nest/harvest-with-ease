@@ -8,7 +8,7 @@ import it.crystalnest.harvest_with_ease.config.ModConfig;
 import it.crystalnest.harvest_with_ease.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -19,7 +19,6 @@ import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -27,6 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -52,7 +52,7 @@ public abstract class HarvestHandler {
    */
   protected static void handle(LevelAccessor level, BlockState crop, BlockPos pos) {
     try {
-      if (!level.isClientSide() && ModConfig.getGrantedExp() > 0 && HarvestUtils.isCrop(crop.getBlock()) && HarvestUtils.isAllowed(crop) && HarvestUtils.isMature(crop) && ((ServerLevel) level).getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
+      if (!level.isClientSide() && ModConfig.getGrantedExp() > 0 && HarvestUtils.isCrop(crop.getBlock()) && HarvestUtils.isAllowed(crop) && HarvestUtils.isMature(crop) && ((ServerLevel) level).getGameRules().get(GameRules.BLOCK_DROPS)) {
         ExperienceOrb.award((ServerLevel) level, Vec3.atCenterOf(pos), ModConfig.getGrantedExp());
       }
     } catch (NullPointerException | NoSuchElementException | ClassCastException e) {
@@ -83,7 +83,7 @@ public abstract class HarvestHandler {
             harvest((ServerLevel) level, age, crop, pos, pos, face, hitResult, (ServerPlayer) player, hand);
             Item tool = player.getItemInHand(hand).getItem();
             if (Services.HARVEST.isHoe(tool.getDefaultInstance()) && HarvestUtils.isTierForMultiHarvest(tool)) {
-              int fromCenterToEdge = ((HarvestUtils.getTierLevel(tool) - HarvestUtils.getTierLevel(ResourceLocation.parse(ModConfig.getMultiHarvestStartingTier()))) * ModConfig.getAreaIncrementStep().step + ModConfig.getAreaStartingSize().size - 1) / 2;
+              int fromCenterToEdge = ((HarvestUtils.getTierLevel(tool) - HarvestUtils.getTierLevel(Identifier.parse(ModConfig.getMultiHarvestStartingTier()))) * ModConfig.getAreaIncrementStep().step + ModConfig.getAreaStartingSize().size - 1) / 2;
               if (fromCenterToEdge > 0) {
                 StreamSupport.stream(BlockPos.spiralAround(pos, fromCenterToEdge, player.getDirection(), player.getDirection().getClockWise()).spliterator(), false)
                   .filter(cropPos -> !pos.equals(cropPos) && level.getBlockState(cropPos) instanceof BlockState cropState && canHarvest(level, cropState, cropPos, face, null, player, hand) && HarvestUtils.isMature(cropState))
@@ -178,7 +178,7 @@ public abstract class HarvestHandler {
    * @param pos crop position.
    */
   private static void grantExp(ServerLevel level, BlockPos pos) {
-    if (ModConfig.getGrantedExp() > 0 && level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
+    if (ModConfig.getGrantedExp() > 0 && level.getGameRules().get(GameRules.BLOCK_DROPS)) {
       ExperienceOrb.award(level, Vec3.atCenterOf(pos), ModConfig.getGrantedExp());
     }
   }
@@ -209,7 +209,7 @@ public abstract class HarvestHandler {
    * @return whether custom drops were added.
    */
   private static boolean dropResources(ServerLevel level, BlockState crop, BlockPos pos, BlockPos originalPos, Direction face, @Nullable BlockHitResult hitResult, ServerPlayer player, InteractionHand hand) {
-    if (level.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
+    if (level.getGameRules().get(GameRules.BLOCK_DROPS)) {
       HarvestEvent.HarvestDropsEvent event = Services.EVENT.fireHarvestDropsEvent(level, crop, pos, face, hitResult, player, hand);
       dropStacks(level, ModConfig.getGatherDrops() ? originalPos : pos, face, event.getDrops());
       return event.didDropsChange();

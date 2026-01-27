@@ -233,7 +233,7 @@ publisher {
     switch (loader) {
       case "Fabric":
         required "fabric-api"
-        required "forge-config-api-port-fabric"
+        required "forge-config-api-port"
         break
       case "NeoForge":
         break

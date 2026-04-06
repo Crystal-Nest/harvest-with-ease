@@ -4,6 +4,8 @@ plugins {
   id "com.hypherionmc.modutils.modpublisher"
 }
 
+def minecraft_target = minecraft_version + minecraft_patch_version
+
 base {
   archivesName = "$mod_id_kebab-$name"
   version = "$minecraft_version-$mod_version"
@@ -32,21 +34,15 @@ repositories {
     filter { includeGroupAndSubgroups("org.spongepowered") }
   }
   exclusiveContent {
-    forRepositories(
+    forRepository {
       maven {
-        name = "ParchmentMC"
-        url = "https://maven.parchmentmc.org/"
-      },
-      maven {
-        name = "NeoForge"
-        url = "https://maven.neoforged.net/releases"
+        name = "Crystal Nest"
+        url = "https://maven.crystalnest.it"
       }
-    )
-    filter { includeGroup("org.parchmentmc.data") }
-  }
-  maven {
-    name = "Crystal Nest"
-    url = "https://maven.crystalnest.it"
+    }
+    filter {
+      includeGroup "it.crystalnest"
+    }
   }
   maven {
     name = "Fuzs Mod Resources"
@@ -54,22 +50,8 @@ repositories {
   }
 }
 
-if (name != "fabric") {
-  dependencies {
-    implementation "it.crystalnest:cobweb-$name:$minecraft_version-$cobweb_version"
-  }
-}
-
-["apiElements", "runtimeElements", "sourcesElements", "javadocElements"].each { variant ->
-  configurations."$variant".outgoing {
-    capability("$group:${project.name}:$version")
-    capability("$group:${base.archivesName.get()}:$version")
-    capability("$group:$mod_id-${project.name}-$minecraft_version:$version")
-    capability("$group:$mod_id:$version")
-  }
-  publishing.publications.configureEach {
-    suppressPomMetadataWarningsFor(variant)
-  }
+dependencies {
+  implementation "it.crystalnest:cobweb-$name:$minecraft_version-$cobweb_version"
 }
 
 sourcesJar {
@@ -94,7 +76,7 @@ jar {
       "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
       "Timestamp"               : System.currentTimeMillis(),
       "Built-On-Java"           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
-      "Built-On-Minecraft"      : minecraft_version
+      "Built-On-Minecraft"      : minecraft_target
     ])
   }
 }
@@ -118,7 +100,6 @@ processResources {
     "fabric_version"               : fabric_version,
     "fabric_loader_version"        : fabric_loader_version,
     "neoforge_version"             : neoforge_version,
-    "neoforge_loader_version_range": neoforge_loader_version_range,
     "cobweb_version"               : cobweb_version,
     "fcap_version"                 : fcap_version,
   ]
@@ -203,9 +184,9 @@ publisher {
   if (!noPublish) {
     setLoaders(loader)
   }
-  setGameVersions(minecraft_version)
+  setGameVersions(minecraft_version, minecraft_target)
   setDisplayName("[$loader - $minecraft_version] $mod_title v$mod_version")
-  setJavaVersions([JavaVersion.VERSION_21]) // Remember to update this to match java_version gradle property.
+  setJavaVersions([JavaVersion.VERSION_25]) // Remember to update this to match java_version gradle property.
   setCurseEnvironment("server") // "server", "client" or "both".
   github {
     repo = "$github_user/$mod_id_kebab"

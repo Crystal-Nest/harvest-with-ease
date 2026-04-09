@@ -31,6 +31,6 @@
     "minecraft": "~${minecraft_version}",
     "java": ">=${java_version}",
     "cobweb": "^${cobweb_version}",
-    "forgeconfigapiport": "^21.6.0"
+    "forgeconfigapiport": "^${fcap_version}"
   }
 }

@@ -8,7 +8,7 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 
 /**
  * NeoForge harvest handler.
@@ -18,12 +18,12 @@ public final class NeoForgeHarvestHandler extends HarvestHandler {
   private NeoForgeHarvestHandler() {}
 
   /**
-   * Handles the {@link BlockEvent.BreakEvent} event.
+   * Handles the {@link BreakBlockEvent} event.
    *
-   * @param event {@link BlockEvent.BreakEvent}.
+   * @param event {@link BreakBlockEvent}.
    */
   @SubscribeEvent
-  private static void handle(BlockEvent.BreakEvent event) {
+  private static void handle(BreakBlockEvent event) {
     handle(event.getLevel(), event.getState(), event.getPos());
   }
 

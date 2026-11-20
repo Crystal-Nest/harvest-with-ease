@@ -4,10 +4,10 @@ import it.crystalnest.harvest_with_ease.platform.services.HarvestHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.ItemAbilities;
 
 /**
  * NeoForge harvest helper.
@@ -20,6 +20,6 @@ public class NeoForgeHarvestHelper implements HarvestHelper {
 
   @Override
   public boolean isHoe(ItemStack item) {
-    return item.getItem().canPerformAction(item, ItemAbilities.HOE_TILL);
+    return item.is(ItemTags.HOES);
   }
 }

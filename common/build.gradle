@@ -15,7 +15,7 @@ dependencies {
   compileOnly group: "org.spongepowered", name: "mixin", version: "0.8.7"
   compileOnly group: "io.github.llamalad7", name: "mixinextras-common", version: "0.5.3"
   annotationProcessor group: "io.github.llamalad7", name: "mixinextras-common", version: "0.5.3"
-  implementation "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:$fcap_version"
+  compileOnly "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:$fcap_version"
 }
 
 configurations {

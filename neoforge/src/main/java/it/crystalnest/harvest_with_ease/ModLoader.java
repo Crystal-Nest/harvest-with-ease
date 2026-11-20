@@ -1,6 +1,8 @@
 package it.crystalnest.harvest_with_ease;
 
-import net.neoforged.bus.api.IEventBus;
+import it.crystalnest.harvest_with_ease.config.ModConfig;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.config.ModConfig.Type;
 import net.neoforged.fml.common.Mod;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -11,11 +13,10 @@ import org.jetbrains.annotations.ApiStatus;
 @Mod(Constants.MOD_ID)
 public class ModLoader {
   /**
-   * Mod initialization.
-   *
-   * @param bus Event bus.
+   * @param container mod container used to register the configuration.
    */
-  public ModLoader(IEventBus bus) {
+  public ModLoader(ModContainer container) {
+    container.registerConfig(Type.LOCAL, ModConfig.SPEC, ModConfig.FILE_NAME);
     CommonModLoader.init();
   }
 }

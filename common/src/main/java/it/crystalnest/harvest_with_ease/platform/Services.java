@@ -3,7 +3,6 @@ package it.crystalnest.harvest_with_ease.platform;
 import it.crystalnest.harvest_with_ease.Constants;
 import it.crystalnest.harvest_with_ease.platform.services.EventHelper;
 import it.crystalnest.harvest_with_ease.platform.services.HarvestHelper;
-import it.crystalnest.harvest_with_ease.platform.services.PlatformHelper;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ServiceLoader;
@@ -14,11 +13,6 @@ import java.util.ServiceLoader;
  */
 @ApiStatus.Internal
 public final class Services {
-  /**
-   * Provides information about what platform the mod is running on.
-   */
-  public static final PlatformHelper PLATFORM = Services.load(PlatformHelper.class);
-
   /**
    * Provides firing of events.
    */

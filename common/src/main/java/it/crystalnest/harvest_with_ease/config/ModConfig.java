@@ -1,6 +1,5 @@
 package it.crystalnest.harvest_with_ease.config;
 
-import it.crystalnest.cobweb.api.config.CommonConfig;
 import it.crystalnest.harvest_with_ease.Constants;
 import net.minecraft.world.level.block.CropBlock;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -9,6 +8,7 @@ import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
 import net.neoforged.neoforge.common.ModConfigSpec.EnumValue;
 import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.math.BigDecimal;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * Mod common configuration.
  */
 @ApiStatus.Internal
-public final class ModConfig extends CommonConfig {
+public final class ModConfig {
   /**
    * Default value for the tier list.<br />
    * Needs to be initialized before {@link #CONFIG} to avoid NPE when used inside {@link #define(ModConfigSpec.Builder)}.
@@ -39,7 +39,23 @@ public final class ModConfig extends CommonConfig {
   /**
    * Mod common configuration.
    */
-  public static final ModConfig CONFIG = register(Constants.MOD_ID, ModConfig::new);
+  public static final ModConfig CONFIG;
+
+  /**
+   * Native configuration specification registered by each loader.
+   */
+  public static final ModConfigSpec SPEC;
+
+  /**
+   * Existing common configuration filename, shared by both loaders.
+   */
+  public static final String FILE_NAME = Constants.MOD_ID + "-common.toml";
+
+  static {
+    Pair<ModConfig, ModConfigSpec> configuration = new ModConfigSpec.Builder().configure(ModConfig::new);
+    CONFIG = configuration.getLeft();
+    SPEC = configuration.getRight();
+  }
 
   /**
    * List of additional in-game IDs for crops that need to be supported but do not extend {@link CropBlock}.
@@ -102,7 +118,7 @@ public final class ModConfig extends CommonConfig {
    * @param builder configuration builder.
    */
   private ModConfig(ModConfigSpec.Builder builder) {
-    super(builder);
+    define(builder);
   }
 
   /**
@@ -239,11 +255,25 @@ public final class ModConfig extends CommonConfig {
     return comments;
   }
 
-  @Override
-  protected void define(ModConfigSpec.Builder builder) {
+  /**
+   * Checks whether a configuration entry is a nonblank string.
+   *
+   * @param element value to validate.
+   * @return whether the value is a nonblank string.
+   */
+  private static boolean stringListValidator(Object element) {
+    return element instanceof String string && !string.isBlank();
+  }
+
+  /**
+   * Defines the existing settings and their validation rules.
+   *
+   * @param builder configuration builder.
+   */
+  private void define(ModConfigSpec.Builder builder) {
     builder.comment(" Compatibility settings").push("compatibility");
-    crops = builder.comment(" List of in-game IDs of additional crops that are not supported out of the box.").defineListAllowEmpty("crops", Collections::emptyList, () -> "mod_id:crop_name", this::stringListValidator);
-    blacklist = builder.comment(" List of in-game IDs for crops that under no condition can be right-click harvested.").defineListAllowEmpty("blacklist", Collections::emptyList, () -> "mod_id:crop_name", this::stringListValidator);
+    crops = builder.comment(" List of in-game IDs of additional crops that are not supported out of the box.").defineListAllowEmpty("crops", Collections::emptyList, () -> "mod_id:crop_name", ModConfig::stringListValidator);
+    blacklist = builder.comment(" List of in-game IDs for crops that under no condition can be right-click harvested.").defineListAllowEmpty("blacklist", Collections::emptyList, () -> "mod_id:crop_name", ModConfig::stringListValidator);
     builder.pop();
     builder.comment(" Game balancing settings").push("balancing");
     requireHoe = builder.comment(" Require holding a hoe (either hands) to right-click harvest.").define("require hoe", false);
@@ -276,7 +306,7 @@ public final class ModConfig extends CommonConfig {
       "tiers",
       DEFAULT_TIER_LIST,
       () -> "iron",
-      this::stringListValidator
+      ModConfig::stringListValidator
     );
     multiHarvestStartingTier = builder.comment(
       " Tool tier starting from which it is possible to harvest multiple crops at once.",
@@ -290,7 +320,7 @@ public final class ModConfig extends CommonConfig {
     ).define(
       "multi-harvest starting tier",
       "wood",
-      this::stringListValidator
+      ModConfig::stringListValidator
     );
     areaStartingSize = builder.comment(getAreaSizeComments()).defineEnum("starting harvest area size", AreaSize.SINGLE, AreaSize.values());
     areaIncrementStep = builder.comment(getAreaStepComments()).defineEnum("area increment step", AreaStep.NONE, AreaStep.values());
